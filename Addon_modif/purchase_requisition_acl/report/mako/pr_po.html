@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<!--
+<%
+import base64
+import mx.DateTime
+
+def oe_datetime_format(obj,format='%Y-%m-%d %H:%M:%S'):
+    if obj.val:
+        if hasattr(obj,'name') and (obj.name):
+            return mx.DateTime.strptime(obj.name,format)
+        else:
+            return false
+    else:
+        return false
+%>
+-->
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title></title>
+        <style type="text/css">
+            body {
+                margin: 0px;
+                padding: 0px;
+                font-size: 10px;
+                font-family: helvetica;
+            }
+            table {
+                border-collapse: collapse;
+                border: none;
+                margin: 0px;
+                padding: 0px;
+            }
+            tr, td {
+                margin: 0px;
+                padding: 0px;
+            }
+            img {
+                border: none;
+            }
+            .main {
+                /* width: 100%; */
+                border: 1px solid;
+                border-collapse: collapse;
+                page-break-after: always;
+            }
+            .main-tab {
+                width: 100%;
+            }
+            .main-tab th, .main-tab td {
+                border: 1px solid;
+                padding: 3px;
+            }
+            .main-tab tr:first-child th {
+                border-top: 3px double;
+            }
+            .main-tab th:first-child, .main-tab td:first-child {
+                border-left: none;
+            }
+            .main-tab th:last-child, .main-tab td:last-child {
+                border-right: none;
+            }
+            /* .main-tab2 {
+                font-size: 12px;
+            } */
+            .main-tab th, .main-tab td {
+                border: 1px solid;
+                margin: 0px;
+                padding: 3px;
+            }
+            .main-tab2 th {
+                border-bottom: 3px double;
+            }
+            .main-tab2 td {
+                word-wrap: break-word;
+            }
+            .head {
+                font-size: 11px;
+                font-weight: 900;
+                text-align: center;
+                display: block;
+            }
+            .head div {
+                display: inline-block;
+            }
+            .head-tab {
+                width: 100%;
+            }
+            .head-tab td {
+                border: 1px solid;
+            }
+            .pt {
+                float: left;
+            }
+            .no {
+                float: right;
+                text-align: left;
+            }
+            .baw {
+                float: bottom;
+                clear: both;
+                text-align: left;
+            }
+            .mid {
+                float: top;
+                font-size: 13px;
+            }
+            .mid2 span {
+                font-size: 18px;
+            }
+            .ba {
+                text-align: center;
+            }
+            .ba div {
+                display: inline-block;
+                text-align: center
+            }
+            .baa {
+                float: left;
+            }
+            .bab {
+                float: left;
+                width: 24%;
+            }
+            .bad {
+                float: right;
+                width: 24%;
+            }
+            .bac {
+                width: 24%;
+            }
+            .alop {
+                font-size: 8px;
+            }
+            .full-block {
+                display: block;
+                width: 100%;
+                clear: both;
+            }
+            .fix-table {
+                table-layout: fixed;
+            }
+        </style>
+    </head>
+    <body>
+        % for po in objects :
+        <%
+        berat = 0.0
+        i = 1
+        %>
+        <div class="main">
+            % if po.purchase_state == 'KP' :
+            <div class="head">
+                <div class="mid">KONFIRMASI PEMBELIAN</div>
+                <div class="pt">PT. ASIA CARTON LESTARI</div>
+                <div class="no">
+                    <table>
+                        <tr>
+                            <td>NO</td>
+                            <td>&nbsp;:&nbsp;</td>
+                            <td>${ po.name or '' }</td>
+                        </tr>
+                        <tr>
+                            <td>TGL</td>
+                            <td>&nbsp;:&nbsp;</td>
+                            <td>${ po.date_order or '' }</td>
+                        </tr>
+                    </table>
+                    <!--
+                NO : ${ po.name or '' }
+                <br />
+                TGL : ${ po.date_order or '' }
+                    /-->
+                </div>
+                <br /><br />
+                <div class="baw">
+                    Kepada Yth. ${ po.partner_id.name or '' }
+                    % if po.partner_id.ref :
+                    ( ${ po.partner_id.ref or '' } )
+                    % endif
+                    <br />
+                    Harap dikirim / membeli barang-barang tersebut di bawah ini :
+                </div>
+                <br />
+            </div>
+            <table class="main-tab">
+                <thead>
+                    <tr>
+                        <th>No.<br />Urut</th>
+                        <th>Nama Barang<br />&amp; Spesifikasi</th>
+                        <th>Banyaknya</th>
+                        <th>Harga<br />Satuan</th>
+                        <th>Total<br />Pembelian</th>
+                        <th>Keterangan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    % for order_line in po.order_line :
+                    <tr>
+                        <td style="text-align: center;">${ i or '' }</td>
+                        <td>
+                            <strong>${ order_line.product_id.name or '' }</strong><br />
+                            ${ order_line.name or '' }
+                        </td>
+                        <td style="text-align: right;">
+                            ${ order_line.product_qty or '' }
+                            ${ order_line.product_uom.name or '' }
+                        </td>
+                        <td style="text-align: right;">
+                            <div style="display: inline-block; float: left;">${ po.currency_id.symbol or ''}</div>
+                            ${ order_line.price_unit or '' }
+                        </td>
+                        <td style="text-align: right;">
+                            <div style="display: inline-block; float: left;">${ po.currency_id.symbol or ''}</div>
+                            ${ order_line.price_subtotal or '' }
+                        </td>
+                        <td>${ order_line.keterangan or '' }</td>
+                    </tr>
+                    <% i = i + 1 %>
+                    % endfor
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td colspan="3">Total nilai</td>
+                        <td style="text-align: right;">
+                            <div style="display: inline-block; float: left;">${ po.currency_id.symbol or ''}</div>
+                            ${ po.amount_total or '' }
+                        </td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td colspan="3" style="vertical-align: top;"><strong>Term and condition :</strong><br />${ po.notes or '<br /><br /><br />' }</td>
+                        <td colspan="2" style="vertical-align: top;">
+                            <strong>Syarat penyerahan :</strong><br />
+                            ${ po.company_id.name or '' }<br />
+                            ${ po.company_id.street or '' } - ${ po.company_id.city or '' }<br />
+                            ${ po.company_id.state_id.name or '' }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" class="ba">
+                            <div class="baa">Menyetujui syarat-syarat umum di halaman belakang serta syarat-syarat lain dalam kontrak ini.</div>
+                            <br />
+                            <div class="bab">
+                                Penjual<br />
+                                <div style="display: inline-block; width: 54px; height: 54px;">&nbsp;</div><br />
+                                ( ____________________ )
+                            </div>
+                            <div class="bac">
+                                Mengetahui<br />
+                                ${ helper.embed_image('png',po.direksi_id.sign,width=50,height=50) or '<div style="display: inline-block; width: 54px; height: 54px;">&nbsp;</div>' }<br />
+                                ( ${ po.direksi_id.name or '____________________' } )<br />
+                                % if (po.urgent) and (not po.review):
+                                a.n
+                                % endif
+                                Direktur Komersil
+                            </div>
+                            <div class="bac">
+                                Menyetujui<br />
+                                ${ helper.embed_image('png',po.gm_id.sign,width=50,height=50) or '<div style="display: inline-block; width: 54px; height: 54px;">&nbsp;</div>' }<br />
+                                ( ${ po.gm_id.name or '____________________' } )<br />
+                                General Manager
+                            </div>
+                            <div class="bad">
+                                Pembeli<br />
+                                ${ helper.embed_image('png',po.kabag_id.sign,width=50,height=50) or '<div style="display: inline-block; width: 54px; height: 54px;">&nbsp;</div>' }<br />
+                                ( ${ po.kabag_id.name or '____________________' } )<br />
+                                Kabag Pembelian
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            % elif po.purchase_state == 'LOP' :
+            <div class="head">
+                <div class="mid mid2">
+                    <span>L</span>APORAN <span>O</span>RIENTASI <span>P</span>EMBELIAN
+                </div>
+                <div class="pt alop">Petugas Pembelian :</div>
+                <div class="no alop">
+                    <table>
+                        <tr>
+                            <td>NO</td>
+                            <td>&nbsp;:&nbsp;</td>
+                            <td>${ po.name or '' }</td>
+                        </tr>
+                        <tr>
+                            <td>TGL</td>
+                            <td>&nbsp;:&nbsp;</td>
+                            <td>${ po.date_order or '' }</td>
+                        </tr>
+                    </table>
+                    <!-- NO : ${ po.name or '' } <br /> TGL : ${ po.date_order or '' } /-->
+                </div>
+                <br />
+            </div>
+            <table class="main-tab main-tab2 fix-table">
+                <thead>
+                    <tr>
+                        <th colspan="2">P.P</th>
+                        <th rowspan="2">SPESIFIKASI</th>
+                        <th rowspan="2">Ukuran / Unit</th>
+                        <th rowspan="2">Kwantum</th>
+                        <th rowspan="2">Tgl Diperlukan</th>
+                        <th colspan="2">REKANAN</th>
+                        <th rowspan="2">Harga Beli<br />Terakhir<br />Rp./Unit</th>
+                        <th rowspan="2">Syarat<br />Pemb.</th>
+                        <th rowspan="2">Tamb<br />(Pot)</th>
+                        <th rowspan="2">Rp./Unit</th>
+                        <!-- th rowspan="2">Ditawar<br />(Rp.)</th>
+                        <th rowspan="2">Disetujui<br />(Rp.)</th -->
+                        <th rowspan="2">Nilai<br />(Rp.)</th>
+                        <th rowspan="2">Tgl.<br />Pemb.</th>
+                    </tr>
+                    <tr>
+                        <th>Tgl.</th>
+                        <th>No.</th>
+                        <th>Nama</th>
+                        <th>Alamat/Telp</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    % for order_line in po.order_line :
+                    <tr>
+                        <td style="text-align: center;">
+                            <%
+                            # if po.requisition_id.date_start.val:
+                            #     if hasattr(po.requisition_id.date_start,'name') and (po.requisition_id.date_start.name):
+                            #         dt = mx.DateTime.strptime(po.requisition_id.date_start.name,'%Y-%m-%d %H:%M:%S')
+                            %>
+                            ${ oe_datetime_format(po.requisition_id.date_start) and oe_datetime_format(po.requisition_id.date_start).strftime('%d/%m') or '' }
+                        </td>
+                        <td style="text-align: center;">${ po.requisition_id.name or '' }</td>
+                        <td>
+                            <strong>${ order_line.product_id.name or '' }</strong><br />
+                            ${ order_line.name or '' }
+                        </td>
+                        <td style="text-align: center;">${ order_line.product_uom.name or '' }</td>
+                        <td style="text-align: right;">${ order_line.product_qty or '' }</td>
+                        <td style="text-align: center;">${ order_line.date_planned or '' }</td>
+                        <td>
+                            ${ po.partner_id.name or '' }
+                            % if po.partner_id.ref :
+                            ( ${ po.partner_id.ref or '' } )
+                            % endif
+                        </td>
+                        <td>${ po.partner_id.street or '' }</td>
+                        <td style="text-align: right;">${ order_line.product_id.standard_price or '' }</td>
+                        <td style="text-align: center;">${ po.payment_term_id.name or '' }</td>
+                        <td style="text-align: center;">
+                            % for taxes in order_line.taxes_id:
+                            ${ taxes.name or '' }<br />
+                            % endfor
+                        </td>
+                        <td style="text-align: right;">${ order_line.price_unit or '' }</td>
+                        <!-- td>&nbsp;</td>
+                        <td>&nbsp;</td -->
+                        <td style="text-align: right;">${ order_line.price_subtotal or '' }</td>
+                        <td style="text-align: center;">
+                            % for inv in po.invoice_ids:
+                            % if inv.date_due:
+                            ${ oe_datetime_format(inv.date_due, '%Y-%m-%d') and oe_datetime_format(inv.date_due, '%Y-%m-%d').strftime('%d/%m') or '' }<br />
+                            % endif
+                            % endfor
+                        </td>
+                    </tr>
+                    <% i = i + 1 %>
+                    % endfor
+                    <tr>
+                        <td colspan="12">
+                            JUMLAH<br />
+                            TAMBAHAN / POTONGAN<br />
+                            JUMLAH TOTAL<br />
+                        </td>
+                        <td style="text-align: right;">
+                            ${ po.amount_untaxed or '' }<br />
+                            ${ po.amount_tax or '' }<br />
+                            ${ po.amount_total or '' }<br />
+                        </td>
+                        <td>&nbsp;</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="main-tab" style="table-layout: fixed; font-size: 6px;">
+                <tr>
+                    <td style="text-align: left; vertical-align: top;"><strong>Catatan :</strong><br />${ po.notes or '<br /><br /><br />' }</td>
+                    <td style="width: 80px; text-align: center;">
+                        ADM. PEMBELIAN<br />
+                        ${ helper.embed_image('png',po.kabag_id.sign,width=50,height=50) or '<div style="display: inline-block; width: 54px; height: 54px;">&nbsp;</div>' }<br />
+                        ${ po.kabag_id.name or '____________________' }
+                    </td>
+                    <td style="width: 80px; text-align: center;">
+                        DISETUJUI<br />
+                        ${ helper.embed_image('png',po.gm_id.sign,width=50,height=50) or '<div style="display: inline-block; width: 54px; height: 54px;">&nbsp;</div>' }<br />
+                        ${ po.gm_id.name or '____________________' }
+                    </td>
+                    <td style="width: 80px; text-align: center;">
+                        DIPERIKSA<br />
+                        ${ helper.embed_image('png',po.direksi_id.sign,width=50,height=50) or '<div style="display: inline-block; width: 54px; height: 54px;">&nbsp;</div>' }<br />
+                        ${ po.direksi_id.name or '____________________' }
+                    </td>
+                    <td style="width: 80px; text-align: center;">
+                        PETUGAS<br />
+                        <div style="display: inline-block; width: 54px; height: 54px;">&nbsp;</div><br />
+                        ____________________
+                    </td>
+                </tr>
+            </table>
+            % elif po.purchase_state == 'PO' :
+            <style type="text/css">
+                .main {
+                    border: none;
+                }
+            </style>
+            <div class="full-block">
+                <div style="display: inline-block; float: left;">${ helper.embed_image('png',po.company_id.logo,width=70) or '' }</div>
+                <span style="font-size: 24px; font-weight: 900;">${ po.company_id.name or '' }</span><br />
+                <span style="font-size: 14px; font-weight: 900;">${ po.company_id.rml_header1 or '' }</span>
+            </div>
+            <div class="full-block" style="text-align: center; font-weight: 900;">PURCHASE - ORDER</div>
+            <div class="full-block">
+                <div style="display: inline-block; float: left;">
+                    Supplier :<br />
+                    <span style="text-transform: uppercase;">${ po.partner_id.name or '' }</span><br />
+                    ${ po.partner_id.street or '' } - ${ po.partner_id.city or '' }<br />
+                    ${ po.partner_id.state_id.name or '' }
+                </div>
+                <div style="display: inline-block; float: right;">
+                    <table style="border: none;" cellpadding="0" cellmargin="0">
+                        <tbody>
+                            <tr>
+                                <td colspan="3">RAW MATERIAL</td>
+                            </tr>
+                            <tr>
+                                <td>No</td>
+                                <td>&nbsp;:&nbsp;</td>
+                                <td>${ po.name or '' }</td>
+                            </tr>
+                            <tr>
+                                <td>Tgl</td>
+                                <td>&nbsp;:&nbsp;</td>
+                                <td>${ po.date_order or '' }</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="full-block">
+                <br />Dengan hormat,<br />
+                Bersama ini kami menempatkan order untuk barang-barang dengan spesifikasi seperti yang tertera dibawah ini :
+            </div>
+            <table class="main-tab">
+                <thead>
+                    <tr>
+                        <th style="width: 30px;">NO</th>
+                        <th>NAMA &amp;<br />SPESIFIKASI</th>
+                        <th>DIMENSI<br />(PxLxT)</th>
+                        <th>BERAT (Kg)</th>
+                        <th>HARGA / Kg</th>
+                        <th>NILAI</th>
+                        <th>PENGIRIMAN</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    % for order_line in po.order_line :
+                    <tr>
+                        <td style="text-align: center;">${ i or '' }</td>
+                        <td>
+                            <strong>${ order_line.product_id.name or '' }</strong><br />
+                            ${ order_line.name or '' }<br />
+                        </td>
+                        <td style="text-align: center;">
+                            ${ order_line.product_id.subtance or '-' } x
+                            ${ order_line.product_id.subtance_one or '-' } x
+                            ${ order_line.product_id.subtance_two or '-' }
+                        </td>
+                        <td style="text-align: right;">
+                            ${ float(order_line.product_qty or 0) }
+                            <!-- ${ order_line.product_uom.name or '' } -->
+                        </td>
+                        <td style="text-align: right;">
+                            <div style="display: inline-block; float: left;">${ po.currency_id.symbol or ''}</div>
+                            ${ order_line.price_unit or '' }
+                        </td>
+                        <td style="text-align: right;">
+                            <div style="display: inline-block; float: left;">${ po.currency_id.symbol or ''}</div>
+                            ${ order_line.price_subtotal or '' }
+                        </td>
+                        <td style="text-align: center;">${ order_line.date_planned or '' }</td>
+                    </tr>
+                    <%
+                    berat = berat + float(order_line.product_qty or 0)
+                    i = i + 1
+                    %>
+                    % endfor
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td colspan="2">&nbsp;</td>
+                        <td style="text-align: right;">
+                            ${ berat or '' }
+                        </td>
+                        <td colspan="3">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td colspan="4">
+                            NILAI PEMBELIAN<br />
+                            CASH DISCOUNT<br />
+                            PAJAK<br />
+                            TOTAL NILAI PEMBELIAN
+                        </td>
+                        <td style="text-align: right;">
+                            <div style="display: inline-block; float: left;">${ po.currency_id.symbol or ''}</div>${ po.amount_untaxed or '0,00' }<br />
+                            <div style="display: inline-block; float: left;">${ po.currency_id.symbol or ''}</div>0,00<br />
+                            <div style="display: inline-block; float: left;">${ po.currency_id.symbol or ''}</div>${ po.amount_tax or '0,00' }<br />
+                            <div style="display: inline-block; float: left;">${ po.currency_id.symbol or ''}</div>${ po.amount_total or '0,00' }
+                        </td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td colspan="6">
+                            Syarat pembayaran :
+                            <ul>
+                                % if po.payment_term_id.name:
+                                <li>${ po.payment_term_id.name or '' }</li>
+                                % endif
+                                % if po.notes:
+                                <li>${ po.notes or '' }</li>
+                                % endif
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td colspan="6">
+                            Syarat Penyerahan :
+                            <ul>
+                                <li>
+                                    ${ po.company_id.name or '' }<br />
+                                    ${ po.company_id.street or '' } - ${ po.company_id.city or '' }<br />
+                                    ${ po.company_id.state_id.name or '' }
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="7" class="ba">
+                            <div class="baa">Menyetujui syarat-syarat umum di halaman belakang serta syarat-syarat lain dalam kontrak ini.</div>
+                            <br />
+                            <div class="bab">
+                                Penjual<br />
+                                <div style="display: inline-block; width: 54px; height: 54px;">&nbsp;</div><br />
+                                ( ____________________ )
+                            </div>
+                            <div class="bac">
+                                Mengetahui<br />
+                                ${ helper.embed_image('png',po.direksi_id.sign,width=50,height=50) or '<div style="display: inline-block; width: 54px; height: 54px;">&nbsp;</div>' }<br />
+                                ( ${ po.direksi_id.name or '____________________' } )<br />
+                                % if not po.review :
+                                a.n
+                                % endif
+                                Direktur Komersil
+                            </div>
+                            <div class="bac">
+                                Menyetujui<br />
+                                ${ helper.embed_image('png',po.gm_id.sign,width=50,height=50) or '<div style="display: inline-block; width: 54px; height: 54px;">&nbsp;</div>' }<br />
+                                ( ${ po.gm_id.name or '____________________' } )<br />
+                                General Manager
+                            </div>
+                            <div class="bad">
+                                Pembeli<br />
+                                ${ helper.embed_image('png',po.kabag_id.sign,width=50,height=50) or '<div style="display: inline-block; width: 54px; height: 54px;">&nbsp;</div>' }<br />
+                                ( ${ po.kabag_id.name or '____________________' } )<br />
+                                Kabag Pembelian
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="7" style="text-align: center;">
+                            <strong>PO ASLI HARUS DILAMPIRKAN PADA WAKTU PENAGIHAN</strong><br />
+                            Office/Factory : JL.Kasir II/7 Kel.Pasir Jaya Kec.Jatiuwung Tangerang 15135 - INDONESIA<br />
+                            Phone : 62-21-5903362 (HUNTING) 5905506, 5905507, 5905509 Fax.: 62-21-5903363, 5905508
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            % elif po.purchase_state == 'SPK' :
+            <style type="text/css">
+                .main {
+                    border: none;
+                }
+            </style>
+            <div class="full-block">
+                <div style="display: inline-block; float: left;">${ helper.embed_image('png',po.company_id.logo,width=70) or '' }</div>
+                <table style="border: none; display: inline-block; float: right;" cellpadding="0" cellmargin="0">
+                    <tbody>
+                        <tr>
+                            <td>Nomer</td>
+                            <td>&nbsp;:&nbsp;</td>
+                            <td>${ po.name or '' }</td>
+                        </tr>
+                        <tr>
+                            <td>Tanggal</td>
+                            <td>&nbsp;:&nbsp;</td>
+                            <td>${ po.date_order or '' }</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <span style="font-size: 24px; font-weight: 900;">${ po.company_id.name or '' }</span><br />
+                <span style="font-size: 14px; font-weight: 900;">${ po.company_id.rml_header1 or '' }</span>
+            </div>
+            <div class="full-block" style="font-size: 20px; text-align: center; font-weight: 900;">SURAT PERINTAH KERJA</div>
+            <div class="full-block">
+                <div style="display: inline-block; float: left;">
+                    N.P.W.P : 1.679.499.2-402
+                </div>
+                <div style="display: inline-block; float: right;">
+                    Kepada Yth.<br />
+                    <span style="text-transform: uppercase;">${ po.partner_id.name or '' }</span><br />
+                    ${ po.partner_id.street or '' }<br />
+                    ${ po.partner_id.city or '' } - ${ po.partner_id.state_id.name or '' }
+                </div>
+            </div>
+            <div class="full-block">Dengan hormat, harap dapat dikerjakan pesanan kami sebagai berikut :</div>
+            <table class="main-tab" style="border-left: none; border-right: none; table-layout: fixed;">
+                <tbody>
+                    % for order_line in po.order_line :
+                    <tr>
+                        <td style="border-left: none; border-bottom: none; width: 160px;">
+                            <strong>1. Jenis Pekerjaan</strong>
+                        </td>
+                        <td style="border-right: none;">${ order_line.product_id.name or '-' }</td>
+                    </tr>
+                    <tr>
+                        <td style="border-left: none; border-bottom: none; border-top: none;">
+                            <strong>2. Kontrak / Penawaran</strong>
+                        </td>
+                        <td style="border-right: none;">${ order_line.name or '-' }</td>
+                    </tr>
+                    <tr>
+                        <td style="border-left: none; border-bottom: none; border-top: none;">
+                            <strong>3. Waktu Pelaksanaan</strong>
+                        </td>
+                        <td style="border-right: none;">${ order_line.date_planned or '-' }</td>
+                    </tr>
+                    <tr>
+                        <td style="border-left: none; border-bottom: none; border-top: none;">
+                            <strong>4. Biaya Pekerjaan</strong>
+                        </td>
+                        <td style="border-right: none;">${ po.currency_id.symbol or ''}.${ order_line.price_subtotal or '-' }</td>
+                    </tr>
+                    <tr>
+                        <td style="border-left: none; border-top: none;">
+                            <strong>5. Pembayaran</strong>
+                        </td>
+                        <td style="border-right: none;">${ po.payment_term_id.name or '-' }</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="border-left: none; border-right: none;">
+                            <strong>Keterangan :</strong> <br />${ order_line.keterangan or '' }
+                        </td>
+                    </tr>
+                    % endfor
+                    <tr>
+                        <td colspan="2" style="border-left: none; border-right: none;">
+                            Atas kerjasamanya, kami ucapkan terima kasih.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="border-left: none; border-right: none;">
+                            Perhatian :<br />
+                            <ol>
+                                <li>Harus dicantumkan SURAT PERINTAH KERJA pada setiap bukti pembelian yang bersangkutan (Surat Jalan/Faktur/Kwitansi/Dll).</li>
+                                <li>Setiap dokumen penagihan harap dilampirkan SURAT PERINTAH KERJA.</li>
+                                <li>Mutu/Kwantitas pembuatan/perbaikan barang tidak sesuaidengan perjanjian akan dikembalikan dengan biaya ditanggung pelaksana.</li>
+                                <li>Pemesan berhak membatalkan SURAT PERINTAH KERJA ini bila harga dan waktu penyerahan tidak sesuai dengan perjanjian.</li>
+                            </ol>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="border-left: none; border-right: none;" class="ba">
+                            <div class="bab">
+                                Pelaksana<br />
+                                <div style="display: inline-block; width: 54px; height: 54px;">&nbsp;</div><br />
+                                ( Tanda Tangan &amp; Stempel )
+                            </div>
+                            <div class="bac">
+                                Mengetahui<br />
+                                ${ helper.embed_image('png',po.direksi_id.sign,width=50,height=50) or '<div style="display: inline-block; width: 54px; height: 54px;">&nbsp;</div>' }<br />
+                                ( ${ po.direksi_id.name or '____________________' } )<br />
+                                % if not po.review :
+                                a.n
+                                % endif
+                                Direktur Komersil
+                            </div>
+                            <div class="bac">
+                                Menyetujui<br />
+                                ${ helper.embed_image('png',po.gm_id.sign,width=50,height=50) or '<div style="display: inline-block; width: 54px; height: 54px;">&nbsp;</div>' }<br />
+                                ( ${ po.gm_id.name or '____________________' } )<br />
+                                General Manager
+                            </div>
+                            <div class="bad">
+                                Pembeli<br />
+                                ${ helper.embed_image('png',po.kabag_id.sign,width=50,height=50) or '<div style="display: inline-block; width: 54px; height: 54px;">&nbsp;</div>' }<br />
+                                ( ${ po.kabag_id.name or '____________________' } )<br />
+                                Kabag Pembelian
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            % endif
+        </div>
+        % endfor
+    </body>
+</html>

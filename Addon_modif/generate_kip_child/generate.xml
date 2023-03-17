@@ -1,0 +1,33 @@
+<openerp>
+	<data>
+		<record id="view_generate_kip_child_form" model="ir.ui.view">
+            <field name="name">Generate KIP Child</field>
+            <field name="model">generate.kip</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Generate KIP Child" version="7.0">
+                    <group>
+                        <field name="typel" style="width: 50%%"/>
+                        <field name="jumlah" style="width: 50%%"/>
+                    </group>
+                    <group>
+                        <button name="generate_kip_act" string="Generate" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="oe_highlight" special="cancel"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_generate_kip" model="ir.actions.act_window">
+            <field name="name">Generate KIP Child</field>
+            <field name="res_model">generate.kip</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+        <menuitem action="action_generate_kip" parent="product.prod_config_main" id="menu_generate_kip" />
+		<menuitem action="action_generate_kip" parent="stock.menu_product_in_config_stock" id="menu_generate_kip_one" />
+		<menuitem action="action_generate_kip" parent="purchase.menu_product_in_config_purchase" id="menu_generate_kip_two" />
+		<menuitem action="action_generate_kip" parent="mrp.menu_mrp_configuration" id="menu_generate_kip_three" />
+	</data>
+</openerp>

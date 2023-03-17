@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<!--
+<% import base64 %>
+-->
+<html>
+	<head>
+        <meta charset="UTF-8" />
+        <title></title>
+        <style type="text/css">
+            body {
+                margin: 0px;
+                padding: 0px;
+                font-size: 11px;
+                /* line-height: 17px; */
+            }
+            table {
+                border-collapse: collapse;
+                border: 0px;
+                margin: 0px;
+                padding: 0px;
+            }
+            tr, td {
+                margin: 0px;
+                padding: 0px;
+            }
+            img {
+                border: none;
+            }
+            .main {
+                /* width: 100%; */
+                border: 1px solid;
+                border-collapse: collapse;
+            }
+            .sec-tab {
+                width: 40%;
+                border: 1px solid;
+                border-top: 1px solid;
+                border-left: 1px solid;
+                border-right: 1px solid;
+                border-collapse: collapse;
+				margin: 0px;
+				padding : 0px;
+				
+            }
+            .main-tab {
+                width: 100%;
+                border: 1px solid;
+                border-top: 3px double;
+                border-collapse: collapse;
+            }
+            .main-tab2 {
+                font-size: 6px;
+            }
+            .main-tab th, .main-tab td {
+                border: 1px solid;
+                margin: 0px;
+                padding: 5px;
+            }
+            .main-tab2 th {
+                border-bottom: 3px double;
+            }
+            .main-tab2 td {
+                word-wrap: break-word;
+            }
+            .head {
+                font-size: 12px;
+                font-weight: 900;
+                text-align: center;
+                display: block;
+            }
+            .head div {
+                display: inline-block;
+            }
+            .head-tab {
+                width: 100%;
+            }
+            .head-tab td {
+                border: 1px solid;
+            }
+            .pt {
+                float: left;
+            }
+            .no {
+                float: right;
+                text-align: left;
+            }
+            .baw {
+                float: bottom;
+                clear: both;
+                text-align: left;
+            }
+            .mid {
+                float: top;
+                font-size: 13px;
+            }
+            .mid2 span {
+                font-size: 18px;
+            }
+            .ba {
+                text-align: center;
+            }
+            .ba div {
+                display: inline-block;
+                text-align: center
+            }
+            .baa {
+                float: left;
+            }
+            .bab {
+                float: left;
+                width: 24%;
+            }
+            .bad {
+                float: right;
+                width: 24%;
+            }
+            .bac {
+                width: 24%;
+            }
+            .alop {
+                font-size: 8px;
+            }
+            .full-block {
+                display: block;
+                width: 100%;
+                clear: both;
+            }
+        </style>
+	</head>
+	<body>
+        <br />
+        % for sales in objects :
+        <% i = 1 %>
+        <div class="main">
+            % if sales.sales_state == 'PAJAK' :
+             <style type="text/css">
+                .main {
+                    border: none;
+                }
+            </style>
+            <div class="full-block">
+                <div style="display: inline-block; float: left;">${ helper.embed_image('png',po.company_id.logo,width=70) or '' }</div>
+                <table style="border: 1px; display: inline-block; float: right;" cellpadding="0" cellmargin="0">
+                    <tbody>
+                        <tr>
+                            <td>&nbsp;</td><td>Lembar ke 1 : Untuk Pembeli BKP / Penerima JKP sebagai bukti Pajak Masukan</td>
+                        </tr>
+                   </tbody>
+                </table>
+            </div>
+            <div class="full-block" style="font-size: 20px; text-align: center; font-weight: 900;">FAKTUR PAJAK</div>
+			<table class="main-tab" style="border-left: none; border-right: none; table-layout: fixed;">
+				<tr>
+					<td colspan=7> Kode dan No Seri Faktur Pajak ${ po.company_id.name or '' }
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2> Nama
+					</td>
+					<td colspan=5>&nbsp;:&nbsp;&nbsp;
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2> Alamat
+					</td>
+					<td colspan=5>&nbsp;:&nbsp;&nbsp;
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2> NPWP
+					</td>
+					<td colspan=5>&nbsp;:&nbsp;&nbsp;
+					</td>
+				</tr>
+				<tr>
+					<td colspan=7> Pembeli Barang Kena Pajak/Penerima Jasa Kena Pajak
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2> Nama
+					</td>
+					<td colspan=5>&nbsp;:&nbsp;&nbsp;
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2> Alamat
+					</td>
+					<td colspan=5>&nbsp;:&nbsp;&nbsp;
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2> NPWP
+					</td>
+					<td colspan=5>&nbsp;:&nbsp;&nbsp;
+					</td>
+				</tr>
+				<tr>
+					<td> No. Urut
+					</td>
+					<td colspan=4> Nama Barang Kena Pajak / Jasa Kena Pajak
+					</td>
+					<td colspan=2> Harga Jual /Penggantian/Uang Muka/Termin
+					</td>
+				</tr>
+				<tr>
+					<td> 1
+					</td>
+					<td > P Core </td>
+					<td > 514 </td>
+					<td > PCS </td>
+					<td > 415.00 </td>
+					<td colspan=2> 2,133,000
+					</td>
+				</tr>
+				<tr>
+					<td colspan=5> Harga Jual/Penggantian/Uang Muka / Termin*)
+					<td colspan=2> 2,133,000
+					</td>
+				</tr>
+				<tr>
+					<td colspan=5> Dikurangi Potongan Harga
+					<td colspan=2> 2,133,000
+					</td>
+				</tr>
+				<tr>
+					<td colspan=5> Dikurangi Uang Muka yang telah diterima
+					<td colspan=2> 2,133,000
+					</td>
+				</tr>
+				<tr>
+					<td colspan=5> Dasar Penggenaan Pajak
+					<td colspan=2> 2,133,000
+					</td>
+				</tr>
+				<tr>
+					<td colspan=5> PPN = 10% x Dasar Penggenaan Pajak
+					<td colspan=2> 2,133,000
+					</td>
+				</tr>
+				<tr>
+					<td colspan=3 style="border-left: none; border-right:  none; table-layout: fixed;">
+						<br/>
+						<br/>
+						Pajak Penjualan Atas Barang Mewah
+						<div>
+							<table class="sec-tab" style="border-left: 1px fixed; border-right: 1px fixed; table-layout: fixed;">
+								<tr>
+									<td>Tarif</td><td>DPP</td><td>PPn BM</td>
+								</tr>
+								<tr>
+									<td>....%</td><td>Rp. ....</td><td>Rp. .....</td>
+								</tr>
+								<tr>
+									<td>....%</td><td>Rp. ....</td><td>Rp. .....</td>
+								</tr>
+								<tr>
+									<td>....%</td><td>Rp. ....</td><td>Rp. .....</td>
+								</tr>
+								<tr>
+									<td colspan=2>Jumlah</td><td>Rp. .....</td>
+								</tr>
+							</table>
+						</div>
+					</td>
+					<td colspan=4 style="border-left: none; border-right:  none; table-layout: fixed;">
+					<br/>
+					<br/>
+					<br/>
+					Tangerang, tanggal 4 Agustus 2014
+					
+					<br/>
+					<br/>
+					<br/>.............................................
+					<br/>
+					Nama : 
+					</td>
+				</tr>
+			</table>
+			*Coret yang tidak perlu *)
+			<br/>
+			<br/>
+            % endif
+        </div>
+        % endfor
+ 	</body>
+</html>

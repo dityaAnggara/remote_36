@@ -1,0 +1,70 @@
+<openerp>
+	<data>
+		<record id="mrp_subproduct_view_inherit_acl" model="ir.ui.view">
+            <field name="name">mrp.bom.sub.product</field>
+            <field name="model">mrp.bom</field>
+            <field name="inherit_id" ref="mrp_byproduct.mrp_subproduct_view"/>
+            <field name="arch" type="xml">
+            <xpath expr="//field[@name='type']" position="after">
+               		<field name="del_date_bom"/>
+            	    <field name="jumlah_order"/>
+               		<field name="jumlah_out"/>
+               		<field name="jumlah_sheet" on_change="jml_sheet_change(jumlah_sheet,panjang_sheet_kip,context)"/>
+					<field name="running_bom"/>					
+					<field name="sheet_rusak_cor"/>
+					<field name="panjang_sheet_kip" invisible="1"/>               		
+               </xpath>
+             <xpath expr="//div[3]" position="after">
+               		<label for="no_kk_bom" string="No KK" />
+             		<div>
+             			<field name="no_kk_bom" style="width:90%%"/>
+             		</div>
+               		<label for="sale_skp" string="No SKP" />
+             		<div>
+             			<field name="sale_skp" domain="[('po_sl','!=',False)]" style="width:90%%"/>
+             		</div>
+            	                   		
+               </xpath>		  		
+             <notebook position="inside">
+                 <page string="Keterangan" position="inside">
+                     <group>
+                     	<label for="subtance_bom_one" string="Subtance Detail"/>                             		
+								<div class="address_format">
+                           			<field name="subtance_bom_one" context="{'valu_one_kali':1}"  style="width:19%%" placeholder="TOP"/>
+									<field name="subtance_bom_two" context="{'valu_two_kali':1.4}" style="width:19%%"  placeholder="B FLOAT"/>
+									<field name="subtance_bom_three" context="{'valu_three_kali':1}" style="width:19%%" placeholder="MIDDLE"/>
+									<field name="subtance_bom_four" context="{'valu_four_kali':1.5}" style="width:19%%"  placeholder="C FLOAT"/>
+									<field name="subtance_bom_five" context="{'valu_five_kali':1}" style="width:19%%"  placeholder="BOTTOM"/>
+								</div>
+								<label for="subtance_bom_value_one" string=" "/>                             		
+								<div class="address_format">
+                           			<field name="subtance_bom_value_one" style="width:19%%" placeholder="Value one"/>
+									<field name="subtance_bom_value_two" style="width:19%%"  placeholder="Value two"/>
+									<field name="subtance_bom_value_three" style="width:19%%" placeholder="Value three"/>
+									<field name="subtance_bom_value_four" style="width:19%%"  placeholder="Value four"/>
+									<field name="subtance_bom_value_five" style="width:19%%"  placeholder="Value five"/>								
+								</div>
+						<label for="lebar_kertas" />
+					   <div>
+							<field name="lebar_kertas" class="oe_inline" /> 
+							<button name="compute_alo" class="oe_link" type="object" string="Compute All" />
+						</div>		
+                     	
+                     	<field name="desc_bom"/>
+                     </group>
+                </page>
+                <page string="Upah" position="inside">
+                	<group>
+                		<field name="upah_glue" />
+					 <field name="upah_flexo" />
+					 <field name="upah_ikat_man" />
+					 <field name="upah_ikat_msn" />
+					  <field name="ikat" /> 
+                	</group>
+                                       
+                </page>
+            </notebook>
+            </field>
+        </record>
+	</data>
+</openerp>

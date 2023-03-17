@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_stock_acl_v2_out_acl,stock_acl_v2.out_acl,model_stock_acl_v2_out_acl,account.group_account_invoice,1,0,0,0
+access_stock_acl_v2_out_acl_satu,stock_acl_v2.out_acl satu,model_stock_acl_v2_out_acl_satu,account.group_account_user,1,0,0,0
+access_stock_acl_v2_out_acl_dua,stock_acl_v2.out_acl dua,model_stock_acl_v2_out_acl_dua,account.group_account_manager,1,0,0,0

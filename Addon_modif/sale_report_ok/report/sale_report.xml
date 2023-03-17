@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<report id="stock_acl_v2.report_webkit_new_bukti" model="stock.picking.out"
+			name="stock_acl_v2.stock.picking.out.report.satu" webkit_header="purchase_requisition_acl.blank_header_a4_portrait"
+			file="sale_report_ok/report/mako/sale_bukti_muat.html" string="Bukti Muat"
+			report_type="webkit" />
+		<report id="stock_acl_v2.report_webkit_new" model="stock.picking.out"
+			name="stock_acl_v2.stock.picking.out.report" webkit_header="purchase_requisition_acl.blank_header_a4_portrait"
+			file="sale_report_ok/report/mako/sale_do.html" string="Delivery Order"
+			report_type="webkit" />
+		<report id="sale_acl_v3.report_webkit_new" model="sale.order"
+			name="sale_acl_v3.sale.order.report" webkit_header="purchase_requisition_acl.blank_header_a4_portrait"
+			file="sale_report_ok/report/mako/sale_skp.html" string="Surat Kontrak Penjualan"
+			report_type="webkit" />
+		<report id="account_invoice_form_acl.report_webkit_faktur_pajak"
+			model="account.invoice" name="faktur.pajak.mako.2"
+			webkit_header="purchase_requisition_acl.blank_header_a4_portrait"
+			file="sale_report_ok/report/mako/faktur_pajak.html" string="Faktur Pajak"
+			report_type="webkit" />
+		<!-- report id="report_webkit_faktur_penjualan" model="account.invoice" 
+			name="faktur.penjualan.mako" webkit_header="purchase_requisition_acl.blank_header_a4_portrait" 
+			file="sale_report_ok/report/mako/faktur_penjualan.html" string="Faktur Penjualan" 
+			report_type="webkit" / -->
+		<report id="sale_acl_v3.report_webkit_new_outstanding_one"
+			model="sale.order" name="outstanding_one.out.mako.2"
+			webkit_header="purchase_requisition_acl.blank_header_a4_landscape"
+			file="sale_report_ok/report/mako/sale_skp_out.html" string="SKP Outstanding"
+			report_type="webkit" />
+		<!-- report id="stock_acl_v2.report_webkit_new_sjn" model="stock.picking.out" 
+			name="stock_acl_v2.stock.picking.out.report.dua" file="sale_report_ok/report/mako/sale_sj.html" 
+			string="Surat Jalan" webkit_header="purchase_requisition_acl.blank_header_a4_landscape" 
+			report_type="webkit" / -->
+		<report id="acc_voucher_report_acl" name="acc.voucher.report.acl"
+			string="Bukti Pembayaran" webkit_header="purchase_requisition_acl.blank_header_a4_portrait"
+			file="sale_report_ok/report/mako/acc_payment.html" model="account.voucher"
+			report_type="webkit" />
+		<report id="menu_timbangan.report_webkit_new_sjn_timbang"
+			model="menu_timbangan.pick_out_one" name="menu_timbangan.pick_out_one.report"
+			file="sale_report_ok/report/mako/sale_sj.html" string="Surat Jalan"
+			webkit_header="purchase_requisition_acl.blank_header_a4_portrait"
+			report_type="webkit" />
+		<report id="acc_voucher_report_kwitansi" name="acc.voucher.report.kwitansi"
+			string="Kwitansi" webkit_header="purchase_requisition_acl.blank_header_a4_portrait"
+			file="sale_report_ok/report/mako/kwitansi.html" model="account.voucher"
+			report_type="webkit" />
+		<report id="account_invoice_form_acl.report_webkit_faktur_penjualan"
+			model="account.invoice" name="faktur.penjualan.mako.2"
+			webkit_header="purchase_requisition_acl.blank_header_a4_portrait"
+			file="sale_report_ok/report/mako/faktur_penjualan.html" string="Faktur Penjualan"
+			report_type="webkit" />
+		<report id="account_invoice_form_acl.report_webkit_tanda_terima"
+			model="account.invoice" name="tanda_terima.mako.2"
+			webkit_header="purchase_requisition_acl.blank_header_a4_portrait"
+			file="sale_report_ok/report/mako/tanda_terima.html" string="Tanda Terima"
+			report_type="webkit" />
+
+		<record id="sale_acl_v3.report_webkit_new_outstanding_one_xls"
+			model="ir.actions.report.xml">
+			<field name="name">SKP Outstanding Excel</field>
+			<field name="model">sale.order</field>
+			<field name="type">ir.actions.report.xml</field>
+			<field name="report_name">outstanding_one.out.mako.2.xls</field>
+			<field name="report_type">xls</field>
+			<!-- field name="auto" eval="False" / -->
+		</record>
+		<record model="ir.values" id="sale_acl_v3.report_webkit_new_outstanding_one_xls_values">
+			<field name="name">SKP Outstanding Excel</field>
+			<field name="key2">client_print_multi</field>
+			<field name="value"
+				eval="'ir.actions.report.xml,' +str(ref('sale_acl_v3.report_webkit_new_outstanding_one_xls'))" />
+			<field name="model">sale.order</field>
+		</record>
+	</data>
+</openerp>

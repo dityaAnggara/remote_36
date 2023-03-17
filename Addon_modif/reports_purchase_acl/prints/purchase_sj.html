@@ -1,0 +1,497 @@
+<!--
+<%
+import base64
+import mx.DateTime
+from datetime import datetime
+
+po_lain = []
+comp_po = []
+po_kumpul = []
+inv_kumpul = []
+inv_kumpul_two = []
+inv_kumpul_tiga = []
+po_kumpul_one = []
+po_kumpul_two = []
+
+def oe_datetime_format(obj,format='%Y-%m-%d %H:%M:%S'):
+    if obj.val:
+        if hasattr(obj,'name') and (obj.name):
+            return mx.DateTime.strptime(obj.name,format)
+        else:
+            return false
+    else:
+        return false
+
+def chdf(obj,format1,format2):
+    return datetime.strptime(obj,format1).strftime(format2)
+%>
+-->
+<html>
+    <head>
+        <title>Rekap Faktur</title>
+        <style type="text/css">
+            body {
+                margin: 0px;
+                padding: 0px;
+                font-size: 10px;
+                font-family: arial, sans-serif, helvetica;
+                /* line-height: 17px; */
+            }
+            table {
+                border-collapse: collapse;
+                border: none;
+                margin: 0px;
+                padding: 0px;
+            }
+            tr, td, th {
+                margin: 0px;
+                padding: 0px;
+            }
+            .main-tab {
+                width: 100%;
+            }
+            .main-tab th, .main-tab td {
+                border: 1px solid;
+                padding: 5px;
+            }
+            .main-tab td {
+                vertical-align: top;
+            }
+            .main-tab tr:first-child th {
+                border-top: 3px double;
+            }
+            .main-tab th:first-child, .main-tab td:first-child {
+                border-left: none;
+            }
+            .main-tab th:last-child, .main-tab td:last-child {
+                border-right: none;
+            }
+            .main {
+                display: block;
+                border: 1px solid;
+            }
+            .head-tab {
+                width: 100%;
+            }
+            .head-tab td {
+                padding: 5px;
+                vertical-align: top;
+            }
+            .fix-tab {
+                table-layout: fixed;
+            }
+            .head-tab td table {
+                width: 100%;
+            }
+            .head-tab td table td {
+                padding: 0px;
+            }
+            .full-block {
+                display: block;
+                width: 100%;
+                clear: both;
+            }
+            .ins-tab {
+                width: 100%;
+                padding: 0px;
+            }
+            .ins-tab td {
+                border: none;
+                padding: 0px;
+            }
+            .ins-tab2 {
+                font-size: 8px;
+                width: 100%;
+            }
+            .ins-tab2 td {
+                border: none;
+                padding: 2px;
+                text-align: right;
+            }
+            /* .ins-tab2 td:last-of-type {
+                text-align: right;
+            }
+            .ins-tab2 td:first-of-type {
+                text-align: left;
+            } */
+        </style>
+    </head>
+    <body>
+        <div class="main">
+            % if jenis_report == 'faktur':
+            <table class="head-tab fix-tab">
+                <tr>
+                    <td style="font-weight: 900; font-size: 20px;">Rekap Pembelian Berdasarkan Faktur</td>
+                </tr>
+                <tr>
+                    <td>
+                        <table class="fix-tab">
+                            <tr>
+                                <td style="width: 120px;">Purchase Type</td>
+                                <td style="width: 15px;">:</td>
+                                <td style="font-weight: 900;">${ purchase_type }</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">Awal Periode</td>
+                                <td style="width: 15px;">:</td>
+                                <td style="font-weight: 900;">${ chdf(date_start,'%Y-%m-%d','%d %B %Y') }</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">Akhir Periode</td>
+                                <td style="width: 15px;">:</td>
+                                <td style="font-weight: 900;">${ chdf(date_end,'%Y-%m-%d','%d %B %Y') }</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <table class="main-tab fix-tab">
+                <thead>
+                    <tr>
+                        <th style="width: 40px;">Tgl</th>
+                        <th>No Faktur</th>
+                        <th>No Pembelian</th>
+                        <th style="width: 300px;">Nama Supplier</th>
+                        <th>NPWP</th>
+                        <th>DPP (Rp)</th>
+                        <th>PPN (Rp)</th>
+                        <th>Jumlah (Rp)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    % if all:
+                    <!--
+                    <%
+                    for uin in get_p_type(purchase_type):
+                        bgh = get_p_brows(uin)
+                        for iin in bgh.order_line:
+                            po_kumpul.append(iin.id)
+                    for ool in rel_inv():
+                        po_lain.append(ool[0])
+                    for moo in (set(po_kumpul) & set(po_lain)):
+                        comp_po.append(moo)
+                    for ioic in rel_inv_one(comp_po):
+                        inv_kumpul.append(ioic[0])
+                    for in_two in get_id_iinv(inv_kumpul):
+                        inv_kumpul_two.append(in_two[0])
+                    for in_there in set(inv_kumpul_two):
+                        inv_kumpul_tiga.append(in_there)
+                    
+                    total_untaxed = 0
+                    total_tax = 0
+                    total = 0
+                    %>
+                    -->
+                    % for id_ii in invoice_data(inv_kumpul_tiga, date_start, date_end):
+                    <!-- <%
+                    test_parsing_value = invoice_broww(id_ii[0])
+                    bgh = False
+                    for uin in get_p_type(purchase_type):
+                        bgh = get_p_brows(uin)
+                    %> -->
+                    <tr>
+                        <td style="text-align: center;">
+                            ${ chdf(test_parsing_value.date_invoice,'%Y-%m-%d','%d/%m<br />%Y') }
+                        </td>
+                        <td style="text-align: center;">${ test_parsing_value.number or '' }</td>
+                        <td style="text-align: center;">${ bgh and bgh.name or '' }</td>
+                        <td>${ test_parsing_value.partner_id.name }</td>
+                        <td style="text-align: center;">${ test_parsing_value.partner_id.npwp_acl or '' }</td>
+                        <td style="text-align: right;">${ '{0:,}'.format(test_parsing_value.amount_untaxed) }</td>
+                        <td style="text-align: right;">${ '{0:,}'.format(test_parsing_value.amount_tax) }</td>
+                        <td style="text-align: right;">${ '{0:,}'.format(test_parsing_value.amount_total) }</td>
+                    </tr>
+                    <!--
+                    <%
+                    total_untaxed = total_untaxed + test_parsing_value.amount_untaxed
+                    total_tax = total_tax + test_parsing_value.amount_tax
+                    total = total + test_parsing_value.amount_total
+                    %>
+                    -->
+                    % endfor
+                    <tr>
+                        <td colspan="5" style="text-align: center; font-weight: 900; background-color: lightcyan;">Total</td>
+                        <td style="text-align: right; background-color: lightcyan;">${ '{0:,}'.format(total_untaxed) }</td>
+                        <td style="text-align: right; background-color: lightcyan;">${ '{0:,}'.format(total_tax) }</td>
+                        <td style="text-align: right; background-color: lightcyan;">${ '{0:,}'.format(total) }</td>
+                    </tr>
+                    % else:
+                    <!--
+                    <%
+                    for uin in get_p_type(purchase_type):
+                        bgh = get_p_brows(uin)
+                        for iin in bgh.order_line:
+                            po_kumpul.append(iin.id)
+                    for ool in rel_inv():
+                        po_lain.append(ool[0])
+                    for moo in (set(po_kumpul) & set(po_lain)):
+                        comp_po.append(moo)
+                    for ioic in rel_inv_one(comp_po):
+                        inv_kumpul.append(ioic[0])
+                    for in_two in get_id_iinv(inv_kumpul):
+                        inv_kumpul_two.append(in_two[0])
+                    for in_there in set(inv_kumpul_two):
+                        inv_kumpul_tiga.append(in_there)
+                    
+                    total_untaxed = 0
+                    total_tax = 0
+                    total = 0
+                    %>
+                    -->
+                    % for id_ii in invoice_data_one(inv_kumpul_tiga, supplier_list, date_start, date_end):
+                    <!-- <%
+                    test_parsing_value = invoice_broww(id_ii[0])
+                    bgh = False
+                    for uin in get_p_type(purchase_type):
+                        bgh = get_p_brows(uin)
+                    %> -->
+                    <tr>
+                        <td style="text-align: center;">
+                            ${ chdf(test_parsing_value.date_invoice,'%Y-%m-%d','%d/%m<br />%Y') }
+                        </td>
+                        <td style="text-align: center;">${ test_parsing_value.number or '' }</td>
+                        <td style="text-align: center;">${ bgh and bgh.name or '' }</td>
+                        <td>${ test_parsing_value.partner_id.name }</td>
+                        <td style="text-align: center;">${ test_parsing_value.partner_id.npwp_acl or '' }</td>
+                        <td style="text-align: right;">${ '{0:,}'.format(test_parsing_value.amount_untaxed) }</td>
+                        <td style="text-align: right;">${ '{0:,}'.format(test_parsing_value.amount_tax) }</td>
+                        <td style="text-align: right;">${ '{0:,}'.format(test_parsing_value.amount_total) }</td>
+                    </tr>
+                    <!--
+                    <%
+                    total_untaxed = total_untaxed + test_parsing_value.amount_untaxed
+                    total_tax = total_tax + test_parsing_value.amount_tax
+                    total = total + test_parsing_value.amount_total
+                    %>
+                    -->
+                    % endfor
+                    <tr>
+                        <td colspan="5" style="text-align: center; font-weight: 900; background-color: lightcyan;">Total</td>
+                        <td style="text-align: right; background-color: lightcyan;">${ '{0:,}'.format(total_untaxed) }</td>
+                        <td style="text-align: right; background-color: lightcyan;">${ '{0:,}'.format(total_tax) }</td>
+                        <td style="text-align: right; background-color: lightcyan;">${ '{0:,}'.format(total) }</td>
+                    </tr>
+                    % endif
+                </tbody>
+            </table>
+            % else:
+            <table class="head-tab fix-tab">
+                <tr>
+                    <td style="font-weight: 900; font-size: 20px;">Rekap Pembelian Berdasarkan Surat Jalan</td>
+                </tr>
+                <tr>
+                    <td>
+                        <table class="fix-tab">
+                            <tr>
+                                <td style="width: 120px;">Purchase Type</td>
+                                <td style="width: 15px;">:</td>
+                                <td style="font-weight: 900;">${ purchase_type }</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">Awal Periode</td>
+                                <td style="width: 15px;">:</td>
+                                <td style="font-weight: 900;">${ chdf(date_start,'%Y-%m-%d','%d %B %Y') }</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">Akhir Periode</td>
+                                <td style="width: 15px;">:</td>
+                                <td style="font-weight: 900;">${ chdf(date_end,'%Y-%m-%d','%d %B %Y') }</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <table class="main-tab fix-tab">
+                <thead>
+                    <tr>
+                        <th rowspan="2" style="width: 50px;">Tgl</th>
+                        <th rowspan="2">No SJ</th>
+                        <!-- th>No Faktur</th -->
+                        <th rowspan="2">No PO</th>
+                        <!-- th>Sales Person</th -->
+                        <th rowspan="2">Supplier</th>
+                        <th rowspan="2">Berat SJ</th>
+                        <th colspan="6" style="width: 500px;">Detail Surat Jalan</th>
+                        <!-- th>Total<br />(DPP+PPN)</th -->
+                    </tr>
+                    <tr>
+                        <th>Qty SJ</th>
+                        <th>Qty PO</th>
+                        <th>Harga</th>
+                        <th>DPP</th>
+                        <th>PPN</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                	<!-- <%
+                	total_dpp = 0
+                	total_ppn = 0
+                	total_all = 0
+                	%> -->
+                    % if all:
+                    <!--
+                    <%
+                    for uin in get_p_type(purchase_type):
+                        bgh = get_p_brows(uin)
+                        po_kumpul_two.append(bgh.id)
+                        for iin in bgh.order_line:
+                            po_kumpul_one.append(iin.id)
+                    %>
+                    -->
+                    % for sj_one in get_sj_pu(po_kumpul_two, date_start, date_end):
+                    <!-- <% line_pu = get_sj_line(sj_one)  %> -->
+                    <tr>
+                        <td style="text-align: center;">${ chdf(line_pu.date_done,'%Y-%m-%d %H:%M:%S','%d %b<br />%Y') }</td>
+                        <td style="text-align: center;">${ line_pu.surat_jalan_masuk or '' }</td>
+                        <td style="text-align: center;">${ line_pu.purchase_id and line_pu.purchase_id.name or '' }</td>
+                        <td>${ line_pu.purchase_id and line_pu.purchase_id.partner_id and line_pu.purchase_id.partner_id.name or '' }</td>
+                        <td>
+                        	<table class="ins-tab">
+                        		<tr>
+                        			<td>Bruto</td>
+                        			<td>:</td>
+                        			<td>${ line_pu.b_bruto or 0}</td>
+                        		</tr>
+                        		<tr>
+                        			<td>Kend</td>
+                        			<td>:</td>
+                        			<td>${ line_pu.b_kend or 0 }</td>
+                        		</tr>
+                        		<tr>
+                        			<td>Netto</td>
+                        			<td>:</td>
+                        			<td>${ line_pu.b_netto or 0 }</td>
+                        		</tr>
+                        	</table>
+                        </td>
+                        <td colspan="6" style="padding: 0px;">
+                            % for line_move_sj in get_move_line(line_pu.id):
+                            <!-- <% move_line_brow = get_move_brose(line_move_sj) %> -->
+                            <table class="ins-tab2 fix-tab">
+                                <tr>
+                                    <td colspan="6" style="text-align: left; font-weight: 900; background-color: lightcyan;"">
+                                        ${ move_line_brow.product_id and move_line_brow.product_id.name or '' }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>${ '{0:,}'.format(move_line_brow.product_qty or 0) }</td>
+                                    % for po_line_data in line_pu.purchase_id.order_line:
+                                    % if move_line_brow.product_id == po_line_data.product_id:
+                                    <!--
+                                    <%
+                                    dpp = (po_line_data.price_unit * move_line_brow.product_qty)
+                                    ppn = 0
+                                    for taxx_in in po_line_data.taxes_id:
+                                        txa = (taxx_in.amount * 100)
+                                        ppn = float((po_line_data.price_unit * txa) / 100)
+                                        
+                                    total = (dpp + ppn)
+                                    total_dpp = total_dpp + dpp
+                                    total_ppn = total_ppn + ppn
+                                    total_all = total_all + total
+                                    %>
+                                    -->
+                                    <td>${ '{0:,}'.format(po_line_data.product_qty or 0) }</td>
+                                    <td>${ '{0:,}'.format(po_line_data.price_unit or 0) }</td>
+                                    <td>${ '{0:,}'.format(dpp or 0) }</td>
+                                    <td>${ '{0:,}'.format(ppn or 0) }</td>
+                                    <td>${ '{0:,}'.format(total or 0) }</td>
+                                    % endif
+                                    % endfor
+                                </tr>
+                            </table>
+                            % endfor
+                        </td>
+                    </tr>
+                    % endfor
+                    % else:
+                    <!--
+                    <%
+                    for uin in get_p_type(purchase_type):
+                        bgh = get_p_brows(uin)
+                        po_kumpul_two.append(bgh.id)
+                        for iin in bgh.order_line:
+                            po_kumpul_one.append(iin.id)
+                    %>
+                    -->
+                    % for sj_one in get_sj_pu_sup(po_kumpul_two, date_start, date_end, supplier_list):
+                    <!-- <% line_pu = get_sj_line(sj_one)  %> -->
+                    <tr>
+                        <td style="text-align: center;">${ chdf(line_pu.date_done,'%Y-%m-%d %H:%M:%S','%d %b<br />%Y') }</td>
+                        <td style="text-align: center;">${ line_pu.surat_jalan_masuk or '' }</td>
+                        <td style="text-align: center;">${ line_pu.purchase_id and line_pu.purchase_id.name or '' }</td>
+                        <td>${ line_pu.purchase_id and line_pu.purchase_id.partner_id and line_pu.purchase_id.partner_id.name or '' }</td>
+                        <td>
+                        	<table class="ins-tab">
+                        		<tr>
+                        			<td>Bruto</td>
+                        			<td>:</td>
+                        			<td>${ line_pu.b_bruto or 0}</td>
+                        		</tr>
+                        		<tr>
+                        			<td>Kend</td>
+                        			<td>:</td>
+                        			<td>${ line_pu.b_kend or 0 }</td>
+                        		</tr>
+                        		<tr>
+                        			<td>Netto</td>
+                        			<td>:</td>
+                        			<td>${ line_pu.b_netto or 0 }</td>
+                        		</tr>
+                        	</table>
+                        </td>
+                        <td colspan="6" style="padding: 0px;">
+                            % for line_move_sj in get_move_line(line_pu.id):
+                            <!-- <% move_line_brow = get_move_brose(line_move_sj) %> -->
+                            <table class="ins-tab2 fix-tab">
+                                <tr>
+                                    <td colspan="6" style="text-align: left; font-weight: 900; background-color: lightcyan;"">
+                                        ${ move_line_brow.product_id and move_line_brow.product_id.name or '' }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>${ '{0:,}'.format(move_line_brow.product_qty or 0) }</td>
+                                    % for po_line_data in line_pu.purchase_id.order_line:
+                                    % if move_line_brow.product_id == po_line_data.product_id:
+                                    <!--
+                                    <%
+                                    dpp = (po_line_data.price_unit * move_line_brow.product_qty)
+                                    ppn = 0
+                                    for taxx_in in po_line_data.taxes_id:
+                                        txa = (taxx_in.amount * 100)
+                                        ppn = float((po_line_data.price_unit * txa) / 100)
+                                        
+                                    total = (dpp + ppn)
+                                    total_dpp = total_dpp + dpp
+                                    total_ppn = total_ppn + ppn
+                                    total_all = total_all + total
+                                    %>
+                                    -->
+                                    <td>${ '{0:,}'.format(po_line_data.product_qty or 0) }</td>
+                                    <td>${ '{0:,}'.format(po_line_data.price_unit or 0) }</td>
+                                    <td>${ '{0:,}'.format(dpp or 0) }</td>
+                                    <td>${ '{0:,}'.format(ppn or 0) }</td>
+                                    <td>${ '{0:,}'.format(total or 0) }</td>
+                                    % endif
+                                    % endfor
+                                </tr>
+                            </table>
+                            % endfor
+                        </td>
+                    </tr>
+                    % endfor
+                    % endif
+                    <tr>
+                        <td colspan="5" style="text-align: center; font-weight: 900;">Total</td>
+                        <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+                        <td style="text-align: right;">${ '{0:,}'.format(total_dpp) }</td>
+                        <td style="text-align: right;">${ '{0:,}'.format(total_ppn) }</td>
+                        <td style="text-align: right;">${ '{0:,}'.format(total_all) }</td>
+                    </tr>
+                </tbody>
+            </table>
+            % endif
+        </div>
+    </body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<!--
+<%
+import base64
+import mx.DateTime
+
+def oe_datetime_format(obj,format='%Y-%m-%d %H:%M:%S'):
+    if obj.val:
+        if hasattr(obj,'name') and (obj.name):
+            return mx.DateTime.strptime(obj.name,format)
+        else:
+            return false
+    else:
+        return false
+%>
+-->
+<html>
+    <head>
+        <title>Bukti Muat</title>
+        <style type="text/css">
+            body {
+                margin: 0px;
+                padding: 0px;
+                font-size: 10px;
+                font-family: helvetica;
+            }
+            table {
+                border-collapse: collapse;
+                border: none;
+                margin: 0px;
+                padding: 0px;
+            }
+            tr, td {
+                margin: 0px;
+                padding: 0px;
+            }
+            img {
+                border: none;
+            }
+            .main {
+                /* width: 100%; */
+                border: 1px solid;
+                border-collapse: collapse;
+                page-break-after: always;
+            }
+            .main-tab {
+                width: 100%;
+            }
+            .main-tab th, .main-tab td {
+                border: 1px solid;
+                padding: 3px;
+            }
+            /* .main-tab tr:first-child th {
+                border-top: 3px double;
+            } */
+            .main-tab th:first-child, .main-tab td:first-child {
+                border-left: none;
+            }
+            .main-tab th:last-child, .main-tab td:last-child {
+                border-right: none;
+            }
+            /* .main-tab2 {
+                font-size: 12px;
+            } */
+            .main-tab th, .main-tab td {
+                border: 1px solid;
+                margin: 0px;
+                padding: 3px;
+            }
+            .ins-tab {
+                width: 100%;
+            }
+            .ins-tab td {
+                border: none;
+                padding: 0px;
+            }
+            .main {
+                border: 1px solid;
+                border-collapse: collapse;
+                page-break-after: always;
+            }
+            .fix-tab {
+                table-layout: fixed;
+            }
+            .full-block {
+                width: 100%;
+                clear: both;
+            }
+            .spacer {
+                height: 0px;
+            }
+            .tikwa {
+                width: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        % for o in objects:
+        <!-- <% i = 1 %> -->
+        <div class="main">
+            <table class="fix-tab full-block">
+                <tr class="spacer">
+                    <td style="width: 100px;"></td>
+                    <td class="tikwa"></td>
+                    <td></td>
+                    <td></td>
+                    <td style="width: 50px;"></td>
+                    <td style="width: 50px;"></td>
+                    <td class="tikwa"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="5" rowspan="2" style="
+                        font-size: 18px;
+                        font-weight: 900;
+                        text-decoration: underline;
+                        text-align: right;
+                        padding-right: 10px;
+                        ">
+                        MEMO BUKTI MUAT BARANG
+                    </td>
+                    <td>No.</td>
+                    <td>:</td>
+                    <td>${ o.name or '&nbsp;' }</td>
+                </tr>
+                <tr>
+                    <td>Tgl.</td>
+                    <td>:</td>
+                    <td>${ o.delivery_date or '&nbsp;' }</td>
+                </tr>
+                <tr>
+                    <td>Kendaraan</td>
+                    <td>:</td>
+                    <td>${ o.no_kendaraan or '&nbsp;' }</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>Muat</td>
+                    <td>:</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td colspan="2">No. &amp; Tgl. SKP</td>
+                    <td>:</td>
+                    <td>${ o.sale_id and o.sale_id.po_sl or '&nbsp;' }</td>
+                </tr>
+                <tr>
+                    <td>Orang</td>
+                    <td>:</td>
+                    <td>${ o.sopir or '&nbsp;' }</td>
+                    <td>&nbsp;</td>
+                    <td colspan="2">No. &amp; Tgl. DO</td>
+                    <td>:</td>
+                    <td>${ o.gen_do or '&nbsp;' }</td>
+                </tr>
+            </table>
+            <table class="main-tab fix-tab">
+                <thead>
+                    <tr>
+                        <th style="width: 35px;">No</th>
+                        <th style="width: 350px;">JENIS BARANG</th>
+                        <th>Satuan</th>
+                        <th>Jumlah</th>
+                        <th>Keterangan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    % for line in o.move_line_new:
+                    <tr>
+                        <td style="text-align: center;">${ i or '&nbsp;' }</td>
+                        <td>
+                            <strong>${ line.product_id and line.product_id.name or '&nbsp;' }</strong>
+                            <br />${ line.name or '&nbsp;' }
+                        </td>
+                        <td style="text-align: center;">${ line.product_uom and line.product_uom.name or '&nbsp;' }</td>
+                        <td style="text-align: right">${ line.warehouse_realise or '&nbsp;' }</td>
+                        <td>
+                            ${ line.prepare_delivery or '&nbsp;' }<br />
+                            ${ line.take_over or '&nbsp;' }
+                        </td>
+                    </tr>
+                    <!-- <% i = i + 1 %> -->
+                    % endfor
+                </tbody>
+            </table>
+            <table class="main-tab fix-tab">
+                <thead>
+                    <tr>
+                        <th>
+                            Kepala Gudang<br /><br /><br /><br /><br /><br />
+                            ______________________________
+                        </th>
+                        <th>
+                            Sopir<br /><br /><br /><br /><br /><br />
+                            ${ o.sopir or '______________________________' }
+                        </th>
+                        <th>
+                            &nbsp;<br /><br /><br /><br /><br /><br />
+                            ______________________________
+                        </th>
+                        <th>
+                            Petugas Gudang<br /><br /><br /><br /><br /><br />
+                            ______________________________
+                        </th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        % endfor
+    </body>
+</html>

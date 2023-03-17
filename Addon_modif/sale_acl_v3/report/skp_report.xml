@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<report id="report_webkit_new"
+		model = "sale.order"
+		name="sale.order.report"
+		file="sale_acl_v3/report/sale_skp.mako"
+		string="SKP"
+		report_type="webkit"/>
+	</data>
+</openerp>

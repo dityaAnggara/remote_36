@@ -1,0 +1,8 @@
+<openerp>
+	<data>
+		<record model="product.kip.padd" id="kip_padd_1">
+        	<field name="padding_kip">6</field>
+        </record>
+      
+	</data>
+</openerp>

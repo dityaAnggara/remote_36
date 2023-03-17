@@ -1,0 +1,63 @@
+<html>
+	<head>
+	
+	 <style>
+	 	body{
+	 		font-family:helvetica; 
+	 		font-size:8;
+	 	}
+	 </style>
+	</head>
+	<body style="font-family:helvetica; font-size:8;">
+	  <center><U><h4><font size="5">Surat Jalan</font></h4></U></center>
+		 % for picking in objects:
+	   			<p>Customer data:
+	   			${ picking.partner_id.name or '' }
+	   			${ picking.partner_id.street or '' }
+	   			${ picking.partner_id.street2 or '' }
+	   			${ picking.partner_id.city or '' }
+	   			${ picking.partner_id.state_id.name or '' }
+	   			${ picking.partner_id.zip or '' }
+	   			${ picking.partner_id.franco or '' }
+	   			</p>
+	  % endfor
+	 % for picking in objects:
+	   			Jasa Angkut:
+	   			${ picking.jasa_angkut.name or '' } </br>
+	   			No Surat Jalan:
+	   			${ picking.surat_jalan or '' } </br>
+	   			No Kendaraan:
+	   			${ picking.no_kendaraan or '' } </br>
+				No DO:
+	   			${ picking.gen_do or '' } </br>
+	  % endfor
+	 <table width=1000 border="1">
+	  <tr>
+	   			<th>No</th><th>Jenis Barang</th><th>Jumlah Satuan</th><th>Keterangan</th>
+	   		</tr>
+	  <% no=1 %> 		
+	  % for picking in objects:
+	  	% for movee in picking.move_lines:
+	   		
+	   		<tr
+	   		% if no > 1:
+	   			style="page-break-after:auto; background-color: yellow;"
+	   		% endif
+	   		>
+	   		    <td>${no}</td>
+	   			<td>${ movee.name or '' }</td>
+	   			<td>${ movee.product_qty or '' } pcs</td>
+	   			<td>Jumlah Ikat: ${ picking.jumlah_ikat or '' }
+	   			</br>
+	   			B.Kend: ${ picking.b_kend or '' }
+	   			</br>
+	   			B.Bruto: ${ picking.b_bruto or '' }
+	   			</br>
+	   			B.Netto: ${ picking.b_netto or '' }</td>
+	   		</tr>
+	   		<% no += no %>	
+	  	% endfor
+	  % endfor
+	  </table>	
+	</body>
+</html>

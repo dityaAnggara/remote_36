@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!-- Replaced -->
+        <record model="ir.actions.act_window" id="purchase_requisition.action_purchase_requisition">
+            <field name="name">Purchase Requisitions</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.requisition</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{"search_default_type_state":1}</field>
+            <field name="search_view_id" ref="purchase_requisition.view_purchase_requisition_filter" />
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to start a new purchase requisition process.
+                </p>
+                <p>
+                    A purchase requisition is the step before a request for quotation.
+                    In a purchase requisition (or purchase tender), you can record the
+                    products you need to buy and trigger the creation of RfQs to
+                    suppliers. After the negotiation, once you have reviewed all the
+                    supplier's offers, you can validate some and cancel others.
+                </p>
+            </field>
+        </record>
+	
+        <!-- Inherit View -->
+        <record id="view_purchase_requisition_filter_inherit" model="ir.ui.view">
+            <field name="name">purchase.requisition.list.select.inherit</field>
+            <field name="model">purchase.requisition</field>
+            <field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_filter" />
+            <field name="arch" type="xml">
+                <xpath expr="/search/group/filter[@string='Status']" position="attributes">
+                    <attribute name="name">type_state</attribute>
+                </xpath>
+                <xpath expr="/search/group/filter[@string='Status']" position="before">
+                    <filter name="type_pr_type" string="PR Type" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'purchase_state'}"/>
+                    <filter name="urgent" string="Urgent" icon="terp-stock_effects-object-colorize" domain="[('urgent','=',True)]" />
+                </xpath>
+            </field>
+        </record>
+		
+        <record model="ir.ui.view" id="view_purchase_requisition_acl_inherit">
+            <field name="name">purchase.requisition.acl.inherit</field>
+            <field name="model">purchase.requisition</field>
+            <field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="replace">
+                    <header>
+                        <button name="acc_kabag" states="draft" string="Acc Kabag" type="object" class="oe_highlight" />
+                        <button name="acc_gm" states="acc_kabag" string="Acc GM" type="object" class="oe_highlight" />
+                        <button name="tender_in_progress" states="acc_gm" string="Acc Direksi" type="object" class="oe_highlight" />
+                        <button name="tender_reset" states="done,cancel" string="Reset to Draft" type="object" />
+                        <!-- button name="tender_done_inherit" states="in_progress" string="Purchase Done"
+                        type="object" class="oe_highlight"
+                        attrs="{'invisible': [('exclusive','in', ['exclusive'])]}" /-->
+                        <button name="tender_cancel" states="draft,acc_kabag,acc_gm,in_progress,urgent" string="Cancel Requisition" type="object" />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,acc_kabag,acc_gm,in_progress,done" statusbar_colors='{"in_progress":"blue"}' />
+                    </header>
+                </xpath>
+                <field name="exclusive" position="before">
+                    <field name="purchase_state" />
+                    <field name="no_nota" attrs="{'invisible':[('purchase_state','in',('SPK'))]}" />
+                </field>
+                <field name="date_end" position="after">
+                    <field name="urgent" />
+                </field>
+                <field name="line_ids" position="replace">
+                    <field name="line_ids">
+	                    <tree string="Products" editable="bottom">
+	                        <button name="price_history" type="object" string="History" icon="gtk-dnd-multiple" />
+	                        <field name="id" invisible="1"/>
+	                        <field name="product_id" attrs="{'readonly':[('id','!=', False)]}" on_change="onchange_product_id(product_id,product_uom_id)" />
+	                        <field name="product_qty" />
+	                        <field name="product_uom_id" attrs="{'readonly':[('id','!=', False)]}" />
+	                        <field name="date_planned" />
+                    		<field name="dept_id" />
+	                        <field name="keterangan" />
+	                    </tree>
+	                    <form string="Products" version="7.0">
+	                        <group>
+	                            <field name="id" invisible="1"/>
+	                            <field name="product_id" attrs="{'readonly':[('id','!=', False)]}" />
+	                            <field name="product_qty" />
+	                            <field name="product_uom_id" attrs="{'readonly':[('id','!=', False)]}" />
+	                        	<field name="date_planned" />
+                    			<field name="dept_id" />
+	                        	<field name="keterangan" />
+	                            <field name="company_id" groups="base.group_multi_company" widget="selection" />
+	                        </group>
+	                    </form>
+                    </field>
+                </field>
+                <field name="purchase_ids" position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </field>
+                <field name="purchase_ids" position="inside">
+                    <tree string="Purchase Order" create="0">
+                        <field name="name" string="Reference" />
+                        <field name="date_order" string="Order Date" />
+                        <field name="partner_id" />
+                        <field name="company_id" groups="base.group_multi_company" widget="selection" />
+                        <field name="location_id" groups="stock.group_locations" />
+                        <field name="minimum_planned_date" />
+                        <field name="origin" />
+                        <field name="amount_total" />
+                        <!-- field name="single_price_unit" readonly="0" / -->
+                        <field name="state" />
+                        <!-- button name="purchase_cancel" states="draft,confirmed,wait_auth" 
+                        string="Cancel Purchase Order" icon="gtk-cancel" /> <button name="purchase_confirm" 
+                        states="draft" string="Confirm Purchase Order" icon="gtk-apply" /> <button 
+                        name="purchase_approve" states="confirmed" string="Approved by Supplier" 
+                        icon="gtk-ok" / -->
+                    </tree>
+                </field>
+                <!-- xpath expr="//header/button[@name='tender_in_progress']"
+                        position="attributes">
+                        <attribute name="states">acc_gm</attribute>
+                        <attribute name="string">Acc Direksi</attribute>
+                </xpath>
+                <xpath expr="//header/button[@name='tender_in_progress']"
+                        position="before">
+                        <button name="acc_kabag" states="draft" string="Acc Kabag"
+                                type="object" class="oe_highlight" />
+                        <button name="acc_gm" states="acc_kabag" string="Acc GM"
+                                type="object" class="oe_highlight" />
+                </xpath>
+                <xpath expr="//header/button[@name='tender_done']" position="attributes">
+                        <attribute name="name">tender_done_inherit</attribute>
+                </xpath>
+                <xpath expr="//header/button[@name='tender_cancel']" position="attributes">
+                        <attribute name="states">draft,acc_kabag,acc_gm,in_progress</attribute>
+                </xpath>
+                <xpath expr="//header/field[@name='state']" position="attributes">
+                        <attribute name="statusbar_visible">draft,acc_kabag,acc_gm,in_progress,done
+                        </attribute>
+                </xpath -->
+                <xpath expr="//sheet/notebook/page/div/button[@string='Request a Quotation']" position="attributes">
+                    <attribute name="attrs">
+                        {'invisible':['|',('state','not in',('in_progress','urgent')),('line_ids','=',False),('state','not in',('in_progress','urgent'))]}
+                    </attribute>
+                </xpath>
+                <field name="purchase_ids" position="after">
+                    <!-- div class="oe_right oe_button_box" style="margin-top: 10px">
+                            <button name="tender_done" states="in_progress" string="Requisition Done"
+                                            type="object" class="oe_highlight"
+                                            attrs="{'invisible': [('exclusive','=', ('exclusive'))]}" />
+                    </div -->
+                    <div class="oe_right oe_button_box" style="margin-top: 10px">
+                        <button name="tender_done" type="object" string="Requisition Selesai" icon="gtk-execute" attrs="{'invisible': ['|',('exclusive','=', 'exclusive'),('state','!=','in_progress')]}"/>
+                    </div>
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_purchase_order_acl_inherit">
+            <field name="name">purchase.order.acl.inherit</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="replace">
+                    <header>
+                        <button name="price_confirm" states="draft" string="Konfirmasi Harga" type="object" class="oe_highlight" />
+                        <button name="acc_sby" states="price_confirm" string="Acc Surabaya" type="object" class="oe_highlight" />
+                        <!-- button name="wkf_send_rfq" states="draft" string="Kirim Email" 
+                        type="object" context="{'send_rfq':True}" class="oe_highlight"/ -->
+                        <button name="wkf_send_rfq" states="acc_sby,sent" string="Kirim Email" type="object" context="{'send_rfq':True}" />
+                        <!-- button name="print_quotation" string="Print" type="object" states="draft" 
+                        class="oe_highlight" groups="base.group_user"/ -->
+                        <button name="print_quotation" string="Print" type="object" states="acc_sby,sent" groups="base.group_user" />
+                        <!-- button name="purchase_confirm" states="draft" string="Confirm 
+                        Order"/ -->
+                        <button name="confirm_order" states="acc_sby,sent" string="Supplier OK" type="object" class="oe_highlight" groups="purchase.group_purchase_manager" />
+                        <button name="acc_kabag" states="confirmed" string="Acc Kabag" type="object" class="oe_highlight" />
+                        <!--button name="acc_gm" states="acc_kabag" string="Acc GM"
+                        type="object" class="oe_highlight" /-->
+                        <button name="acc_gm" string="Acc GM"
+                                                        attrs="{'invisible':['|',('urgent','=',True),('state','not in',('acc_kabag'))]}"
+                                                        type="object" class="oe_highlight" />
+                        <button name="mark_urgent" string="Mark Urgent"
+                                                        attrs="{'invisible':['|',('urgent','=',True),('state','not in',('acc_kabag'))]}"
+                                                        type="object" class="oe_highlight" />
+                        <button name="purchase_confirm" string="Acc GM (Urgent)"
+                                                        attrs="{'invisible':['|',('urgent','=',False),('state','not in',('acc_kabag'))]}"
+                        								groups="purchase_requisition_acl.purchase_requisition_gm"
+                                                        class="oe_highlight" />
+                        <button name="purchase_confirm" states="acc_gm" string="Acc Direksi"
+                                                        groups="purchase_requisition_acl.purchase_requisition_direksi" class="oe_highlight" />
+                        <button name="wkf_send_rfq" states="confirmed,acc_kabag,acc_gm"
+                                                        string="Resend Email" type="object" />
+                        <button name="action_cancel" states="approved,except_picking,except_invoice"
+                                                        string="Cancel Order" type="object" />
+                        <button name="view_ship" string="Check Shipping" attrs="{'invisible':[('state','not in',('except_picking','except_invoice'))]}"
+                                                        type="object" />
+                        <button name="validate_except" string="Validate"
+                         								attrs="{'invisible':['|',('state','not in',('except_picking','except_invoice')),('correct_id','!=',False)]}"
+                                                        type="object" class="oe_highlight" />
+                        <button name="picking_ok" attrs="{'invisible':['|',('state','not in',('except_picking')),('correct_id','=',False)]}" string="Manually Corrected" />
+                        <button name="invoice_ok" attrs="{'invisible':['|',('state','not in',('except_invoice')),('correct_id','=',False)]}" string="Manually Corrected" />
+                        <button name="view_picking" string="Receive Products" type="object"
+                                                        attrs="{'invisible': ['|', ('shipped','=',True), ('state','!=', 'approved')]}"
+                        								groups="stock.group_stock_user" class="oe_highlight" />
+                        <button name="view_invoice" string="Receive Invoice" type="object"
+                                                        attrs="{'invisible': ['|', ('invoice_method','in', ['picking', 'manual']), '|', ('state','!=', 'approved'), ('invoiced','=',True) ]}"
+                                                        class="oe_highlight" />
+                        <button name="action_cancel_draft" states="cancel,sent"
+                                                        string="Set to Draft" type="object" />
+                        <button name="purchase_cancel" states="draft,sent,confirmed,acc_kabag,acc_gm"
+                                                        string="Cancel Order" />
+                        <button name="reviewed" string="Review Direksi" attrs="{'invisible':['|',('urgent','=',False),('review','=',True)]}" type="object"
+                                                        groups="purchase_requisition_acl.purchase_requisition_direksi" class="oe_highlight" />
+                        <field name="state" widget="statusbar"
+                                                       statusbar_visible="draft,acc_sby,sent,acc_kabag,acc_gm,approved,done"
+                                                       statusbar_colors='{"except_picking":"red","except_invoice":"red","confirmed":"blue"}'
+                                                       readonly="1" />
+                    </header>
+                </xpath>
+                <!-- field name="state" position="attributes"> <attribute name="statusbar_visible">draft,acc_sby,sent,acc_kabag,acc_gm,approved,done</attribute> 
+                </field -->
+                <field name="partner_ref" position="after">
+                    <field name="purchase_state" />
+                    <!-- <field name="dept_id" /> -->
+                </field>
+                <field name="origin" position="after">
+                    <field name="urgent" />
+                    <field name="review" attrs="{'invisible':[('urgent','=',False)]}" readonly="1" />
+                </field>
+                <xpath expr="/form[@string='Purchase Order']" position="attributes">
+                    <attribute name="create">0</attribute>
+                </xpath>
+                <xpath expr="//sheet/notebook/page[@string='Incoming Shipments &amp; Invoices']" position="after">
+                    <page string="Persetujuan">
+                        <group>
+                            <field name="sby_id" readonly="1" />
+                            <field name="kabag_id" readonly="1" />
+                            <field name="gm_id" readonly="1" />
+                            <field name="direksi_id" readonly="1" />
+                            <field name="correct_id" readonly="1" attrs="{'invisible':[('correct_id','=',False)]}" />
+                        </group>
+                    </page>
+                </xpath>
+                <field name="price_subtotal" position="after">
+                    <field name="dept_id" />
+                	<field name="keterangan" />
+                </field>
+                <!-- field name="order_line" position="attributes">
+                	<attribute name="version">7.0</attribute>
+                    <attribute name="create">0</attribute>
+                </field -->
+                <xpath expr="//sheet/notebook/page[@string='Purchase Order']/field[@name='order_line']/tree[@string='Purchase Order Lines']" position="attributes">
+                	<attribute name="version">7.0</attribute>
+                    <attribute name="create">0</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record id="purchase_order_tree_inherit" model="ir.ui.view">
+            <field name="name">purchase.order.acl.tree.inherit</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_tree" />
+            <field name="arch" type="xml">
+                <xpath expr="/tree[@string='Purchase Order']" position="attributes">
+                    <attribute name="version">7.0</attribute>
+                    <attribute name="create">0</attribute>
+                </xpath>
+                <field name="date_order" position="before">
+                    <field name="purchase_state" />
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="product_normal_form_view_inherit_acl">
+            <field name="name">product.form.inherit.acl</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="purchase_requisition.product_normal_form_view_inherit" />
+            <field name="arch" type="xml">
+                <field name="purchase_requisition" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_users_form_inherit">
+            <field name="name">res.users.inherit</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form" />
+            <field name="arch" type="xml">
+                <field name="signature" position="after">
+                    <field name="sign" widget="image" />
+                </field>
+            </field>
+        </record>
+        <record id="view_picking_in_form_acl_innh" model="ir.ui.view">
+			<field name="name">stock.picking.in.form</field>
+			<field name="model">stock.picking.in</field>
+			<field name="inherit_id" ref="stock.view_picking_in_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="/form/sheet/notebook/page[@string='Additional Info']//group" position="inside">
+					<group name="Info Kendaraan" string="Info Kendaraan / Jasa Angkut">
+						<field name="jasa_angkut" />
+						<field name="sopir"   />
+						<field name="no_kendaraan"   />
+						<field name="b_kend"  />
+						<field name="b_bruto" />
+						<field name="b_netto"  />
+					</group>
+				</xpath>
+				<xpath expr='//field[@name="stock_journal_id"]' position="after">
+					<field name="surat_jalan_masuk" />
+				</xpath>
+			</field>
+		</record>
+		<record id="view_stock_invoice_onshipping" model="ir.ui.view">
+			<field name="name">Stock Invoice Onshipping</field>
+			<field name="model">stock.invoice.onshipping</field>
+			<field name="inherit_id" ref="stock.view_stock_invoice_onshipping" />
+			<field name="arch" type="xml">
+				<field name="group" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</field>
+			</field>
+		</record>
+    </data>
+</openerp>

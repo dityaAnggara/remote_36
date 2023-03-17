@@ -1,0 +1,55 @@
+<openerp>
+	<data>
+		<record id="view_subtance_master" model="ir.ui.view" >
+			<field name="name">master.subtance.subbtance.form</field>
+			<field name="model">master.subtance.subbtance</field>
+			<field name="arch" type="xml">
+				<form string="Master Subtance" version="7.0">
+					<sheet>
+						<group>
+							<field name="name" />
+							<field name="nilai_subtance" />
+							<field name="hiden_value" invisible="1" />						
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<record id="view_subtance_master_tree" model="ir.ui.view">
+            <field name="name">master.subtance.subbtance.tree</field>
+            <field name="model">master.subtance.subbtance</field>
+            <field name="arch" type="xml">
+                <tree  string="Master Subtance" version="7.0">
+                    <field name="name" />
+					<field name="nilai_subtance" />
+					<field name="hiden_value"  />		                   
+                </tree>
+            </field>
+        </record>
+        <record id="view_subtance_master_search" model="ir.ui.view">
+            <field name="name">master.subtance.subbtance.search</field>
+            <field name="model">master.subtance.subbtance</field>
+            <field name="arch" type="xml">
+                <search string="Master Subtance">
+                    <field name="name" />
+					<field name="nilai_subtance" />
+						                     
+                </search>
+            </field>
+        </record>
+        <record id="action_master_subbatance" model="ir.actions.act_window">
+            <field name="name">Master Subtance</field>
+            <field name="res_model">master.subtance.subbtance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_subtance_master_search"/>
+            <field name="view_id" ref="view_subtance_master_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create new Master Subtance.
+              </p>
+            </field>
+        </record>
+        <menuitem action="action_master_subbatance" parent="mrp.menu_mrp_configuration"  id="menu_master_subbtance" />
+	</data>
+</openerp>

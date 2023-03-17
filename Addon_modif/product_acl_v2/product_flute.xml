@@ -1,0 +1,74 @@
+<openerp>
+	<data>
+		<record id="view_product_flute_acl_form" model="ir.ui.view">
+            <field name="name">product.flute.acl.form</field>
+            <field name="model">product.flute.acl</field>
+            <field name="arch" type="xml">
+                <form string="Product Flute Master" version="7.0">
+                	<sheet>
+                	 <group>
+                	 	<field name="name"  />
+						<field name="type_flute"  />
+						<field name="flute_value"  />
+						   
+                	 </group>
+                	 <!--field name="flute_line"  >
+						 	<tree editable="bottom" string="Flute Lines" version="7.0" >
+						 		<field name="panjang_satu"/>
+								<field name="panjang_dua"/>
+								<field name="lebar_satu"/>
+								<field name="lebar_dua"/>
+								<field name="flap_atas_satu"/>
+								<field name="flap_atas_dua"/>
+								<field name="flap_bawah_satu"/>
+								<field name="flap_bawah_dua"/>						 		
+						 	</tree>
+						 </field-->               	 	
+                	 	<field name="description" placeholder="Put your description here if necessery...."/>	
+                	</sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_product_flute_acl_tree" model="ir.ui.view">
+            <field name="name">product.flute.acl.tree</field>
+            <field name="model">product.flute.acl</field>
+            <field name="arch" type="xml">
+                <tree  string="Product Flute Master">
+                    <field name="name"  />
+					<field name="type_flute"  />                    
+                	<field name="description" placeholder="Put your description here if necessery...."/>                     
+                </tree>
+            </field>
+        </record>
+        <record id="view_product_flute_acl_search" model="ir.ui.view">
+            <field name="name">product.flute.acl.search</field>
+            <field name="model">product.flute.acl</field>
+            <field name="arch" type="xml">
+                <search string="Product Flute Master">
+                    <field name="name"  />
+					<field name="type_flute"  />                    
+                	 <field name="description" placeholder="Put your description here if necessery...."/>                     
+                </search>
+            </field>
+        </record>
+        <record id="action_product_flute_acl" model="ir.actions.act_window">
+            <field name="name">Product Flute Master</field>
+            <field name="res_model">product.flute.acl</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_product_flute_acl_search"/>
+            <field name="view_id" ref="view_product_flute_acl_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create Product Flute.
+              </p><p>
+                To Create Product Flute Master
+              </p>
+            </field>
+        </record>
+        <menuitem action="action_product_flute_acl" parent="product.prod_config_main" id="menu_product_flute_acl" />
+		<menuitem action="action_product_flute_acl" parent="stock.menu_product_in_config_stock" id="menu_product_flute_acl_one" />
+		<menuitem action="action_product_flute_acl" parent="purchase.menu_product_in_config_purchase" id="menu_product_flute_acl_two" />
+		<menuitem action="action_product_flute_acl" parent="mrp.menu_mrp_configuration" id="menu_product_flute_acl_there" />	
+	</data>
+</openerp>

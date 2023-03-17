@@ -1,0 +1,150 @@
+<openerp>
+	<data>
+	
+		<!--record id="view_crm_make_sale_acl_inherit" model="ir.ui.view">
+          <field name="name">crm.make.sale.form</field>
+          <field name="model">crm.make.sale</field>
+          <field name="inherit_id" ref="sale_crm.view_crm_make_sale" />
+          <field name="arch" type="xml">
+          	<xpath expr="//field[@name='close']" position="attributes">
+                 <attribute name="invisible">1</attribute>
+			</xpath>
+            
+          </field>
+       </record-->
+	<!-- CRM lead Binding Partner -->
+	<record id="view_crm_lead2opportunity_partner" model="ir.ui.view">
+            <field name="name">crm.lead2opportunity.partner.form</field>
+            <field name="model">crm.lead2opportunity.partner</field>
+            <field name="inherit_id" ref="crm.view_crm_lead2opportunity_partner" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                 	<field name="candidate_customer" attrs="{'invisible': [('action', '!=', 'create')]}" style="width: 30%%" />
+					<field name="abj_id" on_change="change_abjad(abj_id, context)" attrs="{'invisible': [('action', '!=', 'create')]}" style="width: 30%%" />
+					<field name="ref_lead" attrs="{'invisible': [('action', '!=', 'create')]}" style="width: 30%%"  />
+					<field name="last_incre_lead" attrs="{'invisible': [('action', '!=', 'create')]}" style="width: 30%%" invisible="1" />
+					<field name="leadd_id" attrs="{'invisible': [('action', '!=', 'create')]}" style="width: 30%%" invisible="1" />
+					<field name="email_customer" attrs="{'invisible': [('action', '!=', 'create')]}" style="width: 30%%" invisible="1" />               	
+				</xpath>
+            </field>
+        </record>
+	<!-- CRM Lead Form View  -->
+        <record model="ir.ui.view" id="crm_case_form_view_leads_acl">
+        <field name="name">CRM - Leads Form</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_form_view_leads" />
+        <field name="arch" type="xml">
+        	
+			<xpath expr="//header" position="replace">
+				<header>
+            	<button name="%(crm.action_crm_lead2opportunity_partner)d" string="Convert to Opportunity" type="action"
+                 attrs="{'invisible':[('state_2','=',True)]}" help="Convert to Opportunity" class="oe_highlight"/>
+            	 <button name="case_reset" string="Reset" type="object"
+                            states="cancel" domain="[('state_2','=',False)]"/>
+                    <button name="case_cancel" string="Cancel Case" type="object"
+                            states="draft,open,pending" domain="[('state_2','=',False)]"/>
+                    <!--field name="stage_id" widget="statusbar" clickable="True"
+                            domain="['&amp;', '|', ('case_default', '=', True), ('type','=','lead'), ('section_ids', '=', section_id), '|', ('type', '=', type), ('type', '=', 'both')]"
+                            on_change="onchange_stage_id(stage_id)" /-->
+           	</header>
+             </xpath>
+             <button name="case_escalate" string="Escalate" type="object" 
+             attrs="{'invisible': ['|', ('section_id','=',False), ('state', 'not in', ['draft','open','pending'])]}"
+             position="replace">
+				<button name="case_escalate" string="test" type="object" 
+				invisible="1"/>             
+			 </button>             
+             
+             <xpath expr='//field[@name="partner_id"]' position="after">
+                <field name="visit_date"  />
+				<field name="state_2" invisible="1" />
+				<field name="abj_id" invisible="1" />
+				<field name="ref_lead" invisible="1" />                
+			</xpath>
+        </field>
+        </record>
+         <!-- CRM Lead Tree View -->
+        <record model="ir.ui.view" id="crm_case_tree_view_leads_acl">
+            <field name="name">Leads</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_tree_view_leads" />
+            <field name="arch" type="xml">
+                <xpath expr='//field[@name="user_id"]' position="attributes">
+					<attribute name="invisible">0</attribute>
+                </xpath>
+                <xpath expr='//field[@name="stage_id"]' position="after">
+					<field name="type"/>
+                </xpath>                 
+            </field>
+        </record>
+        <record model="ir.ui.view" id="crm_case_form_view_oppor_acl">
+            <field name="name">CRM - Opportunities - Quote Inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="sale_crm.crm_case_form_view_oppor"/>
+            <field name="arch" type="xml">
+                
+                    <xpath expr="/form/header/button[@string='Convert to Quotation']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    	
+                    </xpath>
+                    <xpath expr="/form/header/button[@string='Create Quotation']" position="attributes">
+                        <attribute name="string">Create Quotation</attribute>
+                    	
+                    </xpath>
+                    <xpath expr="/form/header/button[@string='Create Quotation']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    	
+                    </xpath>
+                     
+                	<xpath expr="/form/header/button[@name='case_mark_lost']" position="after">
+                        <button states="done" string="Create Sales Order" name="%(acl_action_crm_make_sale)d" type="action" class="oe_highlight"/>
+                    </xpath>
+                    <button name="case_escalate" string="Escalate" type="object" 
+             attrs="{'invisible': ['|', ('section_id','=',False), ('state', 'not in', ['draft','open','pending'])]}"
+             position="replace">
+				<button name="case_escalate" string="test" type="object" 
+				invisible="1"/>             
+			 </button>             
+             
+            </field>
+        </record>
+        <record id="acl_action_crm_make_sale" model="ir.actions.act_window">
+          <field name="name">Make Sales Order</field>
+          <field name="type">ir.actions.act_window</field>
+          <field name="res_model">crm.make.sale</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">form</field>
+          <field name="target">new</field>
+       </record>
+        <record model="ir.actions.act_window" id="crm.crm_case_category_act_leads_all">
+        <field name="name">Leads</field>
+        <field name="res_model">crm.lead</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">['|', ('type','in',('lead','opportunity')), ('type','=',False)]</field>
+        <field name="view_id" ref="crm.crm_case_tree_view_leads"/>
+        <field name="search_view_id" ref="crm.view_crm_case_leads_filter"/>
+         <field name="context">{
+                 'default_type':'lead',
+                 'stage_type':'lead',
+                 'needaction_menu_ref': 'crm.menu_crm_opportunities',
+             }
+         </field>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click to create an unqualified lead.
+          </p><p>
+            Use leads if you need a qualification step before creating an
+            opportunity or a customer. It can be a business card you received,
+            a contact form filled in your website, or a file of unqualified
+            prospects you import, etc.
+          </p><p>
+            Once qualified, the lead can be converted into a business
+            opportunity and/or a new customer in your address book.
+          </p>
+        </field>
+    </record>
+	</data>
+</openerp>
+
+
+	        

@@ -1,0 +1,24 @@
+<openerp>
+	<data>
+		<record model="product.category" id="catg_pod_1">
+        	<field name="name">Paper Tube</field>
+        	<field name="parent_id">2</field>
+        </record>
+        <record model="product.category" id="catg_pod_2">
+        	<field name="name">Carton Box</field>
+        	<field name="parent_id">2</field>
+        </record>
+        <record model="product.category" id="catg_pod_3">
+        	<field name="name">Waste</field>
+        	<field name="parent_id">2</field>
+        </record>
+        <record model="product.category" id="catg_pod_4">
+        	<field name="name">Partition</field>
+        	<field name="parent_id">2</field>
+        </record>
+        <record model="product.category" id="catg_pod_5">
+        	<field name="name">Layer</field>
+        	<field name="parent_id">2</field>
+        </record>
+	</data>
+</openerp>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<report id="report_webkit_new_outstanding_one"
+		model = "sale.order"
+		name="outstanding_one.out.mako"
+		file="sale_acl_v3/ngerepoti/outstanding_one.mako"
+		string="SKP OutStanding"
+		report_type="webkit"/>
+	</data>
+</openerp>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<!--
+<% import base64 %>
+-->
+<html>
+	<head>
+        <meta charset="UTF-8" />
+        <title></title>
+        <style type="text/css">
+            body {
+                margin: 0px;
+                padding: 0px;
+                font-size: 11px;
+                /* line-height: 17px; */
+            }
+            table {
+                border-collapse: collapse;
+                border: 0px;
+                margin: 0px;
+                padding: 0px;
+            }
+            tr, td {
+                margin: 0px;
+                padding: 0px;
+            }
+            img {
+                border: none;
+            }
+            .main {
+                /* width: 100%; */
+                border: 1px solid;
+                border-collapse: collapse;
+            }
+            .sec-tab {
+                width: 40%;
+                border: 1px solid;
+                border-top: 1px solid;
+                border-left: 1px solid;
+                border-right: 1px solid;
+                border-collapse: collapse;
+				margin: 0px;
+				padding : 0px;
+				
+            }
+            .main-tab {
+                width: 100%;
+                border: 1px solid;
+                border-top: 3px double;
+                border-collapse: collapse;
+            }
+            .main-tab2 {
+                font-size: 6px;
+            }
+            .main-tab th, .main-tab td {
+                border: 1px solid;
+                margin: 0px;
+                padding: 5px;
+            }
+            .main-tab2 th {
+                border-bottom: 3px double;
+            }
+            .main-tab2 td {
+                word-wrap: break-word;
+            }
+            .head {
+                font-size: 12px;
+                font-weight: 900;
+                text-align: center;
+                display: block;
+            }
+            .head div {
+                display: inline-block;
+            }
+            .head-tab {
+                width: 100%;
+            }
+            .head-tab td {
+                border: 1px solid;
+            }
+            .pt {
+                float: left;
+            }
+            .no {
+                float: right;
+                text-align: left;
+            }
+            .baw {
+                float: bottom;
+                clear: both;
+                text-align: left;
+            }
+            .mid {
+                float: top;
+                font-size: 13px;
+            }
+            .mid2 span {
+                font-size: 18px;
+            }
+            .ba {
+                text-align: center;
+            }
+            .ba div {
+                display: inline-block;
+                text-align: center
+            }
+            .baa {
+                float: left;
+            }
+            .bab {
+                float: center;
+                width: 24%;
+            }
+            .bad {
+                float: right;
+                width: 24%;
+            }
+            .bac {
+                width: 24%;
+            }
+            .alop {
+                font-size: 8px;
+            }
+            .full-block {
+                display: block;
+                width: 100%;
+                clear: both;
+            }
+        </style>
+	</head>
+	<body>
+        <br />
+        % for sales in objects :
+        <% i = 1 %>
+        <div class="main">
+            % if sales.sales_state == 'bukti muat' :
+             <style type="text/css">
+                .main {
+                    border: none;
+                }
+            </style>
+            
+		
+            <div class="head">
+                <div class="mid mid2">
+                    <U><span>B</span>UKTI <span>B</span>ANK <span>M</span>ASUK</U>
+                </div>
+                <div class="no alop">
+                    <table>
+                        <tr>
+                            <td>NO</td>
+                            <td>&nbsp;:&nbsp;</td>
+                            <td>${ po.name or '' }</td>
+                        </tr>
+                        <tr>
+                            <td>TGL</td>
+                            <td>&nbsp;:&nbsp;</td>
+                            <td>${ po.date_order or '' }</td>
+                        </tr>
+                    </table>
+                    <!-- NO : ${ po.name or '' } <br /> TGL : ${ po.date_order or '' } /-->
+                </div>
+                <br />
+            </div>			
+           <div class="full-block">
+                <div style="display: inline-block; float: left;">
+                    <table>
+						<tr>
+							<td>DITERIMA DARI </td>
+							<td>&nbsp;:&nbsp;</td>
+							<td>...................................................</td>
+						</tr>
+					</table>
+	
+                </div>
+                <br />
+            </div>			
+			<table class="main-tab" style="border-left: none; border-right: none; table-layout: fixed;">
+				<tr>
+					<td>NOMOR<BR/>PERKIRAAN</td>
+					<td>URAIAN</td>
+					<td COLSPAN="5">JUMLAH</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>Rp.&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+			</table>
+			
+<br/>
+<br/>
+            <table class="main-tab" style="border-left: none; border-right: none; table-layout: fixed;">
+				<tr>
+					<td style="border-left: none; border-bottom: none; border-top: none;">
+						<div class="bab">Gudang<br />
+						<div style="display: inline-block; width: 54px; height: 54px;">&nbsp;</div>
+						<br />
+						( ___________ )
+                        </div>
+					</td>
+					<td style="border-left: none; border-bottom: none; border-top: none;">
+						<div class="bab">Sopir<br />
+						<div style="display: inline-block; width: 54px; height: 54px;">&nbsp;</div>
+						<br />
+						( ___________ )
+                        </div>
+					</td>
+					<td style="border-left: none; border-bottom: none; border-top: none;">
+						<div class="bab">&nbsp;<br />
+						<div style="display: inline-block; width: 54px; height: 54px;">&nbsp;</div>
+						<br />
+						( ___________ )
+                        </div>
+					</td>
+					<td style="border-left: none; border-bottom: none; border-top: none;">
+						<div class="bab">Petugas Gudang<br />
+						<div style="display: inline-block; width: 54px; height: 54px;">&nbsp;</div>
+						<br />
+						( ___________ )
+                        </div>
+					</td>
+				</tr>
+			</table>
+			<br/>
+			<br/>
+            % endif
+        </div>
+        % endfor
+ 	</body>
+</html>

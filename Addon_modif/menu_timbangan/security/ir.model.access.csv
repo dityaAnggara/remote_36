@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_menu_timbangan_pick_out_one,menu_timbangan.pick_out_one timbangan,model_menu_timbangan_pick_out_one,security_timbang_v3.group_manager_name_timbang_new,1,1,1,0
+access_menu_timbangan_pick_out_one satu,stock.picking.out satu,model_stock_picking_out,security_timbang_v3.group_manager_name_timbang_new,1,1,1,0
+access_menu_timbangan_part,menu_timbangan.part timbangan,model_menu_timbangan_part,security_timbang_v3.group_manager_name_timbang_new,1,1,1,0

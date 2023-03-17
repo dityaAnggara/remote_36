@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-extend="Login">
+        <t t-jquery="div[class=oe_login_logo]" t-operation="replace">
+            <div class="oe_login_logo"><img src='/web_custom_ptacl/static/src/img/logo-ptacl2.png'/></div>
+        </t>
+        <t t-jquery="div.oe_login_footer" t-operation="replace">
+            <div class="oe_login_footer">
+                <p>This computer system is the private property of Asia Carton Lestari, PT and may only be used by those individuals authorized 
+		   by the Company’s management in accordance with Company electronic communication system policies. 
+		   Unauthorized, illegal or improper use may result in disciplinary action and civil or criminal prosecution.</p>
+                <a href="http://www.odoo.com" target="_blank">Powered by <span>odoo</span></a> | <a href="#" class="oe_login_manage_db">MD</a>
+            </div>
+        </t>
+    </t>
+</templates>

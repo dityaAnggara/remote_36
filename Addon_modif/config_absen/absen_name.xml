@@ -1,0 +1,32 @@
+<openerp>
+	<data>
+		<record model="config_absen.satu_absen" id="conf_1">
+        	<field name="pin">1</field>
+        	<field name="name">Ditya Anggara</field>
+        </record>
+        <record model="config_absen.satu_absen" id="conf_2">
+        	<field name="pin">2</field>
+        	<field name="name">Okky Permana</field>
+        </record>
+        <record model="config_absen.satu_absen" id="conf_3">
+        	<field name="pin">3</field>
+        	<field name="name">Ovan Diana</field>
+        </record>
+        <record model="config_absen.satu_absen" id="conf_4">
+        	<field name="pin">4</field>
+        	<field name="name">Agung Hario</field>
+        </record>
+        <record model="config_absen.satu_absen" id="conf_5">
+        	<field name="pin">5</field>
+        	<field name="name">Robin</field>
+        </record>
+        <record model="config_absen.satu_absen" id="conf_6">
+        	<field name="pin">6</field>
+        	<field name="name">Sariwati Laksmono</field>
+        </record>
+        <record model="config_absen.satu_absen" id="conf_7">
+        	<field name="pin">7</field>
+        	<field name="name">Mohammad Adi Susanto</field>
+        </record>
+	</data>
+</openerp>

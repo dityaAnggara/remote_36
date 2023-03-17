@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	
+	<data>
+		<report id="report_webkit_new_sj"
+		model = "stock.picking.out"
+		name="stock.picking.out.report"
+		file="stock_acl_v2/report/surat_jalan_n.mako"
+		string="Surat Jalan"
+		report_type="webkit"/>
+	</data>
+</openerp>

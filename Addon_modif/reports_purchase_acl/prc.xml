@@ -1,0 +1,240 @@
+<openerp>
+	<data>
+		<menuitem id="purchase_report_sj" name="Reports" parent="base.menu_purchase_root"
+			sequence="12" />
+		
+		<record id="view_purchase_rept_form" model="ir.ui.view">
+			<field name="name">Purchase Report Surat Jalan / Faktur</field>
+			<field name="model">purchase.pr_rp_val</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Purchase Report" version="7.0">
+					<group>
+						<group>
+							<field name="jenis_report" />
+							<!-- field name="type_view" attrs="{'invisible':[('jenis_report','=','faktur')]}"
+								/-->
+							<field name="purchase_type" />
+						</group>
+						<group>
+							<field name="date_start" />
+							<field name="date_end" />
+						</group>
+						<group>
+							<field name="all" />
+							<field name="supplier_list" attrs="{'required':[('all','=',False)],'invisible':[('all','=',True)]}"
+								/>
+						</group>
+					</group>
+					<footer>
+						<button name="purc_prnt" icon="gtk-execute" string="Excel" type="object" context="{'xls_export': 1}" />
+						<button name="purc_prnt" icon="gtk-print" string="Print" type="object" class="oe_highlight" />
+						<!-- button name="purc_prnt" string="Print" type="object" class="oe_highlight" /-->
+						or
+						<button string="Cancel" class="oe_link" special="cancel" />
+					</footer>
+				</form>
+			</field>
+		</record>
+		<record id="view_purchase_outstand_form" model="ir.ui.view">
+			<field name="name">Report Outstanding Purchase</field>
+			<field name="model">purchase.outstand</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Purchase Report" version="7.0">
+					<group>
+						<group>
+							<field name="purchase_state" />
+							<field name="all" />
+							<field name="partner_id" attrs="{'required':[('all','=',False)],'invisible':[('all','=',True)]}"
+								/>
+						</group>
+						<group>
+							<field name="date_start" />
+							<field name="date_end" />
+						</group>
+					</group>
+					<footer>
+						<button name="cetak" icon="gtk-execute" string="Excel" type="object" context="{'xls_export': 1}" />
+						<button name="cetak" icon="gtk-print" string="Print" type="object" class="oe_highlight" />
+						or
+						<button string="Cancel" class="oe_link" special="cancel" />
+					</footer>
+				</form>
+			</field>
+		</record>
+		<record id="view_purchase_spk_form" model="ir.ui.view">
+			<field name="name">Report SPK</field>
+			<field name="model">purchase.spk</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Purchase Report" version="7.0">
+					<group>
+						<group>
+							<field name="all" />
+							<field name="partner_id" attrs="{'required':[('all','=',False)],'invisible':[('all','=',True)]}"
+								/>
+						</group>
+						<group>
+							<field name="date_start" />
+							<field name="date_end" />
+						</group>
+					</group>
+					<footer>
+						<button name="cetak" icon="gtk-execute" string="Excel" type="object" context="{'xls_export': 1}" />
+						<button name="cetak" icon="gtk-print" string="Print" type="object" class="oe_highlight" />
+						or
+						<button string="Cancel" class="oe_link" special="cancel" />
+					</footer>
+				</form>
+			</field>
+		</record>
+		<record id="view_purchase_po_form" model="ir.ui.view">
+			<field name="name">Report Penerimaan Bahan Baku</field>
+			<field name="model">purchase.po</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Purchase Report" version="7.0">
+					<group>
+						<group>
+							<field name="all" />
+							<field name="partner_id" attrs="{'required':[('all','=',False)],'invisible':[('all','=',True)]}"
+								/>
+						</group>
+						<group>
+							<field name="date_start" />
+							<field name="date_end" />
+						</group>
+					</group>
+					<footer>
+						<button name="cetak" icon="gtk-execute" string="Excel" type="object" context="{'xls_export': 1}" />
+						<button name="cetak" icon="gtk-print" string="Print" type="object" class="oe_highlight" />
+						or
+						<button string="Cancel" class="oe_link" special="cancel" />
+					</footer>
+				</form>
+			</field>
+		</record>
+		<record id="view_purchase_bantu_form" model="ir.ui.view">
+			<field name="name">Report Penerimaan Bahan Pembantu</field>
+			<field name="model">purchase.bantu</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Purchase Report" version="7.0">
+					<group>
+						<group>
+							<field name="all" />
+							<field name="partner_id" attrs="{'required':[('all','=',False)],'invisible':[('all','=',True)]}"
+								/>
+						</group>
+						<group>
+							<field name="date_start" />
+							<field name="date_end" />
+						</group>
+					</group>
+					<footer>
+						<button name="cetak" icon="gtk-execute" string="Excel" type="object" context="{'xls_export': 1}" />
+						<button name="cetak" icon="gtk-print" string="Print" type="object" class="oe_highlight" />
+						or
+						<button string="Cancel" class="oe_link" special="cancel" />
+					</footer>
+				</form>
+			</field>
+		</record>
+		<record id="view_purchase_part_form" model="ir.ui.view">
+			<field name="name">Report Penerimaan Sparepart</field>
+			<field name="model">purchase.part</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Purchase Report" version="7.0">
+					<group>
+						<group>
+							<field name="all" />
+							<field name="partner_id" attrs="{'required':[('all','=',False)],'invisible':[('all','=',True)]}"
+								/>
+						</group>
+						<group>
+							<field name="date_start" />
+							<field name="date_end" />
+						</group>
+					</group>
+					<footer>
+						<button name="cetak" icon="gtk-execute" string="Excel" type="object" context="{'xls_export': 1}" />
+						<button name="cetak" icon="gtk-print" string="Print" type="object" class="oe_highlight" />
+						or
+						<button string="Cancel" class="oe_link" special="cancel" />
+					</footer>
+				</form>
+			</field>
+		</record>
+		
+		<record id="action_pr_rp" model="ir.actions.act_window">
+			<field name="name">Surat Jalan / Faktur</field>
+			<field name="res_model">purchase.pr_rp_val</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+		<record id="action_pr_baku" model="ir.actions.act_window">
+			<field name="name">Penerimaan Bahan Baku</field>
+			<field name="res_model">purchase.po</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+		<record id="action_pr_bantu" model="ir.actions.act_window">
+			<field name="name">Penerimaan Bahan Pembantu</field>
+			<field name="res_model">purchase.bantu</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+		<record id="action_pr_part" model="ir.actions.act_window">
+			<field name="name">Penerimaan Sparepart</field>
+			<field name="res_model">purchase.part</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+		<record id="action_pr_spk" model="ir.actions.act_window">
+			<field name="name">Surat Perintah Kerja</field>
+			<field name="res_model">purchase.spk</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+		<record id="action_pr_out" model="ir.actions.act_window">
+			<field name="name">Outstanding Purchase</field>
+			<field name="res_model">purchase.outstand</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+		
+		<menuitem action="action_pr_rp" parent="purchase_report_sj" id="menu_purc_val" sequence="10"
+			/>
+		<menuitem action="action_pr_baku" parent="purchase_report_sj" id="menu_purc_baku_val"
+			sequence="30" />
+		<menuitem action="action_pr_bantu" parent="purchase_report_sj" id="menu_purc_bantu_val"
+			sequence="40" />
+		<menuitem action="action_pr_part" parent="purchase_report_sj" id="menu_purc_part_val"
+			sequence="50" />
+		<menuitem action="action_pr_spk" parent="purchase_report_sj" id="menu_purc_spk_val"
+			sequence="60" />
+		<menuitem action="action_pr_out" parent="purchase_report_sj" id="menu_purc_out_val"
+			sequence="20" />
+		
+		<record id="view_picking_out_form" model="ir.ui.view">
+			<field name="name">stock.picking.out.form</field>
+			<field name="model">stock.picking.out</field>
+			<field name="inherit_id" ref="stock_acl_v2.view_picking_form_inherit_acl_out"/>
+			<field name="arch" type="xml">
+				<button name="action_prepare" position="after">
+					<button name="action_process" string="Deliver Return" type="object" class="oe_highlight"
+						attrs="{'invisible':['|',('state','!=','assigned'),('purchase_id','=',False)]}"
+						groups="stock.group_stock_manager,stock.group_stock_user"/>
+					<field name="purchase_id" invisible="1" />
+				</button>
+				<button name="action_prepare" position="replace">
+					<button name="action_prepare" string="Prepare Delivery" groups="base.group_sale_salesman"
+						type="object" attrs="{'invisible':['|','|',('prepare_button','!=',False),('state','=','cancel'),('purchase_id','!=',False)]}"
+						class="oe_highlight"/>
+				</button>
+			</field>
+		</record>
+	</data>
+</openerp>

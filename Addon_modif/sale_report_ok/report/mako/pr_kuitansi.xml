@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<report id="report_pr_kuitansi" model="sales.order" name="report.pr.kuitansi"
+			webkit_header="report_kuitansi" file="sales_order/report/mako/pr_kuitansi.html"
+			string="Partner List" report_type="webkit"/>
+	</data>
+</openerp>

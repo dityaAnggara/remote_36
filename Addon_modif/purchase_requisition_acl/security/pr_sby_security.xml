@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data noupdate="0">
+		<record model="ir.module.category" id="module_category_kabag">
+			<field name="name">Kepala Bagian</field>
+			<field name="sequence">9</field>
+		</record>
+		
+		<record id="group_kabag" model="res.groups">
+			<field name="name">Umum</field>
+			<field name="category_id" ref="module_category_kabag" />
+			<field name="users" eval="[(4, ref('base.user_root'))]" />
+		</record>
+		
+		<record id="group_kabag_pembelian" model="res.groups">
+			<field name="name">Pembelian</field>
+			<field name="category_id" ref="module_category_kabag" />
+			<field name="implied_ids" eval="[(4, ref('group_kabag'))]" />
+			<field name="users" eval="[(4, ref('base.user_root'))]" />
+		</record>
+		
+		<record id="purchase_requisition_direksi" model="res.groups">
+			<field name="name">Direksi</field>
+		</record>
+		
+		<record id="purchase_requisition_gm" model="res.groups">
+			<field name="name">General Manager</field>
+		</record>
+		
+		<record id="purchase.group_purchase_requisition_sby" model="res.groups">
+			<field name="name">Direksi Surabaya</field>
+			<field name="category_id" ref="base.module_category_purchase_management" />
+			<field name="implied_ids" eval="[(4, ref('purchase.group_purchase_user'))]" />
+		</record>
+		
+	<!-- /data>
+	<data noupdate="1" -->
+		
+		<record model="ir.rule" id="purchase_requisition_acl_hr_dept_prc">
+			<field name="name">See Department</field>
+			<field name="model_id" ref="model_hr_dept_prc"/>
+			<field name="domain_force">[(1,'=',1)]</field>
+			<field name="groups" eval="[(4, ref('purchase.group_purchase_user'))]"/>
+		</record>
+		
+		<record model="ir.rule" id="purchase_requisition_stock_picking_in">
+			<field name="name">See Warehouse</field>
+			<field name="model_id" ref="stock.model_stock_picking_in"/>
+			<field name="domain_force">[(1,'=',1)]</field>
+			<field name="groups" eval="[(4, ref('purchase.group_purchase_user'))]"/>
+		</record>
+		
+		<record model="ir.rule" id="purchase_requisition_stock_move">
+			<field name="name">Rec Warehouse</field>
+			<field name="model_id" ref="stock.model_stock_move"/>
+			<field name="domain_force">[(1,'=',1)]</field>
+			<field name="groups" eval="[(4, ref('purchase.group_purchase_user'))]"/>
+		</record>
+		
+	</data>
+</openerp>

@@ -1,0 +1,108 @@
+<openerp>
+	<data>
+		<record model="product.kip.child" id="abj_1">
+        	<field name="alias">A</field>
+        	<field name="number">1</field>
+    	</record>
+    	<record model="product.kip.child" id="abj_2">
+        	<field name="alias">B</field>
+        	<field name="number">2</field>
+    	</record>
+    	<record model="product.kip.child" id="abj_3">
+        	<field name="alias">C</field>
+        	<field name="number">3</field>
+    	</record>
+    	<record model="product.kip.child" id="abj_4">
+        	<field name="alias">D</field>
+        	<field name="number">4</field>
+    	</record>
+        <record model="product.kip.child" id="abj_5">
+        	<field name="alias">E</field>
+        	<field name="number">5</field>
+    	</record>
+        <record model="product.kip.child" id="abj_6">
+        	<field name="alias">F</field>
+        	<field name="number">6</field>
+    	</record>
+    	<record model="product.kip.child" id="abj_7">
+        	<field name="alias">G</field>
+        	<field name="number">7</field>
+    	</record>
+    	<record model="product.kip.child" id="abj_8">
+        	<field name="alias">H</field>
+        	<field name="number">8</field>
+    	</record>
+    	<record model="product.kip.child" id="abj_9">
+        	<field name="alias">I</field>
+        	<field name="number">9</field>
+    	</record>
+    	<record model="product.kip.child" id="abj_10">
+        	<field name="alias">J</field>
+        	<field name="number">10</field>
+    	</record>
+    	<record model="product.kip.child" id="abj_11">
+        	<field name="alias">K</field>
+        	<field name="number">11</field>
+    	</record>
+    	<record model="product.kip.child" id="abj_12">
+        	<field name="alias">L</field>
+        	<field name="number">12</field>
+    	</record>
+    	<record model="product.kip.child" id="abj_13">
+        	<field name="alias">M</field>
+        	<field name="number">13</field>
+    	</record>
+    	<record model="product.kip.child" id="abj_14">
+        	<field name="alias">N</field>
+        	<field name="number">14</field>
+    	</record>
+    	<record model="product.kip.child" id="abj_15">
+        	<field name="alias">O</field>
+        	<field name="number">15</field>
+    	</record>
+    	<record model="product.kip.child" id="abj_16">
+        	<field name="alias">P</field>
+        	<field name="number">16</field>
+    	</record>
+    	<record model="product.kip.child" id="abj_17">
+        	<field name="alias">Q</field>
+        	<field name="number">17</field>
+    	</record>
+    	<record model="product.kip.child" id="abj_18">
+        	<field name="alias">R</field>
+        	<field name="number">18</field>
+    	</record>
+    	<record model="product.kip.child" id="abj_19">
+        	<field name="alias">S</field>
+        	<field name="number">19</field>
+    	</record>
+    	<record model="product.kip.child" id="abj_20">
+        	<field name="alias">T</field>
+        	<field name="number">20</field>
+    	</record>
+    	<record model="product.kip.child" id="abj_21">
+        	<field name="alias">U</field>
+        	<field name="number">21</field>
+    	</record>
+    	<record model="product.kip.child" id="abj_22">
+        	<field name="alias">V</field>
+        	<field name="number">22</field>
+    	</record>
+    	<record model="product.kip.child" id="abj_23">
+        	<field name="alias">W</field>
+        	<field name="number">23</field>
+    	</record>
+    	<record model="product.kip.child" id="abj_24">
+        	<field name="alias">X</field>
+        	<field name="number">24</field>
+    	</record>
+    	<record model="product.kip.child" id="abj_25">
+        	<field name="alias">Y</field>
+        	<field name="number">25</field>
+    	</record>
+    	<record model="product.kip.child" id="abj_26">
+        	<field name="alias">Z</field>
+        	<field name="number">26</field>
+    	</record>
+    </data>
+</openerp>

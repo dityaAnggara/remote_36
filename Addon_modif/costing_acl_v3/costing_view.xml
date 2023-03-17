@@ -1,0 +1,231 @@
+<openerp>
+	<data>
+		<menuitem name="Costing" id="base.main_menu_costing" groups="costing_security.group_name_costing_manager" />
+		<menuitem name="Product" id="second_main_menu_costing_new" parent="base.main_menu_costing" />
+		<menuitem name="Sales Order" id="third_main_menu_costing" parent="base.main_menu_costing" />
+		<record id="product_normal_form_view_inherit_for_costing" model="ir.ui.view">
+            <field name="name">product.new.form</field>
+            <field name="model">product.product.new</field>
+            <field eval="7" name="priority"/>
+            <field name="arch" type="xml">
+                <form create="false" edit="false" string="Product" version="7.0">
+                    <sheet>
+                        <field name="image_medium" widget="image" class="oe_avatar oe_left"/>
+                        <div class="oe_title">
+                            <div class="oe_edit_only">
+                                <label for="name" string="Product Name"/>
+                            </div>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                            <label for="categ_id" class="oe_edit_only"/>
+                            <h2><field name="categ_id"/></h2>
+                            <div name="options" groups="base.group_user">
+                                <field name="sale_ok"/>
+                                <label for="sale_ok"/>
+                            </div>
+                        </div>
+                        <div class="oe_right oe_button_box" name="buttons">
+                        </div>
+                        <notebook>
+                            <page string="Information">
+                                <group>
+                                    <group>
+                                        <field name="type"/>
+                                        <field name="uom_id" on_change="onchange_uom(uom_id,uom_po_id)" groups="product.group_uom"/>
+                                        <field name="list_price"/>
+                                    </group>
+                                    <group>
+                                        <field name="default_code"/>
+                                        <label for="ean13"/>
+                                        <div name="ean">
+                                            <field name="ean13" placeholder="e.g. 5901234123457"/>
+                                        </div>
+                                    </group>
+                                    <group>
+                                        <field groups="product.group_product_variant" name="variants"/>
+                                        <field name="price_margin" groups="product.group_product_variant"/>
+                                        <field name="price_extra" groups="product.group_product_variant"/>
+                                    </group>
+                                </group>
+                                <field name="description" placeholder="describe the product characteristics..."/>
+                            </page>
+                            <page string="Procurements" groups="base.group_user">
+                                <group name="procurement">
+                                    <group name="general">
+                                        <field name="cost_method" groups="product.group_costing_method"/>
+                                        <field name="standard_price" attrs="{'readonly':[('cost_method','=','average')]}"/>
+                                    </group>
+                                    <group name="procurement_uom" groups="product.group_uom" string="Purchase">
+                                        <field name="uom_po_id"/>
+                                    </group>
+                                </group>
+                                <separator string="Description for Suppliers"/>
+                                <field name="description_purchase" placeholder="This note will be displayed on requests for quotation..."/>
+                            </page>
+                            <page string="Inventory" groups="base.group_user">
+                                <group name="inventory">
+                                    <group name="status" string="Status">
+                                        <field name="state"/>
+                                        <field name="product_manager"/>
+                                    </group>
+                                    <group name="Weights" groups="product.group_stock_packaging" string="Weights">
+                                        <field digits="(14, 3)" name="volume" attrs="{'readonly':[('type','=','service')]}"/>
+                                        <field name="weight" attrs="{'readonly':[('type','=','service')]}"/>
+                                        <field name="weight_net" attrs="{'readonly':[('type','=','service')]}"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Sales" attrs="{'invisible':[('sale_ok','=',False)]}">
+                                <group name="sale">
+                                    <group string="Sale Conditions">
+                                        <label for="warranty"/>
+                                        <div>
+                                            <field name="warranty" class="oe_inline"/> months
+                                        </div>
+                                    </group>
+                                    <group groups="product.group_uos" string="Unit of Measure">
+                                        <field name="uos_id"/>
+                                        <field name="uos_coeff"/>
+                                        <field name="mes_type"/>
+                                    </group>
+                                </group>
+                                <field name="packaging" groups="product.group_stock_packaging">
+                                    <form string="Packaging" version="7.0">
+                                        <group col="4">
+                                            <field name="ean"/>
+                                            <field name="sequence" invisible="1"/>
+                                            <newline/>
+                                            <field name="qty"/>
+                                            <field name="ul"/>
+                                            <field name="weight_ul"/>
+                                            <separator colspan="4" string="Palletization"/>
+                                            <field name="ul_qty"/>
+                                            <field name="rows"/>
+                                            <field name="weight"/>
+                                            <separator colspan="4" string="Pallet Dimension"/>
+                                            <field name="height"/>
+                                            <field name="width"/>
+                                            <field name="length"/>
+                                        </group>
+                                        <separator colspan="4" string="Description"/>
+                                        <field name="name"/>
+                                    </form>
+                                </field>
+                                <separator string="Description for Quotations"/>
+                                <field name="description_sale" placeholder="note to be displayed on quotations..."/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+		<record id="product_product_tree_inherit_costing" model="ir.ui.view">
+            <field name="name">product.new.tree</field>
+            <field name="model">product.product.new</field>
+            <field eval="7" name="priority"/>
+            <field name="arch" type="xml">
+                <tree create="false"  colors="red:virtual_available&lt;0;blue:virtual_available&gt;=0 and state in ('draft', 'end', 'obsolete');black:virtual_available&gt;=0 and state not in ('draft', 'end', 'obsolete')" string="Products">
+                    <field name="default_code"/>
+                    <field name="name"/>
+                    <field name="categ_id" invisible="1"/>
+                    <field name="type" invisible="1"/>
+                    <field name="variants" groups="product.group_product_variant"/>
+                    <field name="uom_id" string="Unit of Measure" groups="product.group_uom"/>
+                    <field name="qty_available"/>
+                    <field name="virtual_available"/>
+                    <field name="lst_price"/>
+                    <field name="price" invisible="not context.get('pricelist',False)"/>
+                    <field name="standard_price" invisible="1"/>
+                    <field name="state"/>
+                    <field name="company_id" groups="base.group_multi_company" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+         <record id="product_search_form_view_inherit_costing" model="ir.ui.view">
+            <field name="name">product.new.search.form</field>
+            <field name="model">product.product.new</field>
+            <field name="arch" type="xml">
+                <search string="Product">
+                   <field name="name" string="Product" filter_domain="['|',('name','ilike',self),('default_code','ilike',self)]"/>
+                   <filter string="Services" icon="terp-accessories-archiver" domain="[('type','=','service')]"/>
+                   <filter string="Consumable" name="consumable" icon="terp-accessories-archiver" domain="[('type','=','consu')]" help="Consumable products"/>
+                   <separator/>
+                   <filter string="Can be Sold" name="filter_to_sell" icon="terp-accessories-archiver-minus" domain="[('sale_ok','=',1)]"/>
+                   <field name="categ_id"/>
+                   <group expand="0" string="Context...">
+                       <field name="pricelist_id" widget="selection" context="{'pricelist': self}" filter_domain="[]" groups="product.group_sale_pricelist"/> <!-- Keep widget=selection on this field to pass numeric `self` value, which is not the case for regular m2o widgets! -->
+                       <field name="company_id" groups="base.group_multi_company"/>
+                   </group>
+                   <group  expand='0' string='Group by...'>
+                       <filter string='Category' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'categ_id'}"/>
+                       <filter string='Default Unit of Measure' icon="terp-mrp" domain="[]" context="{'group_by' : 'uom_id'}"/>
+                       <filter string='Type' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'type'}"/>
+                       <filter string='Company' icon="terp-go-home" domain="[]" context="{'group_by' : 'company_id'}" groups="base.group_multi_company"/>
+                   </group>
+                </search>
+            </field>
+        </record>		
+		<record id="product_normal_action_inherit_costing" model="ir.actions.act_window">
+            <field name="name">Products</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.product.new</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="product_product_tree_inherit_costing"/>
+            <field name="search_view_id" ref="product_search_form_view_inherit_costing"/>
+            
+        </record>
+			
+			
+			<menuitem name="Products" 
+            id="menu_costing_product_new" 
+            action="product_normal_action_inherit_costing"
+            parent="second_main_menu_costing_new"/>
+		<!-- view form costing part -->
+		<record id="view_order_costing_form" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="groups_id" eval="[(6, 0, [ref('costing_security.group_name_costing_manager')])]"/> 
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="/form[@string='Sales Order']" position="attributes">
+               		<attribute name="version">7.0</attribute>
+            	 	<attribute name="create">0</attribute>
+               </xpath>
+            </field>
+        </record>
+		 <record id="view_quotation_tree_acl_costing" model="ir.ui.view">
+            <field name="name">sale.order.tree</field>
+            <field name="model">sale.order</field>
+             <field name="groups_id" eval="[(6, 0, [ref('costing_security.group_name_costing_manager')])]"/> 
+            <field name="inherit_id" ref="sale.view_quotation_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="/tree[@string='Quotation']" position="attributes">
+               		<attribute name="version">7.0</attribute>
+            	 	<attribute name="create">0</attribute>
+               </xpath>
+            </field>
+        </record>
+        
+        <record id="action_quotations_costing_acl" model="ir.actions.act_window">
+            <field name="name">Sales Order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="context">{}</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="sale.view_quotation_tree"/>
+			<field name ="domain">[('state', '=', 'sent_to_costing')]</field>              
+            
+        </record>
+        <menuitem name="Sales Order" 
+            id="menu_costing_quot"
+            action="action_quotations_costing_acl"
+            parent="third_main_menu_costing"/>    		
+	</data>
+</openerp>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+		 <record model="ir.ui.view" id="view_voucher_tree_custom2">
+            <field name="name">account.voucher.tree.custom2</field>
+            <field name="model">account.voucher</field>
+            
+            <field name="arch" type="xml">
+               <tree colors="blue:state == 'draft';gray:state == 'cancel';red:audit" string="Voucher Entries">
+                     <field name="date"/>
+                  	<field name="number"/>
+                    <field name="partner_id"/>
+              
+                    <field name="period_id" invisible="context.get('visible', True)"/>
+                    <field name="type" invisible="context.get('visible', True)"/>
+                    <field name="amount" sum="Total Amount"/>
+                    <field name="audit" invisible="1"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+		 <record model="ir.ui.view" id="view_voucher_form_custom2">
+            <field name="name">account.voucher.form.custom2</field>
+            <field name="model">account.voucher</field>
+            
+            <field name="priority" eval="32"/>
+            <field name="arch" type="xml">
+                <form string="zzzzzzzzzzz List">
+                    <field name="date"/>
+                  
+                </form>
+            </field>
+        </record>		
+
+		<act_window id="act_voucher_list2" name="Invoice List2" res_model="account.voucher" context="{'state':'posted'}" 
+			domain="[('state','=','posted')]" 
+			view_type="form" view_mode="tree,form" /> 
+
+
+        <record id="action_voucher_list2_view2" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_voucher_tree_custom2"/>
+            <field name="act_window_id" ref="act_voucher_list2"/>
+		</record>
+		<menuitem id="menu_invoice_list2" name="List Invoice" parent="account.menu_finance_receivables" action="act_voucher_list2"
+			sequence="18" />   
+        
+    </data>
+</openerp>

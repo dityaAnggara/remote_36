@@ -1,0 +1,64 @@
+<openerp>
+	<data>
+		<record id="view_product_model_box_form" model="ir.ui.view">
+            <field name="name">master_model_box.main.form</field>
+            <field name="model">master_model_box.main</field>
+            <field name="arch" type="xml">
+                <form string="Master Model Box" version="7.0">
+                	<sheet>
+                	 <group>
+                	 	<field name="name"  />
+                	 </group>
+                	 <field name="box_line"  >
+						 	<tree editable="bottom" string="Box Lines" version="7.0" >
+						 		<field name="panjang_satu"/>
+								<field name="panjang_dua"/>
+								<field name="lebar_satu"/>
+								<field name="lebar_dua"/>
+								<field name="flap_atas_satu"/>
+								<field name="flap_atas_dua"/>
+								<field name="flap_bawah_satu"/>
+								<field name="flap_bawah_dua"/>						 		
+						 	</tree>
+					 </field> 
+                	 <field name="description_model" placeholder="Put your description here if necessery...."/> 	
+                	</sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_product_model_box_tree" model="ir.ui.view">
+            <field name="name">master_model_box.main.tree</field>
+            <field name="model">master_model_box.main</field>
+            <field name="arch" type="xml">
+                <tree  string="Master Model Box">
+                    <field name="name"  />
+                	 <field name="description_model" />                     
+                </tree>
+            </field>
+        </record>
+        <record id="view_product_model_box_search" model="ir.ui.view">
+            <field name="name">master_model_box.main.search</field>
+            <field name="model">master_model_box.main</field>
+            <field name="arch" type="xml">
+                <search string="Master Model Box">
+                    <field name="name"  />
+                	 <field name="description_model"/>                     
+                </search>
+            </field>
+        </record>
+        <record id="action_product_model_box" model="ir.actions.act_window">
+            <field name="name">Master Model Box</field>
+            <field name="res_model">master_model_box.main</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_product_model_box_search"/>
+            <field name="view_id" ref="view_product_model_box_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create new model box.
+              </p>
+            </field>
+        </record>
+        <menuitem action="action_product_model_box" parent="mrp.menu_mrp_configuration"  id="menu_product_model_box_only" />
+	</data>
+</openerp>

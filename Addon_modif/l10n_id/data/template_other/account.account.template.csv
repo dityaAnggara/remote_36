@@ -1,0 +1,2 @@
+id,code,name,type,user_type/id,parent_id/id,reconcile,chart_template_id/id
+l10n_id_account_template_other_1,61400,Payroll expense ,other,l10n_id.user_type_expense,expense,FALSE,l10n_id.account_chart_template_other

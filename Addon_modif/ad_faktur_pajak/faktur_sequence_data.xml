@@ -1,0 +1,16 @@
+<openerp>
+	<data>
+		<record id="seq_faktur_pajak_out" model="ir.sequence.type">
+            <field name="name">Faktur Pajak Out</field>
+            <field name="code">fakturout</field>
+        </record>
+        
+        <record id="seq_faktur_pajak" model="ir.sequence">
+            <field name="name">Faktur Pajak Out</field>
+            <field name="code">fakturout</field>
+            <field name="prefix">010.xxxx.xxxx.xxxx</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+	</data>
+</openerp>

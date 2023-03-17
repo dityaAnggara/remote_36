@@ -1,0 +1,171 @@
+<openerp>
+	<data>
+	  <menuitem id="menu_hr_main_in_ab" parent="hr.menu_hr_root" name="Absensi" sequence="1"/>	
+	  <record id="view_absensi_view_foorm" model="ir.ui.view">
+            <field name="name">config_absen.empat_absen.form</field>
+            <field name="model">config_absen.empat_absen</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form version="7.0" string="View Absensi form">
+                	<field name="empat_id" />
+					<field name="status" />
+					 <field name="date_ab" />               	
+                </form>
+            </field>
+        </record>
+        <record id="view_absensi_view_satu_foorm" model="ir.ui.view">
+            <field name="name">config_absen.satu_absen.form</field>
+            <field name="model">config_absen.satu_absen</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form version="7.0" string="Name Employess">
+                	<sheet>
+                		<group>
+                			<field name="id" />
+							<field name="name" />
+                		</group>
+                	</sheet>
+                </form>
+            </field>
+        </record>		
+	  <record id="view_absensi_view" model="ir.ui.view">
+            <field name="name">config_absen.empat_absen.tree</field>
+            <field name="model">config_absen.empat_absen</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree version="7.0" string="View Absensi">
+                	<field name="empat_id" />
+					<field name="status" />
+					 <field name="date_ab" />               	
+                </tree>
+            </field>
+        </record>
+       	
+	 <record id="view_tarik_data_form" model="ir.ui.view">
+            <field name="name">Tarik Data Absensi</field>
+            <field name="model">config_absen.dua_absen</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Tarik Data Absensi" version="7.0">
+                    <group>
+                        <button name="tarikk" string="tarik data" type="object" class="oe_highlight"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="view_count_absenn_form" model="ir.ui.view">
+            <field name="name">config_absen.tiga_absen.form</field>
+            <field name="model">config_absen.tiga_absen</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Count Jumlah" version="7.0">
+                	<group>
+                		<field name="dat_car" />
+                	</group>
+                    <group>
+                        <button name="count_jamker" string="Hitung Jam Kerja" type="object" class="oe_highlight"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="action_hitung_jam_kerja" model="ir.actions.act_window">
+            <field name="name">Hitung Jam Kerja</field>
+            <field name="res_model">config_absen.tiga_absen</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <record id="action_tarik_data" model="ir.actions.act_window">
+            <field name="name">Tarik Data Absensi</field>
+            <field name="res_model">config_absen.dua_absen</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <record id="view_absensi_view_filter" model="ir.ui.view">
+            <field name="name">config_absen.empat_absen.filter</field>
+            <field name="model">config_absen.empat_absen</field>
+            <field name="arch" type="xml">
+                <search string="Absensi">
+                    <field name="empat_id" string="Employees"/>
+                    <field name="date_ab" />
+                    <field name="status"/>
+					<group expand="0" string="Group By...">
+                        <filter string="Name" icon="terp-personal" domain="[]"/>
+                     </group>                 
+                </search>
+             </field>
+         </record>
+        <record id="action_view_dtat_abs" model="ir.actions.act_window">
+            <field name="name">View Absensi</field>
+            <field name="res_model">config_absen.empat_absen</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" eval="False"/>
+            <field name="search_view_id" ref="view_absensi_view_filter"/>
+        </record>
+         <record id="view_absensi_view_satu_absen" model="ir.ui.view">
+            <field name="name">config_absen.satu_absen.tree</field>
+            <field name="model">config_absen.satu_absen</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree version="7.0" string="View Absensi satu">
+                	<field name="id" />
+                	<field name="name" />
+				</tree>
+            </field>
+        </record>
+         <record id="view_absensi_count_jam_kerja" model="ir.ui.view">
+            <field name="name">config_absen.lima_absen.tree</field>
+            <field name="model">config_absen.lima_absen</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree version="7.0" string="View Absensi satu">
+                	<field name="lima_id" />
+					<field name="tanggal_date" />                	
+                	<field name="jam_masuk" />
+					<field name="jam_pulang" />
+                	<field name="jumlah_jam" />                	
+				</tree>
+            </field>
+        </record>
+        <record id="view_absensi_count_filter" model="ir.ui.view">
+            <field name="name">config_absen.lima_absen.filter</field>
+            <field name="model">config_absen.lima_absen</field>
+            <field name="arch" type="xml">
+                <search string="Count Jam Kerja">
+                    <field name="lima_id" string="Employees"/>
+                    <field name="tanggal_date" /> 
+                    <field name="jam_masuk" />
+                    <field name="jam_pulang"/>
+					<group expand="0" string="Group By...">
+                        <filter string="Name" icon="terp-personal" domain="[]"/>
+                     </group>                 
+                </search>
+             </field>
+         </record>
+        <record id="action_absen_count_jam" model="ir.actions.act_window">
+            <field name="name">Jumlah Jam Kerja</field>
+            <field name="res_model">config_absen.lima_absen</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" eval="False"/>
+           <field name="search_view_id" ref="view_absensi_count_filter"/>
+        </record>
+        <record id="action_view_abn_in" model="ir.actions.act_window">
+            <field name="name">Name Employess</field>
+            <field name="res_model">config_absen.satu_absen</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" eval="False"/>
+           
+        </record>
+        <menuitem id="menu_tarik_data_empat" name="Action"  parent="menu_hr_main_in_ab"  />
+        <menuitem action="action_hitung_jam_kerja" parent="menu_tarik_data_empat" id="menu_tarik_data_tiga" />        
+		<menuitem action="action_view_abn_in" parent="menu_hr_main_in_ab" id="menu_tarik_data_dua" />
+		<menuitem action="action_tarik_data" parent="menu_tarik_data_empat" id="menu_tarik_data" />
+		<menuitem action="action_view_dtat_abs" parent="menu_hr_main_in_ab" id="menu_tarik_data_satu" />
+		<menuitem action="action_absen_count_jam" parent="menu_hr_main_in_ab" id="menu_tarik_data_lima" />		
+	</data>
+</openerp>

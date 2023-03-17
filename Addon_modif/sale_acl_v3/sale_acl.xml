@@ -1,0 +1,399 @@
+<openerp>
+	<data>
+		<menuitem name="Sales"
+            id="base.menu_base_partner"
+            groups="base.group_sale_salesman,base.group_sale_manager,purchase_requisition_acl.purchase_requisition_direksi,purchase_requisition_acl.purchase_requisition_gm"/>
+		<!--menuitem id="sale_test_report" name="Reports" parent="base.menu_base_partner" sequence="12"/-->
+		
+		<record id="view_order_form_inherit_acl" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <field name="state" position="replace">
+                    <field name="state" widget="statusbar" statusbar_visible="draft,sent_to_ppic,sent_to_costing,approval,progress,manual,done" statusbar_colors='{"invoice_except":"red","waiting_date":"blue"}'/>
+                </field>
+                <xpath expr="//sheet/h1/label[@string='Quotation ']" position='attributes'>
+					<attribute name="invisible">1</attribute>
+				</xpath>
+				<button name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice"
+                            type="action" states="manual" class="oe_highlight" groups="base.group_user" position="replace">
+					<button name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice"
+                            type="action"
+					attrs="{'invisible': ['|',('state','not in',('done','manual')),('invoice_exists','=',True)]}"   class="oe_highlight" groups="base.group_user" />
+				</button>					
+				<xpath expr="//sheet/h1/label[@string='Sales Order ']" position='replace'>
+					<label string="Sales Order " attrs="{'invisible': [('state','not in',('draft','sent_to_ppic','sent_to_costing','sent_to_sale','approval'))]}"/>
+				</xpath>
+				<xpath expr="//sheet/h1/label[@string='Sales Order ']" position='after'>
+					<label string="SKP " attrs="{'invisible': [('state','in',('draft','sent_to_ppic','sent_to_costing','sent_to_sale','approval'))]}"/>
+				</xpath>
+				<xpath expr="//sheet/h1/field[@name='name']" position='replace'>
+					<field name="name" class="oe_inline" readonly="1" />
+				</xpath>	
+				<xpath expr="//header/button[@name='action_quotation_send']" states="sent,progress,manual" position="after">
+               		<button name="action_quotation_send" string="Send by Email" type="object" states="sent_to_sale" groups="base.group_sale_salesman"/>
+                </xpath>
+                <xpath expr="//header/button[@name='action_quotation_send']" states="draft" position="attributes">
+                	<attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//header/button[@name='cancel']" position="attributes">
+                	<attribute name="version">7.0</attribute>
+                	<attribute name="string">Cancel Sales Order</attribute>
+                </xpath>
+                <xpath expr="//header/button[@name='action_cancel']" position="attributes">
+                	<attribute name="version">7.0</attribute>
+                	<attribute name="string">Cancel SKP</attribute>
+                </xpath>		
+            	<button name="cancel" states="draft,sent" string="Cancel Sales Order" groups="base.group_user" position="after">
+                	<button name="action_cancel_special"
+                	 string="Cancel Remaining DO/Close SKP" states="progress,manual"
+                     groups="base.group_sale_salesman" 
+                    type="object" class="oe_highlight"/>
+            		<button name="snd_ppic" string="Send to PPIC" type="object" states="draft" groups="base.group_sale_salesman"  class="oe_highlight"/>
+                	 <button name="snd_costing" string="Send to Costing" type="object" states="sent_to_ppic" groups="mrp.group_mrp_user" class="oe_highlight"/>               	
+               		
+				</button>
+				<xpath expr='//field[@name="client_order_ref"]' position="after">
+                	<field name="po_sl" readonly="1" attrs="{'invisible':[('state','not in',('manual', 'progress'))]}"/>
+					<field name="date_delivery_so" /> 
+					<field name="warehouse_id_sale" /> 	               	
+				</xpath>
+				<xpath expr='//field[@name="client_order_ref"]' position="attributes">
+                	<attribute name="invisible">1</attribute>
+				</xpath>
+				<button name="action_button_confirm" class="oe_highlight" states="sent" 
+				string="Confirm Sale" type="object" groups="base.group_user" position="replace" >
+					<button name="action_button_confirm"
+					states="approval" 
+					string="Approve Sale" 
+					class="oe_highlight" 
+					groups="purchase_requisition_acl.purchase_requisition_direksi,purchase_requisition_acl.purchase_requisition_gm" 
+					attrs="{'invisible':[('state','in',('draft','sent_to_ppic','sent_to_costing','progress', 'manual', 'done'))]}" type="object" />
+				</button>	
+               	<xpath expr="//header/button[@name='action_button_confirm']" position="attributes">
+               		<attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//header/button[@name='action_button_confirm']" position="after">
+               		<button name="approv" 
+					states="sent_to_costing" 
+					string="Request Approval" 
+					class="oe_highlight" 
+					groups="costing_security.group_name_costing_manager" 
+					attrs="{'invisible':[('state','in',('draft','sent_to_ppic','progress', 'manual', 'done'))]}" type="object" />
+                </xpath>
+             	<xpath expr="//header/button[@name='%(sale.action_view_sale_advance_payment_inv)d']" position="attributes">
+               		<attribute name="groups">base.group_sale_salesman</attribute>
+                </xpath>
+                <xpath expr="//header/button[@name='action_cancel']" position="attributes">
+               		<attribute name="groups">base.group_sale_salesman</attribute>
+                </xpath>
+                <xpath expr="//header/button[@name='invoice_cancel']" position="attributes">
+               		<attribute name="groups">base.group_sale_salesman</attribute>
+                </xpath>
+                <xpath expr="//header/button[@name='print_quotation']" states="sent,progress,manual" position="replace">
+               		<button name="print_quotation_satu" string="Print satu" type="object" states="sent,progress,manual" groups="base.group_user"/>
+                        
+                </xpath>
+                <xpath expr="//header/button[@name='print_quotation_satu']" states="sent,progress,manual" position="attributes">
+               		<attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//header/button[@name='print_quotation']" states="draft" position="attributes">
+               		<attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//header/button[@name='action_quotation_send']" states="draft" position="attributes">
+               		<attribute name="groups">base.group_sale_salesman</attribute>
+                </xpath>
+                <xpath expr="//header/button[@name='action_quotation_send']" states="sent,progress,manual" position="attributes">
+               		<attribute name="groups">base.group_sale_salesman</attribute>
+                </xpath>
+                <xpath expr='//field[@name="partner_id"]' position="replace">
+                	<field name="partner_id"  on_change="onchange_partner_id_new(partner_id, context)" 
+                	options="{'limit': 10, 'create': False }" />
+                	
+                </xpath>
+                <xpath expr='//field[@name="partner_id"]' position="after">
+                	<field name="category_id" required="1"  />            	
+                </xpath>
+                <xpath expr="//field[@name='amount_total']" position="attributes">
+                	<attribute name="attrs">{'invisible':[('state','=','sent_to_ppic')]}</attribute>
+                </xpath>
+                 <xpath expr="//field[@name='amount_untaxed']" position="attributes">
+                	<attribute name="attrs">{'invisible':[('state','=','sent_to_ppic')]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='amount_tax']" position="attributes">
+                	<attribute name="attrs">{'invisible':[('state','=','sent_to_ppic')]}</attribute>
+                </xpath>
+                <xpath expr='//field[@name="order_line"]' position='replace'>
+            		<field name="order_line" attrs="{'readonly':[('state','not in',('draft','approval','sent_to_costing','sent_to_ppic'))]}" context="{'default_customer_semu':partner_id}" 
+            				options="{'create': False}" mode="tree"  >
+                               
+                                <tree string="Sales Order Lines" editable="bottom" version="7.0">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="state" invisible="1"/>
+                                    <field name="th_weight" invisible="1"/>
+									<field name="id" invisible="1"/>                                    
+                                    <button name="price_history" attrs="{'invisible':[('state','=','sent_to_ppic')]}"  type="object" string="History" icon="gtk-dnd-multiple" />
+                                    <field name="product_id" attrs="{'readonly':[('state','not in',('draft','sent_to_ppic'))]}" options="{'create': False, 'create_edit': False}" 
+                                    context="{'cusm_id':customer_semu,'partner_id':parent.partner_id, 'quantity':product_uom_qty, 
+                                    'pricelist':parent.pricelist_id, 'shop':parent.shop_id, 'uom':product_uom, 
+                                    'toleransi':toleransi_skp}"
+                                         domain="[('cusm_id','=',customer_semu),('categ_id.name','in',('Carton Box','Paper Tube'))]" 
+                                        on_change="product_id_change_new(parent.pricelist_id, product_id, product_uom_qty, False, product_uos_qty, False, name, parent.partner_id, False, True, parent.date_order, False, parent.fiscal_position, False, context)"
+                                    	/>
+									                                   
+                                    <field name="name"/>
+                                    <field name="purchase_customer_no" />
+									
+                                    <field name="qty_realisasi" />  
+									<field name="product_uom_qty" attrs="{'readonly':[('state','not in',('draft','approval'))]}" />	                                  
+									<field name="ukuran_marketing" />
+									<field name="qualitas_marketing" />									
+									<!--field name="product_uom_qty"
+                                        context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'shop':parent.shop_id, 'uom':product_uom}"
+                                        on_change="product_id_change(parent.pricelist_id, product_id, product_uom_qty, product_uom, product_uos_qty, product_uos, name, parent.partner_id, False, False, parent.date_order, False, parent.fiscal_position, True, context)"/-->
+                                    <!--field name="product_uom"
+                                        on_change="product_uom_change(parent.pricelist_id, product_id, product_uom_qty, product_uom, product_uos_qty, product_uos, name, parent.partner_id, False, False, parent.date_order, context)"
+                                        groups="product.group_uom" options='{"no_open": True}'/-->
+                                    <field name="toleransi_skp" attrs="{'readonly':[('state','not in',('draft'))]}"/>	
+									<field name="product_uom" groups="product.group_uom" options='{"no_open": True}'/>					                                    
+                                    <field name="product_uos_qty" groups="product.group_uos" invisible="1"/>
+                                    <field name="product_uos" string="UoS" groups="product.group_uos" invisible="1"/>
+                                    <field name="tax_id" widget="many2many_tags" attrs="{'invisible':[('state','=','sent_to_ppic')]}" domain="[('parent_id','=',False),('type_tax_use','&lt;&gt;','purchase')]"/>
+                                    <field name="price_unit" 
+                                    attrs="{'readonly':[('id','!=',False),('state','in',('draft','sent_to_ppic'))],'invisible':['|',('id','=',False),('state','not in',('draft','sent_to_costing','approval','progress','manual'))]}" />
+                                    <field name="price_unit_hidden"
+                                      invisible="1" />
+                                    <field name="discount" groups="sale.group_discount_per_so_line"/>
+                                    <field name="price_subtotal" attrs="{'invisible':[('state','=','sent_to_ppic')]}" />
+				    				                                   
+                                </tree>
+                            </field>
+            	</xpath>
+            	<xpath expr='//field[@name="price_subtotal"]' position='after'>
+					<field name="mrp_no_kip"/>
+					<field name="customer_semu" invisible="1" />
+				</xpath>
+			</field>
+        </record>
+         <record id="view_quotation_tree" model="ir.ui.view">
+            <field name="name">sale.order.tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//field[@name='name']" position="attributes">
+                	<attribute name="string">Sales Order Number</attribute>
+                </xpath>
+                <xpath expr="//field[@name='amount_total']" position="attributes">
+                	<attribute name="attrs">{'invisible':[('state','=','sent_to_ppic')]}</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_order_line_tree_inherit_accl" model="ir.ui.view">
+            <field name="name">sale.order.line.tree</field>
+            <field name="model">sale.order.line</field>
+            <field name="inherit_id" ref="sale.view_order_line_tree"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//field[@name='product_uom_qty']" position="after">
+                	<field name="price_unit" />
+                </xpath>
+                <!--xpath expr="//field[@name='price_unit']" position="attributes">
+                	<attribute n></attribute>
+                </xpath-->
+            </field>
+        </record>
+        <record id="action_orders_line_acll" model="ir.actions.act_window">
+            <field name="name">Sales Order in Progress</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="search_view_id" ref="sale.view_sales_order_line_filter"/>
+        </record>
+        <record id="view_quotation_tree_mrp_ghg" model="ir.ui.view">
+            <field name="name">sale.order.tree</field>
+            <field name="model">sale.order</field>
+            <field name="priority">4</field>
+            <field name="arch" type="xml">
+                <tree string="Quotation" fonts="bold:message_unread==True" colors="grey:state=='cancel';blue:state in ('waiting_date','manual');red:state in ('invoice_except','shipping_except')">
+                    <field name="message_unread" invisible="1"/>
+                    <field name="name" string="Quotation Number"/>
+                    <field name="date_order"/>
+                    <field name="partner_id"/>
+                    <field name="user_id"/>
+                    <field name="amount_total" invisible="1" sum="Total Tax Included"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        <record id="acll_action_quotations_mrp_sembilan" model="ir.actions.act_window">
+            <field name="name">Sales Order Manufacturing</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_quotation_tree_mrp_ghg"/>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="context">{}</field>
+            <field name="domain">[('state','=','sent_to_ppic')]</field>
+            <field name="search_view_id" ref="sale.view_sales_order_filter"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a quotation, the first step of a new sale.
+              </p><p>
+                OpenERP will help you handle efficiently the complete sale flow:
+                from the quotation to the sales order, the
+                delivery, the invoicing and the payment collection.
+              </p><p>
+                The social feature helps you organize discussions on each sales
+                order, and allow your customers to keep track of the evolution
+                of the sales order.
+              </p>
+            </field>
+        </record>
+        <record id="view_quotation_tree_mrp_splh" model="ir.ui.view">
+            <field name="name">sale.order.tree</field>
+            <field name="model">sale.order</field>
+            <field name="priority">4</field>
+            <field name="arch" type="xml">
+                <tree string="Quotation" fonts="bold:message_unread==True" colors="grey:state=='cancel';blue:state in ('waiting_date','manual');red:state in ('invoice_except','shipping_except')">
+                    <field name="message_unread" invisible="1"/>
+                    <field name="name" string="Quotation Number"/>
+                    <field name="date_order"/>
+                    <field name="partner_id"/>
+                    <field name="user_id"/>
+                    <field name="amount_total" invisible="1" sum="Total Tax Included"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        <record id="acll_action_quotations_mrp_splh" model="ir.actions.act_window">
+            <field name="name">Sales Order Costing</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_id" ref="view_quotation_tree_mrp_splh"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="context">{}</field>
+            <field name="domain">[('state','=','sent_to_costing')]</field>
+            <field name="search_view_id" ref="sale.view_sales_order_filter"/>
+            
+        </record>
+        <record id="acll_action_quotations" model="ir.actions.act_window">
+            <field name="name">Sales Order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="sale.view_quotation_tree"/>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="context">{}</field>
+            <field name="domain">[('state','in',('draft','sent_to_sale','cancel'))]</field>
+            <field name="search_view_id" ref="sale.view_sales_order_filter"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a quotation, the first step of a new sale.
+              </p><p>
+                OpenERP will help you handle efficiently the complete sale flow:
+                from the quotation to the sales order, the
+                delivery, the invoicing and the payment collection.
+              </p><p>
+                The social feature helps you organize discussions on each sales
+                order, and allow your customers to keep track of the evolution
+                of the sales order.
+              </p>
+            </field>
+        </record>
+        <menuitem id="sale.menu_sale_quotations"
+        action="acll_action_quotations" parent="base.menu_sales" groups="base.group_sale_salesman,base.group_sale_manager"
+        sequence="4"/>
+        <record id="action_orders_aclll" model="ir.actions.act_window">
+            <field name="name">SKP</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="search_view_id" ref="sale.view_sales_order_filter"/>
+            <field name="context">{}</field>
+            <field name="domain">[('state','not in',('draft','sent_to_ppic','sent_to_costing','sent_to_sale','approval','cancel'))]</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a quotation that can be converted into a sales
+                order.
+              </p><p>
+                OpenERP will help you efficiently handle the complete sales flow:
+                quotation, sales order, delivery, invoicing and payment.
+              </p>
+            </field>
+        </record>
+        
+        <menuitem action="action_orders_aclll" id="sale.menu_sale_order" parent="base.menu_sales" sequence="6" groups="base.group_sale_salesman,base.group_sale_manager"/>
+		<record id="action_orders_aclll_direksi" model="ir.actions.act_window">
+            <field name="name">Sales Order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="sale.view_quotation_tree"/>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="search_view_id" ref="sale.view_sales_order_filter"/>
+            <field name="context">{}</field>
+            <field name="domain">[('state','in',('draft','approval'))]</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a quotation that can be converted into a sales
+                order.
+              </p><p>
+                OpenERP will help you efficiently handle the complete sales flow:
+                quotation, sales order, delivery, invoicing and payment.
+              </p>
+            </field>
+        </record>
+       <menuitem action="action_orders_aclll_direksi" 
+       id="menus_sale_direksi" parent="base.menu_sales" sequence="5" 
+       groups="purchase_requisition_acl.purchase_requisition_direksi,purchase_requisition_acl.purchase_requisition_gm"/>
+	  <record id="action_orders_aclll_view_list" model="ir.actions.act_window">
+            <field name="name">View Sales Order state</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="sale.view_quotation_tree"/>
+            <field name="view_mode">tree</field>
+            <field name="search_view_id" ref="sale.view_sales_order_filter"/>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a quotation that can be converted into a sales
+                order.
+              </p><p>
+                OpenERP will help you efficiently handle the complete sales flow:
+                quotation, sales order, delivery, invoicing and payment.
+              </p>
+            </field>
+        </record>
+       <menuitem action="action_orders_aclll_view_list" 
+       id="menus_sale_vw_list" parent="base.menu_sales" sequence="5" 
+       groups="base.group_sale_salesman,base.group_sale_manager,base.group_sale_salesman_all_leads"/>	       
+        <record id="view_shan_ju_form" model="ir.ui.view">
+            <field name="name">Sale Report</field>
+            <field name="model">sale.shan_ju</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Sale Report" version="7.0">
+                    <group>
+                        <field name="pd_type" />
+                    </group>
+                    <group>
+                        <button name="ts_prt" string="Print" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="oe_highlight" special="cancel"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_shan_ju" model="ir.actions.act_window">
+            <field name="name">Sale Report</field>
+            <field name="res_model">sale.shan_ju</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <!--menuitem action="action_shan_ju" parent="sale_test_report" id="menu_saaa" /-->
+    </data>
+</openerp>

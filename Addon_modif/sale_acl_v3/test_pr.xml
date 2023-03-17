@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<report auto="False" menu="False" id="report_test_sale_par"
+		model = "sale.shan_ju"
+		name="lo.mako"
+		file="sale_acl_v3/ngerepoti/test_sale.mako"
+		string="test sale"
+		report_type="webkit"/>
+	</data>
+</openerp>

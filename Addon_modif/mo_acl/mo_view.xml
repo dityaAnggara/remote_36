@@ -1,0 +1,17 @@
+<openerp>
+	<data>
+		<record id="acl_inherit_mrp_production_form_view" model="ir.ui.view">
+            <field name="name">mrp.production.form</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header/button[@name='action_cancel']" position="after">
+                	<button name="change_prioor" type="object" states="draft,picking_except,ready,confirmed,in_production" string="Change Urgent Prioritas" />
+                </xpath>
+            	<xpath expr="//field[@name='date_planned']" position="after">
+                	<field name="prioritas_acl" />
+                </xpath>
+            </field>
+        </record>
+	</data>
+</openerp>

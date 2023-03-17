@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<!--
+<%
+import base64
+import mx.DateTime
+
+def oe_datetime_format(obj,format='%Y-%m-%d %H:%M:%S'):
+    if obj.val:
+        if hasattr(obj,'name') and (obj.name):
+            return mx.DateTime.strptime(obj.name,format)
+        else:
+            return false
+    else:
+        return false
+
+def chdf(obj,format1,format2):
+    return datetime.strptime(obj,format1).strftime(format2)
+%>
+-->
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Surat Kontrak Penjualan</title>
+        <style type="text/css">
+            body {
+                margin: 0px;
+                padding: 0px;
+                font-size: 10px;
+                font-family: helvetica;
+            }
+            table {
+                border-collapse: collapse;
+                border: none;
+                margin: 0px;
+                padding: 0px;
+            }
+            tr, td {
+                margin: 0px;
+                padding: 0px;
+            }
+            img {
+                border: none;
+            }
+            .main {
+                /* width: 100%; */
+                border: 1px solid;
+                border-collapse: collapse;
+                page-break-after: always;
+            }
+            .main-tab {
+                width: 100%;
+            }
+            .main-tab th, .main-tab td {
+                /* border: 1px solid; */
+                padding: 3px;
+            }
+            /* .main-tab tr:first-child th {
+                border-top: 3px double;
+            } */
+            .main-tab th:first-child, .main-tab td:first-child {
+                border-left: none;
+            }
+            .main-tab th:last-child, .main-tab td:last-child {
+                border-right: none;
+            }
+            /* .main-tab2 {
+                font-size: 12px;
+            } */
+            /* .main-tab th, .main-tab td {
+                border: 1px solid;
+                margin: 0px;
+                padding: 3px;
+            }
+            .head-tab td {
+                padding: 2px;
+                vertical-align: top;
+            } */
+            .ins-tab {
+                width: 100%;
+            }
+            .ins-tab td {
+                vertical-align: top;
+                border: none;
+                padding: 0px;
+            }
+            .fix-tab {
+                table-layout: fixed;
+            }
+            .full-block {
+                width: 100%;
+                clear: both;
+            }
+            .spacer {
+                height: 0px;
+            }
+            .tikwa {
+                width: 5px;
+            }
+            .label {
+                font-weight: 900;
+            }
+        </style>
+    </head>
+    <body>
+        % for o in objects:
+        <div class="main">
+            <table class="main-tab fix-tab">
+                <thead>
+                    <tr>
+                        <th style="border-bottom: 1px solid;">
+                            <span style="display: inline-block; float: left; width: 49%;">
+                                <span style="display: inline-block; float: left;">${ helper.embed_image('png',o.company_id and o.company_id.logo,width=70) or '' }</span>
+                                <span style="font-size: 20px;">${ o.company_id and o.company_id.name or '' }</span><br />
+                                <span style="font-size: 12px;">${ o.company_id and o.company_id.rml_header1 or '' }</span>
+                            </span>
+                            <span style="display: inline-block; float: right; width: 49%;">
+                                <span style="font-size: 16px;">SURAT KONTRAK PENJUALAN</span><br />
+                                <span style="font-size: 12px;">(SALES CONTRACT)</span><br /><br />
+                                <span style="font-weight: normal;">Nomer : ${ o.name or '' }</span>
+                            </span>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th style="border-bottom: 3px double; text-align: left;">
+                            Yang bertanda tangan dibawah ini, ${ o.company_id and o.company_id.name or '' } - selaku Penjual dan<br />
+                <table class="ins-tab">
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>Nama</td>
+                        <td>:</td>
+                        <td class="mono boldest">${o.partner_id and o.partner_id.name or '&nbsp;'}</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>Alamat</td>
+                        <td>:</td>
+                        <td class="mono boldest">
+                            ${o.partner_id and o.partner_id.street or ''}<br />
+                            ${o.partner_id and o.partner_id.street2 or '<br />'}
+                            ${o.partner_id and o.partner_id.zip or ''}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>N.P.W.P.</td>
+                        <td>:</td>
+                        <td class="mono boldest">${o.partner_id and o.partner_id.npwp_acl or ''}</td>
+                    </tr>
+                </table>
+                selaku Pemesan/Pembeli, menyatakan persetujuan bersama atas pesanan tersebut dibawah ini/atau dalam daftar terlampir.
+                Penjualan ini terkait dengan syarat-syarat penjualan yang tercantum di Surat Kontrak Penjualan ini dan Syarat-syarat Umum Penjualan
+                di halaman belakang serta syarat-syarat lain yang terlampir.
+                </th>
+                </tr>
+                </thead>
+                <tbody>
+                    <!-- <% i = 1 %> -->
+                    % for line in o.order_line:
+                    <tr>
+                        <td>
+                            <table class="ins-tab fix-tab">
+                                <tr>
+                                    <td style="width: 20px;" rowspan="7">${ i }</td>
+                                    <td>Nama Barang</td>
+                                    <td class="tikwa">:</td>
+                                    <td colspan="2" class="boldest mono">${ line.name or '' }(KIP:${ line.mrp_no_kip or '' })</td>
+                                    <td class="tikwa">&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td class="tikwa">&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>Model</td>
+                                    <td class="tikwa">:</td>
+                                    <td class="boldest mono">${ line.product_id and line.product_id.categ_id and line.product_id.categ_id.name or ''}</td>
+                                    <td>No.PO</td>
+                                    <td class="tikwa">:</td>
+                                    <td class="boldest mono">${ line.purchase_customer_no or ''}</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td class="boldest mono">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>Ukuran</td>
+                                    <td class="tikwa">:</td>
+                                    <td class="boldest mono">${ line.product_id and line.product_id.dimension or ''}</td>
+                                    <td>Subs</td>
+                                    <td class="tikwa">:</td>
+                                    <td class="boldest mono">${ line.product_id and line.product_id.subtance or ''}</td>
+                                    <td>Flute</td>
+                                    <td class="tikwa">:</td>
+                                    <td class="boldest mono">${ line.product_id and line.product_id.flute or ''}</td>
+                                </tr>
+                                <tr>
+                                    <td>Jml.Order</td>
+                                    <td class="tikwa">:</td>
+                                    <td class="boldest mono">${ line.product_uom_qty or '' }</td>
+                                    <td>Franco</td>
+                                    <td class="tikwa">:</td>
+                                    <td class="boldest mono">-</td>
+                                    <td>Disc%</td>
+                                    <td class="tikwa">:</td>
+                                    <td class="boldest mono">${ line.discount or ''}</td>
+                                </tr>
+                                <tr>
+                                    <td>Harga/set</td>
+                                    <td class="tikwa">:</td>
+                                    <td class="boldest mono">Rp. ${ line.price_unit or '0' }</td>
+                                    <td>Warna</td>
+                                    <td class="tikwa">:</td>
+                                    <td class="boldest mono">${ line.product_id.color or ''}</td>
+                                    <td>K.Trm</td>
+                                    <td class="tikwa">:</td>
+                                    <td class="boldest mono">${ o.payment_term and o.payment_term.name or '' }</td>
+                                </tr>
+                                <tr>
+                                    <td>Tgl kirim</td>
+                                    <td class="tikwa">:</td>
+                                    <td class="boldest mono">${ o.date_delivery_so or '' }</td>
+                                    <td>Jml Kirim</td>
+                                    <td class="tikwa">:</td>
+                                    <td class="boldest mono">${ line.qty_realisasi or '' }</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td class="boldest mono">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>Catatan</td>
+                                    <td class="tikwa">:</td>
+                                    <td colspan="7"><span class="mono boldest">${o.note or ''}</span></td>
+                                </tr>
+                            </table>
+                            <hr />
+                        </td>
+                    </tr>
+                    <!-- <% i = i + 1 %> -->
+                    % endfor
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td style="text-align: center; border-top: 1px solid;">
+                            <div style="display: inline-block; float: left; width: 49%;">
+                                Pemesan,<br /><br /><br /><br /><br />
+                                (................................................................)<br />
+                                Harap dibubuhi stempel perusahaan
+                            </div>
+                            <div style="display: inline-block; float: right; width: 49%;">
+                                <% import time %>
+                                Tangerang, <span class="mono boldest">${time.strftime("%d %B %Y")}</span><br />
+                                <span class="boldest">${ o.company_id and o.company_id.name or '' }</span><br />
+                                ${ helper.embed_image('png',o.approve_terakhr and o.approve_terakhr.sign,width=50,height=50) or '<div style="display: inline-block; width: 54px; height: 54px;">&nbsp;</div>' }<br />
+                                (${ o.approve_terakhr and o.approve_terakhr.name or '................................................................' })
+                            </div>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        % endfor
+    </body>
+</html>

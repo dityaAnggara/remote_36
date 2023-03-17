@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<!--
+<%
+import base64
+import mx.DateTime
+
+def oe_datetime_format(obj,format='%Y-%m-%d %H:%M:%S'):
+    if obj.val:
+        if hasattr(obj,'name') and (obj.name):
+            return mx.DateTime.strptime(obj.name,format)
+        else:
+            return false
+    else:
+        return false
+
+def chdf(obj,format1,format2):
+    return datetime.strptime(obj,format1).strftime(format2)
+%>
+-->
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Laporan SPK</title>
+        <style type="text/css">
+            body {
+                margin: 0px;
+                padding: 0px;
+                font-size: 10px;
+                font-family: helvetica;
+            }
+            table {
+                border-collapse: collapse;
+                border: none;
+                margin: 0px;
+                padding: 0px;
+            }
+            tr, td {
+                margin: 0px;
+                padding: 0px;
+            }
+            img {
+                border: none;
+            }
+            .main {
+                /* width: 100%; */
+                border: 1px solid;
+                border-collapse: collapse;
+                page-break-after: always;
+            }
+            .main-tab {
+                width: 100%;
+            }
+            .main-tab th, .main-tab td {
+                border: 1px solid;
+                padding: 3px;
+            }
+            .main-tab tr:first-child th {
+                border-top: 3px double;
+            }
+            .main-tab th:first-child, .main-tab td:first-child {
+                border-left: none;
+            }
+            .main-tab th:last-child, .main-tab td:last-child {
+                border-right: none;
+            }
+            /* .main-tab2 {
+                font-size: 12px;
+            } */
+            .main-tab th, .main-tab td {
+                border: 1px solid;
+                margin: 0px;
+                padding: 3px;
+            }
+            .head-tab td {
+                padding: 2px;
+                vertical-align: top;
+            }
+            .ins-tab {
+                width: 100%;
+            }
+            .ins-tab td {
+                border: none;
+                padding: 0px;
+            }
+            .fix-tab {
+                table-layout: fixed;
+            }
+            .full-block {
+                width: 100%;
+                clear: both;
+            }
+            .spacer {
+                height: 0px;
+            }
+            .tikwa {
+                width: 5px;
+            }
+            .label {
+                font-weight: 900;
+            }
+        </style>
+    </head>
+    <body>
+        % for o in objects:
+        <!-- <% i = 1 %> -->
+        <div class="main">
+            <table class="head-tab fix-tab">
+                <tr>
+                    <td colspan="3" style="font-weight: 900; font-size: 20px; text-transform: uppercase;">
+                        Laporan SPK
+                    </td>
+                </tr>
+                <tr>
+                    <td>Dari Tanggal</td>
+                    <td>:</td>
+                    <td>${ o.date_start or '&nbsp;' }</td>
+                </tr>
+                <tr>
+                    <td>Hingga Tanggal</td>
+                    <td>:</td>
+                    <td>${ o.date_end or '&nbsp;' }</td>
+                </tr>
+                % if not o.all :
+                <tr>
+                    <td>Supplier</td>
+                    <td>:</td>
+                    <td>${ o.partner_id and o.partner_id.name or '&nbsp;' }</td>
+                </tr>
+                % endif
+            </table>
+            <table class="main-tab fix-tab">
+                <thead>
+                    <tr>
+                        <th>Tgl.</th>
+                        <th>No.</th>
+                        <th>Supplier</th>
+                        <th>Tlp</th>
+                        <th>Kend</th>
+                        <th>Barang</th>
+                        <th>Qty</th>
+                        <th>Satuan</th>
+                        <th>Harga<br />Satuan</th>
+                        <th>Harga<br />Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- <%
+                    if o.all :
+                        plines = lines(
+                            'SPK',
+                            oe_datetime_format(o.date_start,'%Y-%m-%d').strftime('%Y-%m-%d'),
+                            oe_datetime_format(o.date_end,'%Y-%m-%d').strftime('%Y-%m-%d'))
+                    else :
+                        plines = lines(
+                            'SPK',
+                            oe_datetime_format(o.date_start,'%Y-%m-%d').strftime('%Y-%m-%d'),
+                            oe_datetime_format(o.date_end,'%Y-%m-%d').strftime('%Y-%m-%d'),
+                            partner=o.partner_id.id)
+                    %> -->
+                    % for line in plines:
+                    % for line2 in line.order_line:
+                    <tr>
+                        <td style="text-align: center;">${ line.date_order or '&nbsp;' }</td>
+                        <td style="text-align: center;">${ line.name or '&nbsp;' }</td>
+                        <td>${ line.partner_id.name or '&nbsp;' }</td>
+                        <td style="text-align: center;">${ line.partner_id.phone or '&nbsp;' }</td>
+                        <td style="text-align: center;">
+                            % for pick in line.picking_ids:
+                            ${ pick.no_kendaraan or '-' }<br />
+                            % endfor
+                        </td>
+                        <td>
+                            <strong>${ line2.product_id and line2.product_id.name or '&nbsp;' }</strong><br />
+                            ${ line2.name or '&nbsp;' }
+                        </td>
+                        <td style="text-align: right;">${ line2.product_qty or '&nbsp;' }</td>
+                        <td style="text-align: center;">${ line2.product_uom and line2.product_uom.name or '&nbsp;' }</td>
+                        <td style="text-align: right;">${ line2.price_unit or '&nbsp;' }</td>
+                        <td style="text-align: right;">${ line2.price_subtotal or '&nbsp;' }</td>
+                    </tr>
+                    % endfor
+                    <tr>
+                        <td colspan="9" style="text-align: center; font-weight: 900; background-color: lightcyan;">Total</td>
+                        <td style="text-align: right; background-color: lightcyan;">${ line.amount_total or '&nbsp;' }</td>
+                    </tr>
+                    <!-- tr>
+                        <td colspan="10">&nbsp;</td>
+                    </tr -->
+                    % endfor
+                </tbody>
+            </table>
+        </div>
+        % endfor
+    </body>
+</html>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<report id="report_webkit_new_rekap"
+		model = "sale.order"
+		name="crm.lead.report.rekap"
+		file="acl_rekap_quotation/report/rekap_sale.mako"
+		string="rekap sale"
+		report_type="webkit"/>
+	</data>
+</openerp>

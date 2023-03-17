@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_customer_acl_v2,customer_acl_v2.abj,model_customer_acl_v2_abj,base.group_sale_salesman,1,1,1,1
+access_customer_acl_v2_sale_satu,customer_acl_v2.abj.sale.satu,model_customer_acl_v2_abj,base.group_sale_salesman_all_leads,1,1,1,1
+access_customer_acl_v2_sale_dua,customer_acl_v2.abj.sale.dua,model_customer_acl_v2_abj,base.group_sale_manager,1,1,1,1
+access_customer_acl_v2_purchase_satu,customer_acl_v2.abj.purchase.satu,model_customer_acl_v2_abj,purchase.group_purchase_user,1,1,1,1
+access_customer_acl_v2_purchase_dua,customer_acl_v2.abj.purchase.dua,model_customer_acl_v2_abj,purchase.group_purchase_manager,1,1,1,1

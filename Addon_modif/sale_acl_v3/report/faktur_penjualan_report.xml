@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<report id="report_webkit_new_faktur"
+		model = "sale.order"
+		name="sale.order.report.faktur"
+		file="send_t_ppic/report/faktur_penjualan_report.mako"
+		string="SKP"
+		report_type="webkit"/>
+	</data>
+</openerp>

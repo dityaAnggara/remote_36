@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<report id="report_absen_1"
+			model="config_absen.lima_absen" name="absen_inno_2"
+			file="config_absen/Kehadiran.html" string="Kehadiran"
+			report_type="webkit" />
+	</data>
+</openerp>

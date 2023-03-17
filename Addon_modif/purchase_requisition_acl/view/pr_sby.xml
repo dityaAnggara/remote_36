@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<menuitem name="Purchase Surabaya" id="base.menu_pr_sby_root"
+			groups="purchase.group_purchase_requisition_sby" sequence="61" />
+
+		<menuitem id="menu_procurement_management_sby" name="Purchase"
+			parent="base.menu_pr_sby_root" sequence="1" />
+
+		<menuitem name="Quotations" action="purchase.purchase_rfq"
+			id="menu_purchase_rfq_sby" parent="menu_procurement_management_sby"
+			sequence="0" />
+
+		<menuitem action="purchase.purchase_form_action" id="menu_purchase_form_action_sby"
+			parent="menu_procurement_management_sby" sequence="6" />
+
+		<menuitem id="menu_purchase_requisition_pro_mgt_sby"
+			sequence="10" parent="menu_procurement_management_sby"
+			action="purchase_requisition.action_purchase_requisition" />
+
+		<menuitem action="purchase.purchase_rfq_po" id="menu_purchase_rfq_inherit_po_sby"
+			parent="menu_purchase_rfq_sby" sequence="16" />
+
+		<menuitem action="purchase.purchase_form_action_po" id="menu_purchase_form_action_inherit_po_sby"
+			parent="menu_purchase_form_action_sby" sequence="16" />
+
+		<menuitem action="purchase_rfq_lop" id="menu_purchase_rfq_inherit_lop_sby"
+			parent="menu_purchase_rfq_sby" sequence="12" />
+
+		<menuitem action="purchase.purchase_form_action_lop" id="menu_purchase_form_action_inherit_lop_sby"
+			parent="menu_purchase_form_action_sby" sequence="12" />
+
+		<menuitem action="purchase_rfq_kp" id="menu_purchase_rfq_inherit_kp_sby"
+			parent="menu_purchase_rfq_sby" sequence="12" />
+
+		<menuitem action="purchase.purchase_form_action_kp" id="menu_purchase_form_action_inherit_kp_sby"
+			parent="menu_purchase_form_action_sby" sequence="12" />
+
+		<menuitem action="purchase_rfq_ski" id="menu_purchase_rfq_inherit_ski_sby"
+			parent="menu_purchase_rfq_sby" sequence="12" />
+
+		<menuitem action="purchase.purchase_form_action_ski" id="menu_purchase_form_action_inherit_ski_sby"
+			parent="menu_purchase_form_action_sby" sequence="12" />
+	</data>
+</openerp>

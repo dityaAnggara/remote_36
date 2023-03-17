@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<report id="report_pr_partner_acl" model="res.partner" name="pr.partner.acl.report"
+			webkit_header="report_acl_header" file="purchase_requisition_acl/report/mako/pr_partner.html"
+			string="Partner List" report_type="webkit"/>
+	</data>
+</openerp>

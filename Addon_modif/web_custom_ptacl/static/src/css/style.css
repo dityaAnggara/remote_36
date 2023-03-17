@@ -1,0 +1,85 @@
+.openerp .oe_login {
+    background-image: none;
+    background: url("/web_custom_ptacl/static/src/img/body_bg.png") repeat-x scroll right bottom #EEEEEE;
+}
+.openerp .oe_login .oe_login_logo{
+	top: -130px;	
+}
+.openerp .oe_login .oe_login_bottom {
+    display: none;
+}
+
+.openerp .oe_login .oe_login_footer a{
+    color: #AB0000;
+}
+
+.openerp .oe_application a {
+    color: #AB0000;
+}
+
+.openerp .oe_login .oe_login_pane {
+	background: #322a22;
+    border: 6px solid #564a3d;
+    border-radius: 8px 8px 8px 8px;
+    box-shadow: none !important;
+    color: #EEEEEE;
+    left: 50px;
+    margin: 0px;
+    padding: 22px 32px;
+    position: absolute;
+    text-align: left;
+    top: 150px;
+    opacity: 0.9;
+    filter: alpha(opacity=90); /* For IE8 and earlier */}
+
+.openerp .oe_login .oe_login_footer {
+    position: absolute;
+    bottom: -110px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: #333;
+    font-size: 9px;    
+}
+
+
+/*
+.openerp .oe_login button {
+    cursor: pointer;
+    -moz-box-shadow:inset 0px 1px 0px 0px #bee2f9;
+    -webkit-box-shadow:inset 0px 1px 0px 0px #bee2f9;
+    box-shadow:inset 0px 1px 0px 0px #bee2f9;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #63b8ee), color-stop(1, #468ccf) );
+    background:-moz-linear-gradient( center top, #63b8ee 5%, #468ccf 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#63b8ee', endColorstr='#468ccf');
+	background-color:#63b8ee;
+	-webkit-border-top-left-radius:6px;
+	-moz-border-radius-topleft:6px;
+	border-top-left-radius:6px;
+	-webkit-border-top-right-radius:6px;
+	-moz-border-radius-topright:6px;
+	border-top-right-radius:6px;
+	-webkit-border-bottom-right-radius:6px;
+	-moz-border-radius-bottomright:6px;
+	border-bottom-right-radius:6px;
+	-webkit-border-bottom-left-radius:6px;
+	-moz-border-radius-bottomleft:6px;
+	border-bottom-left-radius:6px;
+	text-indent:0;
+	border:1px solid #3866a3;
+	display:inline-block;
+	color:#14396a;
+	font-size:15px;
+	font-weight:bold;
+	font-style:normal;
+	line-height:30px;
+	width:100px;
+	text-decoration:none;
+	text-align:center;
+	text-shadow:1px 1px 0px #7cacde;
+}
+
+.oe_view_manager {
+    background: url("/web_custom_ptacl/static/src/img/body_bg.png") repeat-x scroll right bottom #EEEEEE;
+}
+*/

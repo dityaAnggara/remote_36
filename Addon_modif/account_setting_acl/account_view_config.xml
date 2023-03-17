@@ -1,0 +1,73 @@
+<openerp>
+	<data>
+		<record id="view_account_config_settings_inherit" model="ir.ui.view">
+            <field name="name">account_setting_acl.account_config_settings.form</field>
+            <field name="model">account_setting_acl.account_config_settings</field>
+            <field name="arch" type="xml">
+                <form string="Account Setting For ACL" version="7.0">
+                	<sheet>
+                		<group>
+                			<group>
+                				<field name="kb_code_acl"  />
+                				<field name="nonkb_code_acl"  />
+                				<field name="tahun_pajak_acl"  />
+								               				
+                			</group>
+                			<group>
+                				
+                				<field name="no_urut_k_pajak_acl"  />
+								<field name="nmr_urut_pajak_pertama"  />                				
+								<field name="nmr_urut_pajak_terakhir"  />                 				
+                			</group>
+                		</group>
+                	</sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_account_acl_tree" model="ir.ui.view">
+            <field name="name">account_setting_acl.account_config_settings.tree</field>
+            <field name="model">account_setting_acl.account_config_settings</field>
+            <field name="arch" type="xml">
+                <tree  string="Account Setting For ACL">
+                    <field name="kb_code_acl"  />
+                	<field name="nonkb_code_acl"  />
+                    <field name="tahun_pajak_acl" />
+                	<field name="no_urut_k_pajak_acl"  />
+					<field name="nmr_urut_pajak_pertama"  />                	
+					<field name="nmr_urut_pajak_terakhir"  />
+                </tree>
+            </field>
+        </record>
+        <record id="view_account_acl_search" model="ir.ui.view">
+            <field name="name">account_setting_acl.account_config_settings.search</field>
+            <field name="model">account_setting_acl.account_config_settings</field>
+            <field name="arch" type="xml">
+                <search string="Account Setting For ACL">
+                    <!--field name="name" filter_domain="['|', ('name','ilike',self), ('code','ilike',self)]" string="Fiscal Year"/-->
+                   	<field name="kb_code_acl" />
+                	<field name="nonkb_code_acl"  />
+                    <field name="tahun_pajak_acl"  />
+                	<field name="no_urut_k_pajak_acl"  />
+					<field name="nmr_urut_pajak_pertama"  />                	
+					<field name="nmr_urut_pajak_terakhir"  />
+                </search>
+            </field>
+        </record>
+        <record id="action_account_acl_fiscalyear" model="ir.actions.act_window">
+            <field name="name">Accounting Setting ACL</field>
+            <field name="res_model">account_setting_acl.account_config_settings</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_account_acl_search"/>
+            <field name="view_id" ref="view_account_acl_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create account setting acl.
+              </p><p>
+                create setting for accounting for pajak number
+              </p>
+            </field>
+        </record>
+        <menuitem id="menu_action_account_acl_fiscalyear" sequence="80" action="action_account_acl_fiscalyear" parent="account.menu_finance_configuration" groups="account.group_account_manager"/>
+    </data>
+</openerp>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- modify supplier invoice view -->
+        <record id="supplier_invoice_form_view" model="ir.ui.view">
+            <field name="name">inherited res partner invoice view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name='website' position="after">
+                    <field name="ktp"/>
+                    <field name="npwp" on_change="onchange_npwp(npwp)"/>
+                    <label string="Faktur Pajak"/>
+                    <div>
+                        <field name="kode_transaksi" nolabel="1" style="width: 32%%"/>
+                        <field name="kode_status" nolabel="1" style="width: 32%%"/>
+                    </div>
+                </field>
+                <field name='email' position="after">
+                    <field name="kawasan"/>
+                    <field name="pemegang_siupal"/>
+                    <field name="trade"/>
+                </field>
+            </field>
+        </record>
+        <!--  
+        <record id="inherit_view_partner_property_form" model="ir.ui.view">
+            <field name="name">inherit.view.partner.property.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name='property_account_receivable']"
+                    position="after">
+                    <field name="property_account_receivable_usd"/>
+                </xpath>
+                <xpath expr="/form/sheet/notebook/page[@name='accounting']/group/group[4]/field[@name='property_account_payable']"
+                    position="after">
+                    <field name="property_account_payable_usd"/>
+                </xpath>
+            </field>
+        </record>
+        -->
+    </data>
+</openerp>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <style type="text/css">
+            body {
+                margin: 0px;
+                padding: 0px;
+                font-size: 11px;
+            }
+            table {
+                border-collapse: collapse;
+                margin: 0px;
+                padding: 0px;
+            }
+            tr, td {
+                margin: 0px;
+                padding: 0px;
+            }
+            img {
+                border: none;
+            }
+        </style>
+    </head>
+    <body>
+        % for rekap in objects :
+        <% i = 1 %>
+        <table>
+            <thead>
+                <tr>
+                    <th>Tgl Terima</th>
+                    <th>No SJ</th>
+                    <th>No Faktur</th>
+                    <th>No PO</th>
+                    <th>Sales Person</th>
+                    <th>Supplier</th>
+                    <th>Nama Barang</th>
+                    <th>Qty PO</th>
+                    <th>Qty SJ</th>
+                    <th>Berat SJ</th>
+                    <th>Harga</th>
+                    <th>Jumlah DPP</th>
+                    <th>PPN</th>
+                    <th>Total -&gt; (DPP+PPN)</th>
+                </tr>
+            </thead>
+        </table>
+        % endfor
+    </body>
+</html>

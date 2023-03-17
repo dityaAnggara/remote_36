@@ -1,0 +1,25 @@
+<openerp>
+	<data>
+		<record model="product.flute.acl" id="flute_1">
+        	<field name="name">A</field>
+        </record>
+        <record model="product.flute.acl" id="flute_2">
+        	<field name="name">B</field>
+        </record>
+        <record model="product.flute.acl" id="flute_3">
+        	<field name="name">C</field>
+        </record>
+        <record model="product.flute.acl" id="flute_4">
+        	<field name="name">E</field>
+        </record>
+        <record model="product.flute.acl" id="flute_5">
+        	<field name="name">AB</field>
+        </record>
+        <record model="product.flute.acl" id="flute_6">
+        	<field name="name">BC</field>
+        </record>
+        <record model="product.flute.acl" id="flute_7">
+        	<field name="name">EB</field>
+        </record>
+	</data>
+</openerp>

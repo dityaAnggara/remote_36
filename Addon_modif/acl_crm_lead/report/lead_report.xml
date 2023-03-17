@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<report id="report_webkit_new"
+		model = "crm.lead"
+		name="crm.lead.report"
+		file="acl_crm_lead/report/lead_acl.mako"
+		string="rekap leads"
+		report_type="webkit"/>
+	</data>
+</openerp>

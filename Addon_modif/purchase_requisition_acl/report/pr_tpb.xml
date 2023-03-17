@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<report id="report_pr_tpb" model="stock.picking.in" name="report.pr.tpb" webkit_header="blank_header_a4_portrait"
+			file="purchase_requisition_acl/report/mako/pr_tpb.html" string="Tanda Penerimaan
+			Barang" report_type="webkit" />
+		<report id="report_pr_timbangan" model="stock.picking.in" name="report.pr.timbangan"
+			webkit_header="blank_header_a4_portrait" file="purchase_requisition_acl/report/mako/pr_timbang.html"
+			string="Bukti Timbang" report_type="webkit" />
+		
+		<!-- report id="stock_acl_v2.report_webkit_new_sjn" model="stock.picking.out" name="stock.picking.out.report.dua"
+			webkit_header="blank_header_a4_portrait" file="purchase_requisition_acl/report/mako/sale_sj.html"
+			string="Surat Jalan" report_type="webkit" /-->
+	</data>
+</openerp>

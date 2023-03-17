@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<report id="report_webkit_new"
+		model = "buktibank_masuk.bbm_case"
+		name="bbm_case"
+		file="buktibank_masuk/report/bbm_rpt.mako"
+		string="Bukti Bank Masuk"
+		report_type="webkit"/>
+	</data>
+</openerp>

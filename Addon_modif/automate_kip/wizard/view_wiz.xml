@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- wizard action on res.partner -->
+        <act_window id="prod_acti"
+            name="Product Automate KIP"
+            src_model="product.product"
+            res_model="automate_kip.aut_wizard"
+            view_type="form" view_mode="form"
+			multi="True"        
+            key2="client_action_multi" target="new"/>
+
+        <!-- wizard view -->
+        <record id="prod_wizard_view" model="ir.ui.view">
+            <field name="name">Product Automate KIP</field>
+            <field name="model">automate_kip.aut_wizard</field>
+            <field name="arch" type="xml">
+                <form string="Product Automate KIP" version="7.0">
+                    <group>
+                    	<field name="gate_id" widget="selection" on_change="onchange_gate_id(gate_id, context)" invisible="1"/>
+                    	<field name="part_aid"/>
+						<field name="aut_line"/>
+						                  	
+                    </group>
+                    <footer>
+                    	<button name="ts_wz_one" string="Generate" type="object" class="oe_highlight"/>	
+                    </footer> 
+                </form>
+            </field>
+        </record>
+		<record id="pod_wizard_line_view" model="ir.ui.view">
+            <field name="name">Line</field>
+            <field name="model">automate_kip.aut_wizard_line</field>
+            <field name="arch" type="xml">
+                <!-- the contact list is editable, but one cannot add or delete rows -->
+                <tree string="line" editable="bottom" create="false" delete="false">
+                    <field name="produ_id"/>
+                    <field name="on_select" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+       
+    </data>
+</openerp>

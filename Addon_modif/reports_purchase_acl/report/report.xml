@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<report id="purchase_outstand" name="purchase.outstand" string="Laporan Outstanding
+			Purchase" webkit_header="purchase_requisition_acl.blank_header_a4_landscape" file="reports_purchase_acl/report/mako/report_purchase_outstand.html"
+			model="purchase.outstand" report_type="webkit" />
+		
+		<report id="purchase_spk" name="purchase.spk" string="Laporan SPK" webkit_header="purchase_requisition_acl.blank_header_a4_landscape"
+			file="reports_purchase_acl/report/mako/report_purchase_spk.html" model="purchase.spk"
+			report_type="webkit" />
+		
+		<report id="purchase_po" name="purchase.po" string="Laporan Penerimaan Bahan Baku"
+			webkit_header="purchase_requisition_acl.blank_header_a4_landscape" file="reports_purchase_acl/report/mako/report_purchase_po.html"
+			model="purchase.po" report_type="webkit" />
+		
+		<report id="purchase_bantu" name="purchase.bantu" string="Laporan Penerimaan Bahan
+			Pembantu" webkit_header="purchase_requisition_acl.blank_header_a4_landscape" file="reports_purchase_acl/report/mako/report_purchase_bantu.html"
+			model="purchase.bantu" report_type="webkit" />
+		
+		<report id="purchase_part" name="purchase.part" string="Laporan Penerimaan Sparepart"
+			webkit_header="purchase_requisition_acl.blank_header_a4_landscape" file="reports_purchase_acl/report/mako/report_purchase_part.html"
+			model="purchase.part" report_type="webkit" />
+	</data>
+</openerp>

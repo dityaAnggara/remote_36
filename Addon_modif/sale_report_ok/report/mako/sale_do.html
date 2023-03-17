@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<!--
+<%
+import base64
+import mx.DateTime
+
+def oe_datetime_format(obj,format='%Y-%m-%d %H:%M:%S'):
+    if obj.val:
+        if hasattr(obj,'name') and (obj.name):
+            return mx.DateTime.strptime(obj.name,format)
+        else:
+            return false
+    else:
+        return false
+%>
+-->
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Delivery Order</title>
+        <style type="text/css">
+            body {
+                margin: 0px;
+                padding: 0px;
+                font-size: 10px;
+                font-family: helvetica;
+            }
+            table {
+                border-collapse: collapse;
+                border: none;
+                margin: 0px;
+                padding: 0px;
+            }
+            tr, td {
+                margin: 0px;
+                padding: 0px;
+            }
+            img {
+                border: none;
+            }
+            .main {
+                /* width: 100%; */
+                border: 1px solid;
+                border-collapse: collapse;
+                page-break-after: always;
+            }
+            .main-tab {
+                width: 100%;
+            }
+            .main-tab th, .main-tab td {
+                border: 1px solid;
+                padding: 3px;
+            }
+            .main-tab tr:first-child th {
+                border-top: 3px double;
+            }
+            .main-tab th:first-child, .main-tab td:first-child {
+                border-left: none;
+            }
+            .main-tab th:last-child, .main-tab td:last-child {
+                border-right: none;
+            }
+            /* .main-tab2 {
+                font-size: 12px;
+            } */
+            .main-tab th, .main-tab td {
+                border: 1px solid;
+                margin: 0px;
+                padding: 3px;
+            }
+            .head-tab td {
+                padding: 2px;
+                vertical-align: top;
+            }
+            .ins-tab {
+                width: 100%;
+            }
+            .ins-tab td {
+                border: none;
+                padding: 0px;
+            }
+            .main {
+                border: 1px solid;
+                border-collapse: collapse;
+                page-break-after: always;
+            }
+            .fix-tab {
+                table-layout: fixed;
+            }
+            .full-block {
+                width: 100%;
+                clear: both;
+            }
+            .spacer {
+                height: 0px;
+            }
+            .tikwa {
+                width: 5px;
+            }
+            .label {
+                font-weight: 900;
+            }
+        </style>
+    </head>
+    <body>
+        % for o in objects:
+        <!-- <% i = 1 %> -->
+        <div class="main">
+            <table class="fix-tab full-block head-tab" style="padding: 5px;">
+                <tr>
+                    <td style="text-align: center; font-weight: 900;">
+                        <span style="font-size: 16px;">${ o.company_id and o.company_id.name or '&nbsp;' }</span><br />
+                        <span>${ o.company_id and o.company_id.rml_header1 or '&nbsp;' }</span>
+                    </td>
+                    <td style="text-align: center; font-weight: 900; width: 320px;">
+                        <span style="font-size: 24px;">DELIVERY ORDER</span><br />
+                        <span style="font-size: 12px;">TIDAK DAPAT DIPERJUAL BELIKAN</span>
+                    </td>
+                    <td>
+                        No. ${ o.gen_do or '&nbsp;' }<br />
+                        Kepada : ${ o.partner_id and o.partner_id.name or '&nbsp;' }
+                    </td>
+                </tr>
+            </table>
+            <table class="fix-tab full-block head-tab" style="border-top: 3px double;">
+                <tr class="spacer">
+                    <td style="width: 40px;"></td>
+                    <td class="tikwa"></td>
+                    <td style="width: 40px;"></td>
+                    <td class="tikwa"></td>
+                    <td></td>
+                    <td class="tikwa"></td>
+                    <td style="width: 80px;"></td>
+                    <td class="tikwa"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="label" colspan="7">
+                        Harap dikirimkan barang-barang tersebut dibawah ini selambat-lambatnya tgl.
+                    </td>
+                    <td>:</td>
+                    <td>
+                        ${ oe_datetime_format(o.min_date) and oe_datetime_format(o.min_date).strftime('%d %B %Y') or '&nbsp;' }
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">Kepada</td>
+                    <td>:</td>
+                    <td class="label">Nama</td>
+                    <td>:</td>
+                    <td>${ o.partner_id and o.partner_id.name or '&nbsp;' }</td>
+                    <td>&nbsp;</td>
+                    <td class="label">No. Tgl. SKP</td>
+                    <td>:</td>
+                    <td>${ o.sale_id and o.sale_id.po_sl or '&nbsp;' }</td>
+                </tr>
+                <tr>
+                    <td class="label">&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td class="label">Alamat</td>
+                    <td>:</td>
+                    <td>
+                        ${ o.partner_id and o.partner_id.street or '' }
+                        ${ o.partner_id and o.partner_id.street2 or '' }
+                        ${ o.partner_id and o.partner_id.city or '' }
+                        ${ o.partner_id and o.partner_id.state_id.name or '' }
+                        ${ o.partner_id and o.partner_id.zip or '' }
+                        ${ o.partner_id and o.partner_id.franco or '' }
+                    </td>
+                    <td>&nbsp;</td>
+                    <td class="label">Pengangkutan</td>
+                    <td>:</td>
+                    <td>${ o.jasa_angkut and o.jasa_angkut.name or '&nbsp;' }</td>
+                </tr>
+                <tr>
+                    <td class="label" colspan="9">
+                        Dengan ketentuan-ketentuan tersebut di halaman belakang.
+                    </td>
+                </tr>
+            </table>
+            <table class="main-tab fix-tab">
+                <thead>
+                    <tr>
+                        <th rowspan="3" style="width: 30px;">No.</th>
+                        <th rowspan="3" style="width: 300px;">Jenis Barang</th>
+                        <th rowspan="3">Satuan</th>
+                        <th colspan="4">Kwantitas</th>
+                        <th rowspan="3">Keterangan</th>
+                    </tr>
+                    <tr>
+                        <th rowspan="2">Pesanan</th>
+                        <th colspan="2">Realisasi</th>
+                        <th rowspan="2">Sisa</th>
+                    </tr>
+                    <tr>
+                        <th>Saat Ini</th>
+                        <th>Kumulatif s/d Saat Ini</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    % for movee in o.move_lines:
+                    <!-- <%
+                    trr = (movee.total_permintaan) - (movee.marketing_request_quantity)
+                    trs = (movee.total_permintaan) - (movee.warehouse_realise)
+                    %> -->
+                    <tr>
+                        <td style="text-align: center;">${ i }</td>
+                        <td>${ movee.name or '&nbsp;' }</td>
+                        <td style="text-align: center;">${ movee.product_uom and movee.product_uom.name or '&nbsp;' }</td>
+                        <td style="text-align: right;">${ movee.total_permintaan or '0' }</td>
+                        <td style="text-align: right;">${ movee.marketing_request_quantity or '0' }</td>
+                        <td style="text-align: right;">${ '{0:,}'.format(trr) }</td>
+                        <td style="text-align: right;">${ '{0:,}'.format(trs) }</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <!-- <% i = i + 1 %> -->
+                    % endfor
+                    <tr>
+                        <td colspan="8" class="label">
+                            <span style="text-decoration: underline;">Catatan</span> :
+                            Pengambilan dapat dilaksanakan antara tanggal
+                            ...................................................................... s/d
+                            ......................................................................
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="8" style="vertical-align: top;">
+                            <div style="display: inline-block; float: left; text-align: center;">
+                                Diketahui oleh :<br /><br /><br /><br /><br />
+                                ( ...................................................................... )
+                            </div>
+                            <div style="display: inline-block; float: right; text-transform: capitalize;">
+                                ${ o.company_id and o.company_id.city or '&nbsp;' },
+                                ${ oe_datetime_format(o.date) and oe_datetime_format(o.date).strftime('%d %B %Y') or '&nbsp;' }
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        % endfor
+    </body>
+</html>

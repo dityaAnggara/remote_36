@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product_kip_child,product.kip.child,model_product_kip_child,mrp.group_mrp_manager,1,1,1,1
+access_product_kip_padd,product.kip.padd,model_product_kip_padd,mrp.group_mrp_manager,1,1,1,1
+access_product_flute_acl,product.flute.acl,model_product_flute_acl,mrp.group_mrp_manager,1,1,1,1
+access_product_flute_line,product.flute.line,model_product_flute_line,mrp.group_mrp_manager,1,1,1,1
+access_product_printing_line,product.printing.line,model_product_printing_line,mrp.group_mrp_manager,1,1,1,1
+access_product_master_penting,product.master.penting,model_product_master_penting,mrp.group_mrp_manager,1,1,1,1

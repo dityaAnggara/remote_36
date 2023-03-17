@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="cron form_inherit" model="ir.ui.view">
+            <field name="name">con.form.inherit</field>
+            <field name="model">ir.cron</field>
+            <field name="inherit_id" ref="base.ir_cron_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/group[1]" position="before">
+                    <div class="oe_right oe_button_box" name="buttons">
+                        <button name="execute_scheduler" string="Execute this scheduler" class="oe_highlight" type="object" />
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

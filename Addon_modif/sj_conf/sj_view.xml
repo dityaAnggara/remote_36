@@ -1,0 +1,54 @@
+<openerp>
+	<data>
+		<record id="view_wh_config_settings_inherit" model="ir.ui.view">
+            <field name="name">sj_conf.stock_config_setting.form</field>
+            <field name="model">sj_conf.stock_config_setting</field>
+            <field name="arch" type="xml">
+                <form string="Prepare Number Surat Jalan" version="7.0">
+                	<sheet>
+                	 <group>
+                	 	<field name="awal_sj"  />
+                	 	<field name="padding_sj"  />  
+                	 </group>	
+                	</sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_wh_acl_tree" model="ir.ui.view">
+            <field name="name">sj_conf.stock_config_setting.tree</field>
+            <field name="model">sj_conf.stock_config_setting</field>
+            <field name="arch" type="xml">
+                <tree  string="Prepare Number Surat Jalan">
+                    <field name="awal_sj"  />
+					<field name="padding_sj"  />                    
+                </tree>
+            </field>
+        </record>
+        <record id="view_wh_acl_search" model="ir.ui.view">
+            <field name="name">sj_conf.stock_config_setting.search</field>
+            <field name="model">sj_conf.stock_config_setting</field>
+            <field name="arch" type="xml">
+                <search string="Prepare Number Surat Jalan">
+                    <field name="awal_sj" />
+					<field name="padding_sj"  />                    
+                </search>
+            </field>
+        </record>
+        <record id="action_wh_acl_ihn" model="ir.actions.act_window">
+            <field name="name">Prepare Surat Jalan Number</field>
+            <field name="res_model">sj_conf.stock_config_setting</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_wh_acl_search"/>
+            <field name="view_id" ref="view_wh_acl_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create Surat Jalan Number.
+              </p><p>
+                To Prepare Surat Jalan Number
+              </p>
+            </field>
+        </record>
+        <menuitem id="menu_wh_setting_sj" sequence="80" action="action_wh_acl_ihn" parent="stock.menu_stock_configuration" groups="stock.group_stock_manager"/>
+	</data>
+</openerp>

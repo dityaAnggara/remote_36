@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<report id="report_webkit_faktur_pajak"
+		model = "account.invoice"
+		name="faktur.pajak.mako"
+		file="account_invoice_form_acl/rept/faktur_pajak.mako"
+		string="Faktur Pajak"
+		report_type="webkit"/>
+	</data>
+</openerp>

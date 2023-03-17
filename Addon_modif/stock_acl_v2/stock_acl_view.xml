@@ -1,0 +1,288 @@
+<openerp>
+	<data>
+		<record id="view_picking_form_acll" model="ir.ui.view">
+            <field name="name">stock.picking.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//button[@name='button_cancel']" position="attributes">
+                 	 <attribute name="version">7.0</attribute>
+               		<attribute name="groups">base.group_sale_salesman_all_leads</attribute>
+               </xpath>	
+                <xpath expr="//header/button[@string='Create Invoice/Refund']" position="replace">
+               		<button name="loppp" string="test" type="object" />
+               	</xpath>	
+            </field>
+        </record>
+		
+		<record id="view_delivery_order_inherit_stock" model="ir.ui.view">
+            <field name="name">stock.picking.out.form</field>
+            <field name="model">stock.picking.out</field>
+            <field name="inherit_id" ref="delivery.view_delivery_order_inherit_stock"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/header//button[@name='%(delivery.report_shipping)d']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>	
+        	<record id="acl_inher_stock_partial_picking_form" model="ir.ui.view">
+            <field name="name">stock.partial.picking.form</field>
+            <field name="model">stock.partial.picking</field>
+            <field name="inherit_id" ref="stock.stock_partial_picking_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='move_ids']/tree" position="attributes">
+                   <attribute name="version">7.0</attribute>
+                   <attribute name="create">false</attribute>
+                   <attribute name="delete">false</attribute>
+                   <attribute name="name">test_name_pp</attribute>
+                </xpath>
+            </field>
+        </record>		
+		<record id="acl_inhritview_delivery_order_inherit_stock" model="ir.ui.view">
+            <field name="name">stock.picking.out.form</field>
+            <field name="model">stock.picking.out</field>
+            <field name="inherit_id" ref="delivery.view_delivery_order_inherit_stock"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='%(delivery.report_shipping)d']" position="attributes">
+                   <attribute name="version">7.0</attribute>
+                	<attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+		<record id="view_picking_form_inherit_acl_out" model="ir.ui.view">
+			<field name="name">stock.picking.out.form</field>
+			<field name="model">stock.picking.out</field>
+			<field name="inherit_id" ref="stock.view_picking_out_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//button[@name='action_assign']" position="replace">
+                   <button name="action_assign_new"
+                    states="confirmed"  string="Check Availability" 
+                    type="object" class="oe_highlight" groups="stock.group_stock_user" />
+                	
+                </xpath>
+                <xpath expr="//button[@name='%(stock.report_picking_list_out)d']" position="attributes">
+                   <attribute name="version">7.0</attribute>
+                	<attribute name="invisible">1</attribute>
+                </xpath>
+                
+                <xpath expr="//button[@name='action_process']" position="after">
+                     <button name="action_prepare"
+                	 string="Prepare Delivery" 
+                     groups="base.group_sale_salesman" 
+                    type="object" attrs="{'invisible':['|',('prepare_button','!=',False),('state','=','cancel')]}" class="oe_highlight"/>
+					<button name="action_prepare_new"
+                	 string="Prepare Delivery Warehouse" groups="stock.group_stock_user" 
+                    type="object" class="oe_highlight" attrs="{'invisible':[('button_two','!=',True)]}" />                     
+					<button name="action_partial_do"  groups="base.group_sale_salesman" 
+                    string="Deliver Partial" type="object" attrs="{'invisible':[('partial_button','!=',True)]}"  class="oe_highlight"/> 
+                    
+                    <button invisible="1" name="action_partial_do_wh" groups="stock.group_stock_user"
+                    string="Deliver Partial Warehouse" type="object"  class="oe_highlight"/>
+                    <button name="action_process_ret" string="Return Delivery" type="object" attrs="{'invisible':['|',('state','!=','assigned'),('button_two','!=',False)]}" /> 	                    
+                </xpath>
+                <xpath expr="/form/header//button[@name='action_process']" position="attributes">
+                    	<attribute name="attrs">{'invisible':[('button_one','!=',True)]}</attribute>
+                    	<attribute name="states"></attribute>
+                </xpath>
+				<xpath expr="/form/sheet/notebook/page[@string='Additional Info']//group" position="inside">
+					<group name="Info Kendaraan" string="Info Kendaraan / Jasa Angkut">
+						<field name="jasa_angkut" /> 
+						 	
+						<field name="sopir"   />
+						<field name="no_kendaraan"   />
+						<field name="b_kend"  />
+				    	<field name="b_bruto" />
+				    	<field name="b_netto"  />
+									    	
+					</group>
+				</xpath>
+				<xpath expr='//field[@name="stock_journal_id"]' position="after">
+                	<field name="gen_do" states="confirmed,assigned,done" readonly="1"  />
+					<field name="sequence_picking" />				 
+					<field name="prepare_button" invisible="1"  />
+					<field name="partial_button" invisible="1"  />
+					<field name="button_one" invisible="1"  />	
+					<field name="button_two" invisible="1"  />						
+				</xpath>		 	
+				<xpath expr="//field[@name='date_done']" position="attributes" >
+                	<attribute name="invisible">1</attribute>
+				</xpath>
+				<xpath expr="//field[@name='auto_picking']" position="attributes" >
+                	<attribute name="invisible">1</attribute>
+				</xpath>
+				<xpath expr="//button[@name='force_assign']" position="attributes" >
+                	<attribute name="invisible">1</attribute>
+				</xpath>
+				
+				<field name="min_date" position="after" >
+					<field name="delivery_date" on_change="onchange_date_del(delivery_date)" groups="stock.group_stock_user"  />
+					<field name="marketing_re_date" groups="base.group_sale_salesman" />					
+                	         	
+               </field>
+                 <xpath expr="/form/sheet/notebook/page[@string='Products']"
+                position="before">
+               		<page string="Original Stock">
+               			<field name="move_line_new" >
+                        	<tree editable="bottom" create="false" string="Product Moves Dua">
+                        		<field name="product_id"/>
+                        		<field name="name"/>
+                            	<field name="product_qty" />
+								<field name="product_uos_qty" invisible="1"/>                            	
+								<field name="marketing_request_quantity" groups="stock.group_stock_user" readonly='1' />
+								<field name="marketing_request_quantity" attrs="{'readonly':[('prepare_delivery','=','Marketing')]}" 
+								on_change="onmov(marketing_request_quantity, product_qty, sisa_mark, sisa_wh, context)" groups="base.group_sale_salesman" />									
+								<field name="warehouse_realise" groups="base.group_sale_salesman" readonly='1' />
+								<field name="warehouse_realise"  attrs="{'readonly':[('prepare_delivery','=','Prepare Delivery Warehouse')]}"
+								on_change="onmov_w(warehouse_realise, product_qty, sisa_wh, sisa_mark, context)" groups="stock.group_stock_user" />									
+								<field name="sisa_mark" options="{'limit': 10, 'edit': false}"  groups="base.group_sale_salesman"  />
+														
+								<field name="sisa_wh" on_change="sis_change_satu(sisa_wh, warehouse_realise)" edit="false" groups="stock.group_stock_user"  />
+								<field name="ikat_jumlah" groups="stock.group_stock_user"  />								
+								<field name="total_permintaan" invisible="1" />											
+								<field name="take_over" edit="false" />
+								<field name="prepare_delivery" edit="false" />
+								<field name="state" invisible="1"/>
+								<button string="UnSchedule Product" 
+								groups="base.group_sale_salesman, base.group_sale_salesman_all_leads, base.group_sale_manager" 
+								name="us_prod" type="object" icon="gtk-cancel" />
+								<button string="Undelivery Product" 
+								groups="stock.group_stock_user, stock.group_stock_manager" 
+								name="us_prod_lj" type="object" icon="gtk-cancel" />								
+								<button string="Undo type" name="undo_prod" type="object" icon="gtk-redo" 
+								groups="base.group_sale_salesman, base.group_sale_salesman_all_leads, base.group_sale_manager" />									
+							</tree>
+                        </field>
+               		</page>
+               </xpath>
+               <xpath expr="/form/sheet/notebook/page[@string='Additional Info']" position="after">
+               		<page string="Return Reasons" groups="base.group_user" >
+	                	<label for="keterangan_return" string="Return Reasons" />
+	                	<field name="keterangan_return" placeholder="return reasons"/>
+					</page> 
+               </xpath>		
+			</field>			
+		</record>
+		<record id="view_picking_out_tree_acl" model="ir.ui.view">
+            <field name="name">stock.picking.out.tree</field>
+            <field name="model">stock.picking.out</field>
+            <field name="domain">[('gen_do','=',True)]</field>
+            <field name="inherit_id" ref="stock.view_picking_out_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr='/tree[@string="Delivery Orders"]' position="attributes" >
+                		<attribute name="colors">red:state not in ('cancel') and delivery_date &gt; marketing_re_date;green:state in ('done') and delivery_date &lt;= marketing_re_date</attribute>
+						<attribute name="create">0</attribute>
+				</xpath> 
+				
+            	<xpath expr='//field[@name="state"]' position="after" >
+                	<field name="marketing_re_date" />		
+            		<field name="delivery_date"  />
+					<field name="marketing_total"  />
+					<field name="delivery_total"  />          		
+                </xpath>
+                <xpath expr='//field[@name="name"]' position="before" >
+                	<field name="gen_do" />
+                	<field name="sequence_picking" />		
+            		<field name="surat_jalan" />
+                		
+				</xpath>                    
+            </field>
+       </record>
+       <record id="view_picking_out_search_acl_inhe" model="ir.ui.view">
+            <field name="name">stock.picking.out.search</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_out_search"/>
+            <field name="arch" type="xml">
+                <search string="Picking list">
+                    <field name="name" string="Picking List" filter_domain="['|',('name','ilike', self),('origin','ilike',self)]"/>
+					<filter icon="terp-check" name="marketing_re_date"  string="Ontime" domain="[('marketing_re_date','&lt;=','delivery_date')]" help="ontime"/>	                    
+                    <filter icon="terp-check" name="available" string="Ready" domain="[('state','=','assigned')]" help="Assigned Delivery Orders"/>
+                    <filter icon="terp-camera_test" name="confirmed" string="Waiting" domain="[('state','=','confirmed')]" help="Confirmed Delivery Orders"/>
+                    <filter icon="terp-dialog-close" name="done" string="Done" domain="[('state','=','done')]" help="Delivery orders already processed"/>
+                    <separator/>
+                    <filter icon="terp-accessories-archiver-minus" string="Back Orders" domain="[('backorder_id', '!=', False)]" help="Is a Back Order"/>
+                    <separator/>
+                    <filter icon="terp-dolar" name="to_invoice" string="To Invoice" domain="[('invoice_state','=','2binvoiced')]" help="Delivery orders to invoice"/>
+                    <field name="partner_id" filter_domain="[('partner_id','child_of',self)]"/>
+                    <field name="stock_journal_id"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Status" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'state'}"/>
+                        <filter string="Order Date" icon="terp-go-month" domain="[]"  context="{'group_by':'date'}"/>
+                        <filter string="Expected Date" icon="terp-go-month" domain="[]"  context="{'group_by':'min_date'}"/>
+                        <filter string="Journal" icon="terp-folder-orange" domain="[]" context="{'group_by':'stock_journal_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+       <record id="action_picking_tree_acl_inhhhh" model="ir.actions.act_window">
+            <field name="name">Delivery Orders</field>
+            <field name="res_model">stock.picking.out</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar</field>
+            <field name="inherit_id" ref="stock.action_picking_tree"/>
+            <field name="domain">[('type','=','out'),('gen_do','=',True)]</field>
+            <field name="context">{'default_type': 'out', 'contact_display': 'partner_address'}</field>
+            <field name="search_view_id" ref="stock_acl_v2.view_picking_out_search_acl_inhe"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a delivery order. 
+              </p><p>
+                This is the list of all delivery orders that have to be
+                prepared, according to your different sales orders and your
+                logistics rules.
+              </p>
+            </field>
+        </record>
+      <record id="view_picking_in_form_acl_innh" model="ir.ui.view">
+            <field name="name">stock.picking.in.form</field>
+            <field name="model">stock.picking.in</field>
+            <field name="inherit_id" ref="stock.view_picking_in_form"/>
+            <field name="arch" type="xml">
+              	<xpath expr="/form/sheet/notebook/page[@string='Additional Info']" position="after">
+               		<page string="Return Reasons" groups="base.group_user" >
+	                	<label for="keterangan_return" string="Return Reasons" />
+	                	<field name="keterangan_return" placeholder="return reasons"/>
+					</page> 
+               </xpath>	
+            </field>
+        </record>
+       <record id="view_picking_out_tree_acl_code" model="ir.ui.view">
+            <field name="name">stock_acl_v2.out_acl.tree</field>
+            <field name="model">stock_acl_v2.out_acl</field>
+            <field name="domain">[('type','=','out')]</field>
+            <field name="context">{'default_type': 'out'}</field>
+            <field name="arch" type="xml">
+                <tree version="7.0" create="false" delete="false" string="Delivery Orders">
+                    <field name="name"/>
+					<field name="surat_jalan"/>
+					 <field name="origin"/>                     
+					<field name="type" invisible="1"/>                    
+                    <field name="state" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_picking_tree" model="ir.actions.act_window">
+            <field name="name">Delivery Orders</field>
+            <field name="res_model">stock_acl_v2.out_acl</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type','=','out')]</field>
+            <field name="context">{'default_type': 'out'}</field>
+            
+        </record>
+         <record id="view_stock_return_picking_form_acl_inherit" model="ir.ui.view">
+            <field name="name">Return lines</field>
+            <field name="model">stock.return.picking</field>
+            <field name="inherit_id" ref="stock.view_stock_return_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr='//field[@name="invoice_state"]' position="after" >
+                	<field name="return_reasons"  />                        		
+                </xpath>
+            	
+            </field>
+        </record>
+    </data>
+</openerp>

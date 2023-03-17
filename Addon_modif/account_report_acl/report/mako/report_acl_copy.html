@@ -1,0 +1,1591 @@
+<!--
+<%
+from datetime import datetime
+import math
+
+def chdf(obj,format1,format2):
+    return datetime.strptime(obj,format1).strftime(format2)
+%>
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Laporan Keuangan</title>
+        <style type="text/css">
+            /* @font-face {
+                font-family: andale;
+                src: url(/home/innotek/Dokumen/openerp/addons/Addon_modif/font/Andale_Mono.ttf);
+            } */
+            body {
+                margin: 0px;
+                padding: 0px;
+                font-size: 8px;
+                font-family: helvetica;
+            }
+            table {
+                border-collapse: collapse;
+                border: none;
+                margin: 0px;
+                padding: 0px;
+            }
+            tr, td, th {
+                margin: 0px;
+                padding: 0px;
+            }
+            .main-tab {
+                width: 100%;
+            }
+            .main-tab th, .main-tab td {
+                border: 1px solid;
+                border-top: none;
+                border-bottom: none;
+                padding: 3px;
+            }
+            .main-tab td {
+                vertical-align: top;
+            }
+            /* .main-tab tr:first-child th {
+                border-top: 3px double;
+            } */
+            .main-tab th:first-child, .main-tab td:first-child {
+                border-left: none;
+            }
+            .main-tab th:last-child, .main-tab td:last-child {
+                border-right: none;
+            }
+            .ins-tab {
+                width: 100%;
+            }
+            .ins-tab td {
+                border: none;
+                padding: 0px;
+            }
+            .main {
+                border: 1px solid;
+                border-collapse: collapse;
+                page-break-after: always;
+            }
+            .fix-tab {
+                table-layout: fixed;
+            }
+            .full-block {
+                display: block;
+                width: 100%;
+                clear: both;
+            }
+            .endo td, .endo th {
+                font-weight: 900;
+                border-top: 1px solid;
+                border-bottom: 1px solid;
+            }
+            .hedo td {
+                font-weight: 900;
+                text-transform: uppercase;
+            }
+            .hedo td:first-of-type {
+                text-decoration: underline;
+            }
+            .uang {
+                text-align: right;
+            }
+        </style>
+    </head>
+    <body>
+        % for o in objects:
+        % if (o.account_report_id and o.account_report_id.name) == 'Profit and Loss':
+        <div class="main">
+            <div class="full-block" style="padding: 3px; text-transform: uppercase; font-size: 9px; font-weight: 900;">
+                ${ o.company_id and o.company_id.name or '' }<br />
+                ${ o.account_report_id and o.account_report_id.name or '' }<br />
+                TAHUN ${ o.fiscalyear_id and o.fiscalyear_id.name or '' }<br />
+                <span style="font-weight: normal; font-size: 9px;">(DALAM RIBUAN)</span>
+            </div>
+            <table class="main-tab fix-tab">
+                <thead>
+                    <tr class="endo">
+                        <th style="width: 190px;">&nbsp;</th>
+                        % for m in range(1,13):
+                        <th>
+                            ${ chdf(str(m), '%m', '%B') }<br />Rp
+                        </th>
+                        % endfor
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Penjualan</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;Harga rata-rata per Kg (Rp)</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;Quantitas Penjualan (Ton)</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Jumlah Penjualan</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Retur Penjualan</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr class="endo">
+                        <td>Penjualan Bersih</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>Harga Pokok Produksi dan Penjualan</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;Harga rata-rata per Kg (Rp)</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;Quantitas Pemakaian (Ton)</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Pemakaian Bahan Baku</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Upah Langsung</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Upah Langsung ( Rapelan dan THR )</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Biaya Pabrikasi</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Biaya Penyusutan</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr class="endo">
+                        <td>Harga Pokok Produksi</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>Persediaan Barang Dalam Proses</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Persediaan Awal</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Persediaan Akhir</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>Persediaan Barang Jadi</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Persediaan Awal</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Pembelian</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Persediaan Akhir</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr class="endo">
+                        <td>Harga Pokok Penjualan</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr class="endo">
+                        <td>Laba (Rugi) Kotor</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>Biaya Operasi</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Biaya Penjualan</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Biaya Administrasi dan Umum</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Biaya Penyusutan</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr class="endo">
+                        <td>Jumlah Biaya Operasi</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr class="endo">
+                        <td>Laba (Rugi) Operasi</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr class="endo">
+                        <td>Pendapatan dan (Biaya) Lain-lain</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr class="endo">
+                        <td>Laba (Rugi) Bersih</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="main">
+            <div class="full-block" style="padding: 3px; text-transform: uppercase; font-size: 9px; font-weight: 900;">
+                ${ o.company_id and o.company_id.name or '' }<br />
+                ${ o.account_report_id and o.account_report_id.name or '' }<br />
+                DEPARTEMEN CARTON BOX<br />
+                TAHUN ${ o.fiscalyear_id and o.fiscalyear_id.name or '' }<br />
+                <span style="font-weight: normal; font-size: 9px;">(DALAM RIBUAN)</span>
+            </div>
+            <table class="main-tab fix-tab">
+                <thead>
+                    <tr class="endo">
+                        <th style="width: 190px;">&nbsp;</th>
+                        % for m in range(1,13):
+                        <th>
+                            ${ chdf(str(m), '%m', '%B') }<br />Rp
+                        </th>
+                        % endfor
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Penjualan</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;Harga rata-rata per Kg (Rp)</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;Quantitas Penjualan (Ton)</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Jumlah Penjualan</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Retur Penjualan</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr class="endo">
+                        <td>Penjualan Bersih</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>Harga Pokok Produksi dan Penjualan</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;Harga rata-rata per Kg (Rp)</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;Quantitas Pemakaian (Ton)</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Pemakaian Bahan Baku</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Upah Langsung</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Upah Langsung ( Rapelan dan THR )</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Biaya Pabrikasi</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Biaya Penyusutan</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr class="endo">
+                        <td>Harga Pokok Produksi</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>Persediaan Barang Dalam Proses</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Persediaan Awal</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Persediaan Akhir</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>Persediaan Barang Jadi</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Persediaan Awal</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Pembelian</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Persediaan Akhir</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr class="endo">
+                        <td>Harga Pokok Penjualan</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr class="endo">
+                        <td>Laba (Rugi) Kotor</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>Biaya Operasi</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Biaya Penjualan</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Biaya Administrasi dan Umum</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Biaya Penyusutan</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr class="endo">
+                        <td>Jumlah Biaya Operasi</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr class="endo">
+                        <td>Laba (Rugi) Operasi</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr class="endo">
+                        <td>Pendapatan dan (Biaya) Lain-lain</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr class="endo">
+                        <td>Laba (Rugi) Bersih</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="main">
+            <div class="full-block" style="padding: 3px; text-transform: uppercase; font-size: 9px; font-weight: 900;">
+                ${ o.company_id and o.company_id.name or '' }<br />
+                ${ o.account_report_id and o.account_report_id.name or '' }<br />
+                DEPARTEMEN PAPER TUBE<br />
+                TAHUN ${ o.fiscalyear_id and o.fiscalyear_id.name or '' }<br />
+                <span style="font-weight: normal; font-size: 9px;">(DALAM RIBUAN)</span>
+            </div>
+            <table class="main-tab fix-tab">
+                <thead>
+                    <tr class="endo">
+                        <th style="width: 190px;">&nbsp;</th>
+                        % for m in range(1,13):
+                        <th>
+                            ${ chdf(str(m), '%m', '%B') }<br />Rp
+                        </th>
+                        % endfor
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Penjualan</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;Harga rata-rata per Kg (Rp)</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;Quantitas Penjualan (Ton)</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Jumlah Penjualan</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Retur Penjualan</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr class="endo">
+                        <td>Penjualan Bersih</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>Harga Pokok Produksi dan Penjualan</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;Harga rata-rata per Kg (Rp)</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;Quantitas Pemakaian (Ton)</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Pemakaian Bahan Baku</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Upah Langsung</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Upah Langsung ( Rapelan dan THR )</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Biaya Pabrikasi</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Biaya Penyusutan</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr class="endo">
+                        <td>Harga Pokok Produksi</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>Persediaan Barang Dalam Proses</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Persediaan Awal</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Persediaan Akhir</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>Persediaan Barang Jadi</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Persediaan Awal</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Pembelian</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Persediaan Akhir</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr class="endo">
+                        <td>Harga Pokok Penjualan</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr class="endo">
+                        <td>Laba (Rugi) Kotor</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>Biaya Operasi</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Biaya Penjualan</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Biaya Administrasi dan Umum</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;Biaya Penyusutan</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr class="endo">
+                        <td>Jumlah Biaya Operasi</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr class="endo">
+                        <td>Laba (Rugi) Operasi</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr class="endo">
+                        <td>Pendapatan dan (Biaya) Lain-lain</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr class="endo">
+                        <td>Laba (Rugi) Bersih</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        % elif (o.account_report_id and o.account_report_id.name) == 'Balance Sheet Backup':
+        <div class="main">
+            <div class="full-block" style="padding: 3px; text-transform: uppercase; font-size: 9px; font-weight: 900; text-align: center;">
+                ${ o.company_id and o.company_id.name or '' }<br />
+                ${ o.account_report_id and o.account_report_id.name or '' }<br />
+                TAHUN ${ o.fiscalyear_id and o.fiscalyear_id.name or '' }<br />
+                <span style="font-weight: normal; font-size: 9px;">(DALAM RIBUAN)</span>
+            </div>
+            <table class="main-tab fix-tab">
+                <thead>
+                    <tr class="endo">
+                        <th style="width: 190px;">&nbsp;</th>
+                        % for m in range(1,13):
+                        <th>
+                            Per Akhir Bulan<br />
+                            ${ chdf(str(m), '%m', '%B') }<br />Rp
+                        </th>
+                        % endfor
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>A&nbsp;K&nbsp;T&nbsp;I&nbsp;V&nbsp;A</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td style="text-decoration: underline;">&nbsp;&nbsp;Aktiva Lancar</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;Kas dan Bank</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;Piutang Usaha</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;Piutang Lain-lain</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;Persediaan</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;Uang Muka</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;Biaya Dibayar Di Muka</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;Pajak Dibayar Di Muka</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr class="endo">
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Jumlah Aktiva Lancar</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td style="text-decoration: underline;">&nbsp;&nbsp;Aktiva Lancar</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;Harga Perolehan</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;Akumulasi Penyusutan</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr class="endo">
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Jumlah Aktiva Tetap -net</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr class="endo">
+                        <td>
+                            J&nbsp;u&nbsp;m&nbsp;l&nbsp;a&nbsp;h&nbsp;&nbsp;&nbsp;
+                            A&nbsp;k&nbsp;t&nbsp;i&nbsp;v&nbsp;a
+                        </td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>
+                            K&nbsp;E&nbsp;W&nbsp;A&nbsp;J&nbsp;I&nbsp;B&nbsp;A&nbsp;N&nbsp;&nbsp;&nbsp;
+                            D&nbsp;A&nbsp;N&nbsp;&nbsp;&nbsp;
+                            M&nbsp;O&nbsp;D&nbsp;A&nbsp;L
+                        </td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td style="text-decoration: underline;">&nbsp;&nbsp;Kewajiban Lancar</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;Hutang Usaha</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;Hutang Pajak</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;Biaya Masih Harus Dibayar</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr class="endo">
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Jumlah Kewajiban Lancar</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td style="text-decoration: underline;">&nbsp;&nbsp;Modal</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;Modal Disetor</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;Laba Ditahan</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;Laba Periode Berjalan</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr class="endo">
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Jumlah Model</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr class="endo">
+                        <td>Jumlah Kewajiban dan Modal</td>
+                        % for m in range(1,13):
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        % elif (o.account_report_id and o.account_report_id.name) == 'Balance Sheet':
+        <div class="main">
+            <div class="full-block" style="padding: 3px; text-transform: uppercase; font-size: 9px; font-weight: 900; text-align: center;">
+                ${ o.company_id and o.company_id.name or '' }<br />
+                ${ o.account_report_id and o.account_report_id.name or '' }<br />
+                TAHUN ${ o.fiscalyear_id and o.fiscalyear_id.name or '' }<br />
+                <span style="font-weight: normal; font-size: 9px;">(DALAM RIBUAN)</span>
+            </div>
+            <table class="main-tab fix-tab">
+                <thead>
+                    <tr class="endo">
+                        <th style="width: 190px;">&nbsp;</th>
+                        % for period in o.fiscalyear_id.period_ids:
+                        <th style="vertical-align: bottom;">
+                            <!--
+                            <%
+                            try:
+                                period_name = chdf(str(period.name), '%m/%Y', '%B')
+                            except:
+                                period_name = period.name
+                            %>
+                            -->
+                            ${ period_name }<br />Rp
+                        </th>
+                        % endfor
+                    </tr>
+                </thead>
+                <tbody>
+                    % for coa1 in o.chart_account_id.child_parent_ids:
+                	<!-- <% acc_total = 0 %> -->
+                    % if not((coa1.debit == 0) and (coa1.credit == 0)):
+                    <tr class="hedo">
+                        <td>${ coa1.name or '' }</td>
+                        % for period in o.fiscalyear_id.period_ids:
+                        <td class="uang">
+                            <!--
+                            <%
+                            debit = 0
+                            credit = 0
+                            %>
+                            -->
+                            % for line in move_line(period.id, coa1.id):
+                            <!--
+                            <%
+                            debit = debit + line.debit
+                            credit = credit + line.credit
+                            %>
+                            -->
+                            % endfor
+                            % if (debit-credit) != 0:
+                            <!-- <% acc_total = acc_total %> -->
+                            ${ '{0:,}'.format(math.floor((debit-credit)/1000)) }
+                            % endif
+                        </td>
+                        % endfor
+                    </tr>
+                    % for coa2 in coa1.child_parent_ids:
+                    % if not((coa2.debit == 0) and (coa2.credit == 0)):
+                    <tr>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;${ coa2.name or '' }</td>
+                        % for period in o.fiscalyear_id.period_ids:
+                        <td class="uang">
+                            <!--
+                            <%
+                            debit = 0
+                            credit = 0
+                            %>
+                            -->
+                            % for line in move_line(period.id, coa2.id):
+                            <!--
+                            <%
+                            debit = debit + line.debit
+                            credit = credit + line.credit
+                            %>
+                            -->
+                            % endfor
+                            % if (debit-credit) != 0:
+                            ${ '{0:,}'.format(math.floor((debit-credit)/1000)) }
+                            % endif
+                        </td>
+                        % endfor
+                    </tr>
+                    % for coa3 in coa2.child_parent_ids:
+                    % if not((coa3.debit == 0) and (coa3.credit == 0)):
+                    <tr>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${ coa3.name or '' }</td>
+                        % for period in o.fiscalyear_id.period_ids:
+                        <td class="uang">
+                            <!--
+                            <%
+                            debit = 0
+                            credit = 0
+                            %>
+                            -->
+                            % for line in move_line(period.id, coa3.id):
+                            <!--
+                            <%
+                            debit = debit + line.debit
+                            credit = credit + line.credit
+                            %>
+                            -->
+                            % endfor
+                            % if (debit-credit) != 0:
+                            ${ '{0:,}'.format(math.floor((debit-credit)/1000)) }
+                            % endif
+                        </td>
+                        % endfor
+                    </tr>
+                    % for coa4 in coa3.child_parent_ids:
+                    % if not((coa4.debit == 0) and (coa4.credit == 0)):
+                    <tr>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${ coa4.name or '' }</td>
+                        % for period in o.fiscalyear_id.period_ids:
+                        <td class="uang">
+                            <!--
+                            <%
+                            debit = 0
+                            credit = 0
+                            %>
+                            -->
+                            % for line in move_line(period.id, coa4.id):
+                            <!--
+                            <%
+                            debit = debit + line.debit
+                            credit = credit + line.credit
+                            %>
+                            -->
+                            % endfor
+                            % if (debit-credit) != 0:
+                            ${ '{0:,}'.format(math.floor((debit-credit)/1000)) }
+                            % endif
+                        </td>
+                        % endfor
+                    </tr>
+                    % endif
+                    % endfor
+                    % endif
+                    % endfor
+                    % endif
+                    % endfor
+                    <tr class="endo">
+                        <td>Jumlah ${ coa1.name or '' }</td>
+                        % for period in o.fiscalyear_id.period_ids:
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        % for period in o.fiscalyear_id.period_ids:
+                        <td>
+                            &nbsp;
+                        </td>
+                        % endfor
+                    </tr>
+                    % endif
+                    % endfor
+                </tbody>
+            </table>
+        </div>
+        % endif
+        % endfor
+    </body>
+</html>

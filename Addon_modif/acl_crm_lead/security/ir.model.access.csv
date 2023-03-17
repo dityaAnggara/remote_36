@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_customer_acl_v2_sale_empat,customer_acl_v2.abj.sale.empat,model_customer_acl_v2_abj,base.group_sale_salesman,1,1,1,1
+access_customer_acl_v2_sale_lima,customer_acl_v2.abj.sale.lima,model_customer_acl_v2_abj,base.group_sale_salesman_all_leads,1,1,1,1
+access_customer_acl_v2_sale_enam,customer_acl_v2.abj.sale.enam,model_customer_acl_v2_abj,base.group_sale_manager,1,1,1,1

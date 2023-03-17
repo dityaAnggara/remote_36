@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product_product_sale_empat,product.product.sale.empat,product.model_product_product,base.group_sale_salesman,1,1,0,1
+access_product_product_sale_lima,product.product.sale.lima,product.model_product_product,base.group_sale_salesman_all_leads,1,1,0,1
+access_product_product_sale_enam,product.product.sale.enam,product.model_product_product,base.group_sale_manager,1,0,0,1
+access_product_product_mrp_satu,product.product.mrp.satu,product.model_product_product,stock.group_stock_manager,1,1,1,1
+access_product_product_mrp_dua,product.product.mrp.dua,product.model_product_product,stock.group_stock_user,1,1,0,1
+access_sale_acl_v3_sale_order direksi,sale.order direksi,sale.model_sale_order,purchase_requisition_acl.purchase_requisition_direksi,1,1,0,1
+access_sale_acl_v3_sale_order_line direksi,sale.order.line direksi,sale.model_sale_order_line,purchase_requisition_acl.purchase_requisition_direksi,1,1,0,1
+access_sale_acl_v3_sale_order gm,sale.order gm,sale.model_sale_order,purchase_requisition_acl.purchase_requisition_gm,1,1,0,1
+access_sale_acl_v3_sale_order_line gm,sale.order.line gm,sale.model_sale_order_line,purchase_requisition_acl.purchase_requisition_gm,1,1,0,1
+access_sale_acl_v3_sale_order stock,sale.order stock ,sale.model_sale_order,stock.group_stock_user,1,0,0,0
+access_sale_acl_v3_sale_order_line stock,sale.order.line stock,sale.model_sale_order_line,stock.group_stock_user,1,0,0,0
+access_sale_acl_v3_sale_order st,sale.order st ,sale.model_sale_order,stock.group_stock_manager,1,0,0,0
+access_sale_acl_v3_sale_order_line st,sale.order.line st,sale.model_sale_order_line,stock.group_stock_manager,1,0,0,0

@@ -1,0 +1,115 @@
+<openerp>
+	<data>
+		<record id="view_abjad_form" model="ir.ui.view">
+            <field name="name">customer_acl_v2.abj.form</field>
+            <field name="model">customer_acl_v2.abj</field>
+            <field name="groups_id" eval="[(3,ref('base.group_sale_salesman'))]"/>
+            <field name="arch" type="xml">
+                <form string="Abjad Form" version="7.0">
+                	<group>
+                		<field name="name" />
+						<field name="partner_ttype" />                		
+                		<field name="padd" attrs="{'invisible':[('partner_ttype','=','2')]}" />
+						<field name="padd_sup" attrs="{'invisible':[('partner_ttype','=','1')]}" />
+						<field name="last_incre" attrs="{'invisible':[('partner_ttype','=','2')]}" />
+						<field name="last_incre_sup" attrs="{'invisible':[('partner_ttype','=','1')]}" />
+						   	         		
+                	</group>
+                	               	
+                </form>            	
+			</field>
+        </record>
+        <record model="ir.actions.act_window" id="abjad_view_action">
+			<field name="name">Abjad</field>
+			<field name="res_model">customer_acl_v2.abj</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+		</record>
+		 <record id="view_partners_form_crm1_accl" model="ir.ui.view">
+                <field name="name">view.res.partner.form.crm.inherited1_acll</field>
+                <field name="model">res.partner</field>
+                <field name="inherit_id" ref="crm.view_partners_form_crm1"/>
+                <field eval="18" name="priority"/>
+                <field name="arch" type="xml">
+                    <xpath expr='//field[@name="section_id"]' position="attributes">
+                	<attribute name="attrs">{'required':[('customer','=',True)]}</attribute>               	
+				</xpath>
+                </field>
+        </record>
+		
+		<record id="view_partner_form_inherit_acl" model="ir.ui.view">
+		  <field name="name">res.partner.form</field>
+		  <field name="model">res.partner</field>
+		  <field name="inherit_id" ref="base.view_partner_form" />
+		  <field name="arch" type="xml">
+		  	  <xpath expr='//field[@name="ref"]' position="attributes">
+                	<attribute name="attrs">{'required':[('customer','=',True)]}</attribute>               	
+				</xpath>
+				<xpath expr='//field[@name="user_id"]' position="attributes">
+                	<attribute name="attrs">{'required':[('customer','=',True)]}</attribute>               	
+				</xpath>
+				<xpath expr='//field[@name="credit_limit"]' position="attributes">
+                	<attribute name="groups">account.group_account_manager</attribute>               	
+				</xpath>
+				<xpath expr='//field[@name="ref"]' position="before">
+                	<field name="abj_id" context="{'default_cuss':notification_email_send}"  on_change="onchange_abj(abj_id, customer, supplier, context)" options="{'limit': 26, 'create': True, 'create_edit': True}" />
+					 <field name="cust_auto" invisible="1"/>               	
+				</xpath>
+				<xpath expr='//field[@name="abj_id"]' position="attributes">
+                	<attribute name="attrs">{'required':[('customer','=',True)]}</attribute>               	
+				</xpath>
+				<xpath expr='//sheet/notebook/page[3]/group/group[3]/field[@name="date"]' position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>				
+				<field name="title" position="after">
+		     		<field name="franco"  />
+					<field name="area_type"  />		     	
+		     	</field>
+		     	<field name="website" position="before">
+		    		<field name="franco_true" />				
+				</field>
+				<field name="website" position="after">
+		    		<field name="cust_auto" invisible="1"/>
+					<field name="npwp_acl" />				
+				</field>
+		  </field>
+		</record>
+		<record id="view_partner_tree_acll" model="ir.ui.view">
+            <field name="name">res.partner.tree</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree" />
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+               <xpath expr='//field[@name="email"]' position="after">
+					
+               		<field name="ref" />
+                </xpath>   
+            </field>
+        </record>
+		<record id="view_generate_padding_abjad_form" model="ir.ui.view">
+            <field name="name">Generate Padding For Customer Code</field>
+            <field name="model">customer_acl_v2.obj_padd</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Generate Padding For Customer Code" version="7.0">
+                    <group>
+                        <field name="partner_type"/>
+                        <field name="padding_g" />
+                    </group>
+                    <group>
+                        <button name="generate_pad_abj" string="Generate Customer Code Padding" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="oe_highlight" special="cancel"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_generate_padding_abjad" model="ir.actions.act_window">
+            <field name="name">Set Padding For Customer Code</field>
+            <field name="res_model">customer_acl_v2.obj_padd</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <menuitem action="action_generate_padding_abjad" parent="base.menu_base_config" id="menu_generate_padd_abj" />
+	</data>
+</openerp>

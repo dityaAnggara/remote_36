@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_costing_acl_v3_sale_order,sale.order.costing,model_sale_order,costing_security.group_name_costing_manager,1,1,1,0
+access_costing_acl_v3_sale_order_line,sale.order.line costing,model_sale_order_line,costing_security.group_name_costing_manager,1,1,1,0
+access_costing_acl_v3_stock_picking_out_manager costing,stock.picking.out costing,model_stock_picking_out,costing_security.group_name_costing_manager,1,1,1,0
+access_costing_acl_v3_stock_picking_manager costing,stock.picking costing,model_stock_picking,costing_security.group_name_costing_manager,1,1,1,0
+access_costing_acl_v3_stock_move_manager costing,stock.move costing,model_stock_move,costing_security.group_name_costing_manager,1,1,1,0
+access_costing_acl_v3_mrp_bom_manager costing,mrp.bom costing,model_mrp_bom,costing_security.group_name_costing_manager,1,1,1,0
+access_costing_acl_v3_product_product costing,product.product.new costing,model_product_product_new,costing_security.group_name_costing_manager,1,1,1,0

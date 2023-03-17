@@ -1,0 +1,29 @@
+<openerp>
+	<data>
+		<menuitem name="Sales Order" id="menu_grb_dta" parent="base.menu_mrp_root" />
+		<record id="action_quotations_acl_mrp" model="ir.actions.act_window">
+            <field name="name">Sales Order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="context">{}</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="sale.view_quotation_tree"/>
+			<field name ="domain">[('state', '=', 'sent_to_ppic')]</field>              
+        </record>
+        <record id="view_order_form_inherit_mrp" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+			<field name="groups_id" eval="[(6, 0, [ref('mrp.group_mrp_manager')])]"/>            
+            <field name="arch" type="xml">
+            	 <xpath expr="/form[@string='Sales Order']" position="attributes">
+               		<attribute name="version">7.0</attribute>
+            	 	<attribute name="create">0</attribute>
+               </xpath>
+            </field>
+        </record>
+        
+        <menuitem id="menu_mrp_acl_act" action="action_quotations_acl_mrp" parent="menu_grb_dta" sequence="4"/>		
+	</data>
+</openerp>

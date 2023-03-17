@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+        <record id="account_chart_template_basic" model="account.chart.template">
+            <field name="name">Basic Chart of Account</field>
+            <field name="visible" eval="False" />
+            <field name="complete_tax_set" eval="False"/>
+        </record>
+        <record id="account_chart_template_basic_value" model="ir.values">
+            <field name="name">Basic Chart of Account</field>
+            <field name="model">account.chart.template</field>
+            <field name="key">default</field>
+            <field name="res_id" ref="account_chart_template_basic"/>
+            <field name="value" ref="base.IDR"/>
+        </record>
+
+        <record id="account_chart_template_cogs" model="account.chart.template">
+            <field name="name">Harga Pokok Penjualan</field>
+            <field name="visible" eval="False" />
+            <field name="parent_id" ref="account_chart_template_basic"/>
+            <field name="complete_tax_set" eval="False" />
+        </record>
+        <record id="account_chart_template_cogs_value" model="ir.values">
+            <field name="name">Harga Pokok Penjualan</field>
+            <field name="model">account.chart.template</field>
+            <field name="key">default</field>
+            <field name="res_id" ref="account_chart_template_cogs"/>
+            <field name="value" ref="base.IDR"/>
+        </record>
+
+		<record id="account_chart_template_accounting" model="account.chart.template">
+			<field name="name">Akuntansi atau Pembukuan</field>
+			<field name="parent_id" ref="account_chart_template_basic" />
+			<field name="complete_tax_set" eval="False" />
+		</record>
+		<record id="account_chart_template_accounting_value" model="ir.values">
+			<field name="name">Akuntansi atau Pembukuan</field>
+			<field name="model">account.chart.template</field>
+			<field name="key">default</field>
+			<field name="res_id" ref="account_chart_template_accounting" />
+			<field name="value" ref="base.IDR" />
+		</record>
+
+		<record id="account_chart_template_advertising" model="account.chart.template">
+			<field name="name">Periklanan atau Hubungan Masyarakat</field>
+			<field name="parent_id" ref="account_chart_template_basic" />
+			<field name="complete_tax_set" eval="False" />
+		</record>
+		<record id="account_chart_template_advertising_value" model="ir.values">
+			<field name="name">Periklanan atau Hubungan Masyarakat</field>
+			<field name="model">account.chart.template</field>
+			<field name="key">default</field>
+			<field name="res_id" ref="account_chart_template_advertising" />
+			<field name="value" ref="base.IDR" />
+		</record>
+
+		<record id="account_chart_template_agriculture" model="account.chart.template">
+			<field name="name">Pertanian, Perkebunan atau Peternakan</field>
+			<field name="parent_id" ref="account_chart_template_basic" />
+			<field name="complete_tax_set" eval="False" />
+		</record>
+		<record id="account_chart_template_agriculture_value" model="ir.values">
+			<field name="name">Pertanian, Perkebunan atau Peternakan</field>
+			<field name="model">account.chart.template</field>
+			<field name="key">default</field>
+			<field name="res_id" ref="account_chart_template_agriculture" />
+			<field name="value" ref="base.IDR" />
+		</record>
+
+		<record id="account_chart_template_art" model="account.chart.template">
+			<field name="name">Seni, Menulis atau Fotographi</field>
+			<field name="parent_id" ref="account_chart_template_basic" />
+			<field name="complete_tax_set" eval="False" />
+		</record>
+		<record id="account_chart_template_art_value" model="ir.values">
+			<field name="name">Seni, Menulis atau Fotographi</field>
+			<field name="model">account.chart.template</field>
+			<field name="key">default</field>
+			<field name="res_id" ref="account_chart_template_art" />
+			<field name="value" ref="base.IDR" />
+		</record>
+
+		<record id="account_chart_template_automotive" model="account.chart.template">
+			<field name="name">Penjualan atau Bengkel Mobil</field>
+			<field name="parent_id" ref="account_chart_template_basic" />
+			<field name="complete_tax_set" eval="False" />
+		</record>
+		<record id="account_chart_template_automotive_value" model="ir.values">
+			<field name="name">Penjualan atau Bengkel Mobil</field>
+			<field name="model">account.chart.template</field>
+			<field name="key">default</field>
+			<field name="res_id" ref="account_chart_template_automotive" />
+			<field name="value" ref="base.IDR" />
+		</record>
+		<record id="account_chart_template_religiousorganization" model="account.chart.template">
+			<field name="name">Yayasan atau Organisasi Keagamaan</field>
+			<field name="parent_id" ref="account_chart_template_basic" />
+			<field name="complete_tax_set" eval="False" />
+		</record>
+		<record id="account_chart_template_religiousorganization_value" model="ir.values">
+			<field name="name">Yayasan atau Organisasi Keagamaan</field>
+			<field name="model">account.chart.template</field>
+			<field name="key">default</field>
+			<field name="res_id" ref="account_chart_template_religiousorganization" />
+			<field name="value" ref="base.IDR" />
+		</record>
+		<record id="account_chart_template_construction_general" model="account.chart.template">
+			<field name="name">Konstruksi/Kontraktor Umum</field>
+			<field name="parent_id" ref="account_chart_template_basic" />
+			<field name="complete_tax_set" eval="False" />
+		</record>
+		<record id="account_chart_template_construction_general_value" model="ir.values">
+			<field name="name">Konstruksi/Kontraktor Umum</field>
+			<field name="model">account.chart.template</field>
+			<field name="key">default</field>
+			<field name="res_id" ref="account_chart_template_construction_general" />
+			<field name="value" ref="base.IDR" />
+		</record>
+		<record id="account_chart_template_construction_trade" model="account.chart.template">
+			<field name="name">Kontraktor Spesialis</field>
+			<field name="parent_id" ref="account_chart_template_basic" />
+			<field name="complete_tax_set" eval="False" />
+		</record>
+		<record id="account_chart_template_construction_trade_value" model="ir.values">
+			<field name="name">Kontraktor Spesialis</field>
+			<field name="model">account.chart.template</field>
+			<field name="key">default</field>
+			<field name="res_id" ref="account_chart_template_construction_trade" />
+			<field name="value" ref="base.IDR" />
+		</record>
+		<record id="account_chart_template_design" model="account.chart.template">
+			<field name="name">Desain, Arsitektur atau Engineering</field>
+			<field name="parent_id" ref="account_chart_template_basic" />
+			<field name="complete_tax_set" eval="False" />
+		</record>
+		<record id="account_chart_template_design_value" model="ir.values">
+			<field name="name">Desain, Arsitektur atau Engineering</field>
+			<field name="model">account.chart.template</field>
+			<field name="key">default</field>
+			<field name="res_id" ref="account_chart_template_design" />
+			<field name="value" ref="base.IDR" />
+		</record>
+		<record id="account_chart_template_financial_service" model="account.chart.template">
+			<field name="name">Jasa keuangan selain Akuntansi atau Pembukuan</field>
+			<field name="parent_id" ref="account_chart_template_basic" />
+			<field name="complete_tax_set" eval="False" />
+		</record>
+		<record id="account_chart_template_financial_service_value" model="ir.values">
+			<field name="name">Jasa keuangan selain Akuntansi atau Pembukuan</field>
+			<field name="model">account.chart.template</field>
+			<field name="key">default</field>
+			<field name="res_id" ref="account_chart_template_financial_service" />
+			<field name="value" ref="base.IDR" />
+		</record>
+		<record id="account_chart_template_general_product" model="account.chart.template">
+			<field name="name">Bisnis Umum Berbasis Produk</field>
+			<field name="parent_id" ref="account_chart_template_basic" />
+			<field name="complete_tax_set" eval="False" />
+		</record>
+		<record id="account_chart_template_general_product_value" model="ir.values">
+			<field name="name">Bisnis Umum Berbasis Produk</field>
+			<field name="model">account.chart.template</field>
+			<field name="key">default</field>
+			<field name="res_id" ref="account_chart_template_general_product" />
+			<field name="value" ref="base.IDR" />
+		</record>
+		<record id="account_chart_template_general_service" model="account.chart.template">
+			<field name="name">Bisnis Umum Berbasis Jasa</field>
+			<field name="parent_id" ref="account_chart_template_basic" />
+			<field name="complete_tax_set" eval="False" />
+		</record>
+		<record id="account_chart_template_general_service_value" model="ir.values">
+			<field name="name">Bisnis Umum Berbasis Jasa</field>
+			<field name="model">account.chart.template</field>
+			<field name="key">default</field>
+			<field name="res_id" ref="account_chart_template_general_service" />
+			<field name="value" ref="base.IDR" />
+		</record>
+		<record id="account_chart_template_hairorbeautyshop" model="account.chart.template">
+			<field name="name">Salon Kecantikan atau Barber Shop</field>
+			<field name="parent_id" ref="account_chart_template_basic" />
+			<field name="complete_tax_set" eval="False" />
+		</record>
+		<record id="account_chart_template_hairorbeautyshop_value" model="ir.values">
+			<field name="name">Salon Kecantikan atau Barber Shop</field>
+			<field name="model">account.chart.template</field>
+			<field name="key">default</field>
+			<field name="res_id" ref="account_chart_template_hairorbeautyshop" />
+			<field name="value" ref="base.IDR" />
+		</record>
+		<record id="account_chart_template_insuranceagency" model="account.chart.template">
+			<field name="name">Agen atau Broker Asuransi</field>
+			<field name="parent_id" ref="account_chart_template_basic" />
+			<field name="complete_tax_set" eval="False" />
+		</record>
+		<record id="account_chart_template_insuranceagency_value" model="ir.values">
+			<field name="name">Agen atau Broker Asuransi</field>
+			<field name="model">account.chart.template</field>
+			<field name="key">default</field>
+			<field name="res_id" ref="account_chart_template_insuranceagency" />
+			<field name="value" ref="base.IDR" />
+		</record>
+		<record id="account_chart_template_itcomputerssoftware" model="account.chart.template">
+			<field name="name">Teknologi Informasi (Komputer, Software)</field>
+			<field name="parent_id" ref="account_chart_template_basic" />
+			<field name="complete_tax_set" eval="False" />
+		</record>
+		<record id="account_chart_template_itcomputerssoftware_value" model="ir.values">
+			<field name="name">Teknologi Informasi (Komputer, Software)</field>
+			<field name="model">account.chart.template</field>
+			<field name="key">default</field>
+			<field name="res_id" ref="account_chart_template_itcomputerssoftware" />
+			<field name="value" ref="base.IDR" />
+		</record>
+		<record id="account_chart_template_landscaping" model="account.chart.template">
+			<field name="name">Pemeliharaan Taman atau Landscaping</field>
+			<field name="parent_id" ref="account_chart_template_basic" />
+			<field name="complete_tax_set" eval="False" />
+		</record>
+		<record id="account_chart_template_landscaping_value" model="ir.values">
+			<field name="name">Pemeliharaan Taman atau Landscaping</field>
+			<field name="model">account.chart.template</field>
+			<field name="key">default</field>
+			<field name="res_id" ref="account_chart_template_landscaping" />
+			<field name="value" ref="base.IDR" />
+		</record>
+		<record id="account_chart_template_legal_service" model="account.chart.template">
+			<field name="name">Layanan Hukum</field>
+			<field name="parent_id" ref="account_chart_template_basic" />
+			<field name="complete_tax_set" eval="False" />
+		</record>
+		<record id="account_chart_template_legal_service_value" model="ir.values">
+			<field name="name">Layanan Hukum</field>
+			<field name="model">account.chart.template</field>
+			<field name="key">default</field>
+			<field name="res_id" ref="account_chart_template_legal_service" />
+			<field name="value" ref="base.IDR" />
+		</record>
+		<record id="account_chart_template_lodging" model="account.chart.template">
+			<field name="name">Penginapan (Hotel, Losmen)</field>
+			<field name="parent_id" ref="account_chart_template_basic" />
+			<field name="complete_tax_set" eval="False" />
+		</record>
+		<record id="account_chart_template_lodging_value" model="ir.values">
+			<field name="name">Penginapan (Hotel, Losmen)</field>
+			<field name="model">account.chart.template</field>
+			<field name="key">default</field>
+			<field name="res_id" ref="account_chart_template_lodging" />
+			<field name="value" ref="base.IDR" />
+		</record>
+		<record id="account_chart_template_manufacturer" model="account.chart.template">
+			<field name="name">Perwakilan Pabrik atau Agen</field>
+			<field name="parent_id" ref="account_chart_template_basic" />
+			<field name="complete_tax_set" eval="False" />
+		</record>
+		<record id="account_chart_template_manufacturer_value" model="ir.values">
+			<field name="name">Perwakilan Pabrik atau Agen</field>
+			<field name="model">account.chart.template</field>
+			<field name="key">default</field>
+			<field name="res_id" ref="account_chart_template_manufacturer" />
+			<field name="value" ref="base.IDR" />
+		</record>
+		<record id="account_chart_template_manufacturing" model="account.chart.template">
+			<field name="name">Manufaktur</field>
+			<field name="parent_id" ref="account_chart_template_basic" />
+			<field name="complete_tax_set" eval="False" />
+		</record>
+		<record id="account_chart_template_manufacturing_value" model="ir.values">
+			<field name="name">Manufaktur</field>
+			<field name="model">account.chart.template</field>
+			<field name="key">default</field>
+			<field name="res_id" ref="account_chart_template_manufacturing" />
+			<field name="value" ref="base.IDR" />
+		</record>
+		<record id="account_chart_template_healthservice" model="account.chart.template">
+			<field name="name">Klinik atau Pelayanan Kesehatan</field>
+			<field name="parent_id" ref="account_chart_template_basic" />
+			<field name="complete_tax_set" eval="False" />
+		</record>
+		<record id="account_chart_template_healthservice_value" model="ir.values">
+			<field name="name">Klinik atau Pelayanan Kesehatan</field>
+			<field name="model">account.chart.template</field>
+			<field name="key">default</field>
+			<field name="res_id" ref="account_chart_template_healthservice" />
+			<field name="value" ref="base.IDR" />
+		</record>
+		<record id="account_chart_template_nonprofitorganizations"
+			model="account.chart.template">
+			<field name="name">Nirlaba atau Pelayanan Masyarakat</field>
+			<field name="parent_id" ref="account_chart_template_basic" />
+			<field name="complete_tax_set" eval="False" />
+		</record>
+		<record id="account_chart_template_nonprofitorganizations_value" model="ir.values">
+			<field name="name">Nirlaba atau Pelayanan Masyarakat</field>
+			<field name="model">account.chart.template</field>
+			<field name="key">default</field>
+			<field name="res_id" ref="account_chart_template_nonprofitorganizations" />
+			<field name="value" ref="base.IDR" />
+		</record>
+		<record id="account_chart_template_other" model="account.chart.template">
+			<field name="name">Lainnya / Tidak ada</field>
+			<field name="parent_id" ref="account_chart_template_basic" />
+			<field name="complete_tax_set" eval="False" />
+		</record>
+		<record id="account_chart_template_other_value" model="ir.values">
+			<field name="name">Lainnya / Tidak ada</field>
+			<field name="model">account.chart.template</field>
+			<field name="key">default</field>
+			<field name="res_id" ref="account_chart_template_other" />
+			<field name="value" ref="base.IDR" />
+		</record>
+		<record id="account_chart_template_professional" model="account.chart.template">
+			<field name="name">Konsultan Profesional</field>
+			<field name="parent_id" ref="account_chart_template_basic" />
+			<field name="complete_tax_set" eval="False" />
+		</record>
+		<record id="account_chart_template_professional_value" model="ir.values">
+			<field name="name">Konsultan Profesional</field>
+			<field name="model">account.chart.template</field>
+			<field name="key">default</field>
+			<field name="res_id" ref="account_chart_template_professional" />
+			<field name="value" ref="base.IDR" />
+		</record>
+		<record id="account_chart_template_propertymanagement" model="account.chart.template">
+			<field name="name">Manajemen Properti</field>
+			<field name="parent_id" ref="account_chart_template_basic" />
+			<field name="complete_tax_set" eval="False" />
+		</record>
+		<record id="account_chart_template_propertymanagement_value" model="ir.values">
+			<field name="name">Manajemen Properti</field>
+			<field name="model">account.chart.template</field>
+			<field name="key">default</field>
+			<field name="res_id" ref="account_chart_template_propertymanagement" />
+			<field name="value" ref="base.IDR" />
+		</record>
+		<record id="account_chart_template_estatebroker" model="account.chart.template">
+			<field name="name">Broker Real Estate atau Pengembang</field>
+			<field name="parent_id" ref="account_chart_template_basic" />
+			<field name="complete_tax_set" eval="False" />
+		</record>
+		<record id="account_chart_template_estatebroker_value" model="ir.values">
+			<field name="name">Broker Real Estate atau Pengembang</field>
+			<field name="model">account.chart.template</field>
+			<field name="key">default</field>
+			<field name="res_id" ref="account_chart_template_estatebroker" />
+			<field name="value" ref="base.IDR" />
+		</record>
+		<record id="account_chart_template_rental" model="account.chart.template">
+			<field name="name">Persewaan</field>
+			<field name="parent_id" ref="account_chart_template_basic" />
+			<field name="complete_tax_set" eval="False" />
+		</record>
+		<record id="account_chart_template_rental_value" model="ir.values">
+			<field name="name">Persewaan</field>
+			<field name="model">account.chart.template</field>
+			<field name="key">default</field>
+			<field name="res_id" ref="account_chart_template_rental" />
+			<field name="value" ref="base.IDR" />
+		</record>
+		<record id="account_chart_template_maintenance" model="account.chart.template">
+			<field name="name">Perbaikan dan Pemeliharaan</field>
+			<field name="parent_id" ref="account_chart_template_basic" />
+			<field name="complete_tax_set" eval="False" />
+		</record>
+		<record id="account_chart_template_maintenance_value" model="ir.values">
+			<field name="name">Perbaikan dan Pemeliharaan</field>
+			<field name="model">account.chart.template</field>
+			<field name="key">default</field>
+			<field name="res_id" ref="account_chart_template_maintenance" />
+			<field name="value" ref="base.IDR" />
+		</record>
+		<record id="account_chart_template_restaurant" model="account.chart.template">
+			<field name="name">Restoran, Katering atau Bar</field>
+			<field name="parent_id" ref="account_chart_template_basic" />
+			<field name="complete_tax_set" eval="False" />
+		</record>
+		<record id="account_chart_template_restaurant_value" model="ir.values">
+			<field name="name">Restoran, Katering atau Bar</field>
+			<field name="model">account.chart.template</field>
+			<field name="key">default</field>
+			<field name="res_id" ref="account_chart_template_restaurant" />
+			<field name="value" ref="base.IDR" />
+		</record>
+		<record id="account_chart_template_retailshop" model="account.chart.template">
+			<field name="name">Toko Eceran atau Perdagangan Online</field>
+			<field name="parent_id" ref="account_chart_template_basic" />
+			<field name="complete_tax_set" eval="False" />
+		</record>
+		<record id="account_chart_template_retailshop_value" model="ir.values">
+			<field name="name">Toko Eceran atau Perdagangan Online</field>
+			<field name="model">account.chart.template</field>
+			<field name="key">default</field>
+			<field name="res_id" ref="account_chart_template_retailshop" />
+			<field name="value" ref="base.IDR" />
+		</record>
+		<record id="account_chart_template_salesindependent" model="account.chart.template">
+			<field name="name">Penjualan: Agen Independen</field>
+			<field name="parent_id" ref="account_chart_template_basic" />
+			<field name="complete_tax_set" eval="False" />
+		</record>
+		<record id="account_chart_template_salesindependent_value" model="ir.values">
+			<field name="name">Penjualan: Agen Independen</field>
+			<field name="model">account.chart.template</field>
+			<field name="key">default</field>
+			<field name="res_id" ref="account_chart_template_salesindependent" />
+			<field name="value" ref="base.IDR" />
+		</record>
+		<record id="account_chart_template_transport" model="account.chart.template">
+			<field name="name">Transportasi atau Pengiriman</field>
+			<field name="parent_id" ref="account_chart_template_basic" />
+			<field name="complete_tax_set" eval="False" />
+		</record>
+		<record id="account_chart_template_transport_value" model="ir.values">
+			<field name="name">Transportasi atau Pengiriman</field>
+			<field name="model">account.chart.template</field>
+			<field name="key">default</field>
+			<field name="res_id" ref="account_chart_template_transport" />
+			<field name="value" ref="base.IDR" />
+		</record>
+		<record id="account_chart_template_wholesalesdistribution"
+			model="account.chart.template">
+			<field name="name">Distribusi Grosir dan Penjualan</field>
+			<field name="parent_id" ref="account_chart_template_basic" />
+			<field name="complete_tax_set" eval="False" />
+		</record>
+		<record id="account_chart_template_wholesalesdistribution_value" model="ir.values">
+			<field name="name">Distribusi Grosir dan Penjualan</field>
+			<field name="model">account.chart.template</field>
+			<field name="key">default</field>
+			<field name="res_id" ref="account_chart_template_wholesalesdistribution" />
+			<field name="value" ref="base.IDR" />
+		</record>
+    </data>
+</openerp>
+

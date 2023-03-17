@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="invoice_form" model="ir.ui.view">
+            <field name="name">res.company.custom</field>
+            <field name="model">account.invoice</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="account.invoice_form" />
+            <field name="arch" type="xml">
+                <xpath expr="/form/header/button[1]" position="replace">
+                </xpath>
+                <xpath expr="/form/header/button[2]" position="replace">
+                </xpath>
+                <xpath expr="/form/header/button[@name='invoice_print']" position="replace">
+                </xpath>
+                <xpath expr="/form/header/button[@name='invoice_print']" position="replace">
+                </xpath>
+                <xpath expr="/form/header/button[@name='invoice_open']" position="attributes">
+                    <attribute name="string">Validate</attribute>
+                    <attribute name="groups">ad_property_sales.group_bank</attribute>
+                </xpath>
+                <xpath expr="/form/header/button[@name='invoice_cancel']" position="attributes">
+                    <attribute name="string">Cancel Invoicex</attribute>
+                </xpath>
+                <xpath expr="/form/sheet/group/group[2]/field[@name='account_id']" position="after">
+                    <label string="Nomor Faktur"/>
+                    <div>
+                        <field name="nomor_faktur_company" nolabel="1" style="width: 11%%"/>
+                        <field name="nomor_faktur_id" nolabel="1" invisible="False" style="width: 63%%" domain="[('status','=','0')]"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+        <!--<record id="view_invoice_tree" model="ir.ui.view"> <field name="name">account.invoice.aaa</field>
+            <field name="model">account.invoice</field> <field name="type">tree</field>
+            <field name="inherit_id" ref="account.invoice_tree"/> <field name="arch"
+            type="xml"> <xpath expr="/tree/field[@name='origin']" position="replace"/>
+            <xpath expr="/tree/field[@name='user_id']" position="replace"/> <xpath
+            expr="/tree/field[@name='number']" position="replace"/> <xpath expr="/tree/field[@name='partner_id']"
+            position="before"> <field name="origin"/> <field name="property_id"/>
+            <field name="descc"/> </xpath> <xpath expr="/tree/field[@name='partner_id']"
+            position="after"> <field name="phone"/> <field name="property_id"/> <field
+            name="virtual_acc"/> </xpath> </field> </record>-->
+        <record id="view_invoice_tree" model="ir.ui.view">
+            <field name="name">account.voucher.aaa</field>
+            <field name="model">account.voucher</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="account_voucher.view_voucher_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="/tree/field[1]" position="after">
+                    <field name="invoice_name"/>
+                    <!--<field name="reference"/>-->
+                </xpath>
+            </field>
+        </record>
+        
+        
+    </data>
+</openerp>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="account_chart_template_basic" model="account.chart.template">
+            <field name="account_root_id" ref="coa_basic"/>
+            <field name="bank_account_view_id" ref="cash_expenditure"/>
+            <field name="tax_code_root_id" ref="tax_code_chart_root"/>
+            <field name="property_account_receivable" ref="account_receivable"/>
+            <field name="property_account_payable" ref="account_payable"/>
+            <field name="property_account_expense_categ" ref="base_miscexpense"/>
+            <field name="property_account_income_categ" ref="base_miscincome"/>
+        </record>
+
+        <record id="account_chart_template_other" model="account.chart.template">
+            <field name="bank_account_view_id" ref="cash_expenditure"/>
+        </record>
+
+        <record id="account_chart_template_advertising" model="account.chart.template">
+            <field name="bank_account_view_id" ref="cash_expenditure"/>
+        </record>
+
+        <record id="account_chart_template_agriculture" model="account.chart.template">
+            <field name="bank_account_view_id" ref="cash_expenditure"/>
+        </record>
+
+        <record id="account_chart_template_construction_trade" model="account.chart.template">
+            <field name="bank_account_view_id" ref="cash_expenditure"/>
+        </record>
+
+        <record id="account_chart_template_construction_general" model="account.chart.template">
+            <field name="bank_account_view_id" ref="cash_expenditure"/>
+        </record>
+
+        <record id="account_chart_template_financial_service" model="account.chart.template">
+            <field name="bank_account_view_id" ref="cash_expenditure"/>
+        </record>
+
+        <record id="account_chart_template_general_service" model="account.chart.template">
+            <field name="bank_account_view_id" ref="cash_expenditure"/>
+        </record>
+
+        <record id="account_chart_template_legal_service" model="account.chart.template">
+            <field name="bank_account_view_id" ref="cash_expenditure"/>
+        </record>
+
+        <record id="account_chart_template_general_product" model="account.chart.template">
+            <field name="bank_account_view_id" ref="cash_expenditure"/>
+        </record>
+
+        <record id="account_chart_template_accounting" model="account.chart.template">
+            <field name="bank_account_view_id" ref="cash_expenditure"/>
+        </record>
+
+        <record id="account_chart_template_art" model="account.chart.template">
+            <field name="bank_account_view_id" ref="cash_expenditure"/>
+        </record>
+
+        <record id="account_chart_template_automotive" model="account.chart.template">
+            <field name="bank_account_view_id" ref="cash_expenditure"/>
+        </record>
+
+        <record id="account_chart_template_religiousorganization" model="account.chart.template">
+            <field name="bank_account_view_id" ref="cash_expenditure"/>
+        </record>
+
+        <record id="account_chart_template_design" model="account.chart.template">
+            <field name="bank_account_view_id" ref="cash_expenditure"/>
+        </record>
+
+        <record id="account_chart_template_hairorbeautyshop" model="account.chart.template">
+            <field name="bank_account_view_id" ref="cash_expenditure"/>
+        </record>
+
+        <record id="account_chart_template_itcomputerssoftware" model="account.chart.template">
+            <field name="bank_account_view_id" ref="cash_expenditure"/>
+        </record>
+
+        <record id="account_chart_template_insuranceagency" model="account.chart.template">
+            <field name="bank_account_view_id" ref="cash_expenditure"/>
+        </record>
+
+        <record id="account_chart_template_landscaping" model="account.chart.template">
+            <field name="bank_account_view_id" ref="cash_expenditure"/>
+        </record>
+
+        <record id="account_chart_template_lodging" model="account.chart.template">
+            <field name="bank_account_view_id" ref="cash_expenditure"/>
+        </record>
+
+        <record id="account_chart_template_manufacturer" model="account.chart.template">
+            <field name="bank_account_view_id" ref="cash_expenditure"/>
+        </record>
+
+        <record id="account_chart_template_manufacturing" model="account.chart.template">
+            <field name="bank_account_view_id" ref="cash_expenditure"/>
+        </record>
+
+        <record id="account_chart_template_healthservice" model="account.chart.template">
+            <field name="bank_account_view_id" ref="cash_expenditure"/>
+        </record>
+
+        <record id="account_chart_template_nonprofitorganizations" model="account.chart.template">
+            <field name="bank_account_view_id" ref="cash_expenditure"/>
+        </record>
+
+        <record id="account_chart_template_professional" model="account.chart.template">
+            <field name="bank_account_view_id" ref="cash_expenditure"/>
+        </record>
+
+        <record id="account_chart_template_propertymanagement" model="account.chart.template">
+            <field name="bank_account_view_id" ref="cash_expenditure"/>
+        </record>
+
+        <record id="account_chart_template_estatebroker" model="account.chart.template">
+            <field name="bank_account_view_id" ref="cash_expenditure"/>
+        </record>
+
+        <record id="account_chart_template_rental" model="account.chart.template">
+            <field name="bank_account_view_id" ref="cash_expenditure"/>
+        </record>
+
+        <record id="account_chart_template_maintenance" model="account.chart.template">
+            <field name="bank_account_view_id" ref="cash_expenditure"/>
+        </record>
+
+        <record id="account_chart_template_restaurant" model="account.chart.template">
+            <field name="bank_account_view_id" ref="cash_expenditure"/>
+        </record>
+
+        <record id="account_chart_template_retailshop" model="account.chart.template">
+            <field name="bank_account_view_id" ref="cash_expenditure"/>
+        </record>
+
+        <record id="account_chart_template_salesindependent" model="account.chart.template">
+            <field name="bank_account_view_id" ref="cash_expenditure"/>
+        </record>
+
+        <record id="account_chart_template_transport" model="account.chart.template">
+            <field name="bank_account_view_id" ref="cash_expenditure"/>
+        </record>
+
+        <record id="account_chart_template_wholesalesdistribution" model="account.chart.template">
+            <field name="bank_account_view_id" ref="cash_expenditure"/>
+        </record>
+
+    </data>
+</openerp>

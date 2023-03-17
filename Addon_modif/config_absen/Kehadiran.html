@@ -1,0 +1,367 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+<%
+import base64
+import mx.DateTime
+
+def oe_datetime_format(obj,format='%Y-%m-%d %H:%M:%S'):
+    if obj.val:
+        if hasattr(obj,'name') and (obj.name):
+            return mx.DateTime.strptime(obj.name,format)
+        else:
+            return false
+    else:
+        return false
+
+def chdf(obj,format1,format2):
+    return datetime.strptime(obj,format1).strftime(format2)
+%>
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Absensi Kehadiran</title>
+        <style type="text/css">
+            body {
+                margin: 0px;
+                padding: 0px;
+                font-size: 10px;
+                font-family: helvetica;
+            }
+            table {
+                border-collapse: collapse;
+                border: none;
+                margin: 0px;
+                padding: 0px;
+            }
+            tr, td {
+                margin: 0px;
+                padding: 0px;
+            }
+            img {
+                border: none;
+            }
+            .main {
+                /* width: 100%; */
+                border: 1px solid;
+                border-collapse: collapse;
+            }
+            .main-tab {
+                width: 100%;
+            }
+            .main-tab th, .main-tab td {
+                border: 1px solid;
+                padding: 3px;
+            }
+            .main-tab tr:first-child th {
+                border-top: 3px double;
+            }
+            .main-tab th:first-child, .main-tab td:first-child {
+                border-left: none;
+            }
+            .main-tab th:last-child, .main-tab td:last-child {
+                border-right: none;
+            }
+            /* .main-tab2 {
+                font-size: 12px;
+            } */
+            .main-tab th, .main-tab td {
+                border: 1px solid;
+                margin: 0px;
+                padding: 3px;
+            }
+            .head-tab td {
+                padding: 2px;
+                vertical-align: top;
+            }
+            .ins-tab {
+                width: 100%;
+            }
+            .ins-tab td {
+                border: none;
+                padding: 0px;
+            }
+            .main {
+                border: 1px solid;
+                border-collapse: collapse;
+            }
+            .fix-tab {
+                table-layout: fixed;
+            }
+            .full-block {
+                width: 100%;
+                clear: both;
+            }
+            .spacer {
+                height: 0px;
+            }
+            .tikwa {
+                width: 5px;
+            }
+            .label {
+                font-weight: 900;
+            }
+        </style>
+</head>
+
+<body>
+<!-- <% tga = {} %> 
+<% ig = 0 %> -->
+%for o in objects:
+	<!-- <% tga[ig] = o.tanggal_date %>
+    <% ig += 1 %> -->
+%endfor
+<h1 align="center">Report Laporan Kehadiran</h1>
+<strong>Periode: ${time.strftime('%d %B %Y', time.strptime( tga[0],'%Y-%m-%d'))} - ${time.strftime('%d %B %Y', time.strptime( tga[ig-1],'%Y-%m-%d'))} </strong>
+<table width="100%" border="1">
+<thead>
+  <tr>
+    <th width="1%" align="center" valign="middle">No</td>
+    <th width="6%" valign="middle">Nama</td>
+   	<!-- <% import datetime %> 
+   	<% ttt = {} %>
+	<% lll = {} %>
+	<% ll = [] %>
+	<% gg = 1 %>
+	<% kol = 0 %>
+	<% mm = 0 %>
+	<% nama = {} %>
+	<% ttt[0] = 2 %>
+	<% nama[0] = 1 %>  -->
+	%for o in objects:
+		<!-- <% ttt[gg] = o.tanggal_date %>
+		<% nama[gg] = o.lima_id.name %> -->
+		%if ttt[gg-1] != ttt[gg]:
+			<!-- <% lll[mm] = ttt[gg] %>
+		    <% ll.append(lll[mm]) %>
+			<% mm += 1 %>
+			<% asd = (ttt[gg]).split("-")%> -->
+		    <th align="center" valign="middle">${asd[2]}/${asd[1]}</td> 
+		%endif
+	    <!-- <% gg += 1 %> -->
+	%endfor
+	
+	<!-- <% asd[2] = int(asd[2])+1 %>
+	<% lll[mm] = asd[0]+"-"+asd[1]+"-"+str(asd[2]) %> -->
+		
+    <th width="2%" align="center" valign="middle">Hadir</td>
+    <th width="1%" align="center" valign="middle">D</td>
+    <th width="1%" align="center" valign="middle">S</td>
+    <th width="1%" align="center" valign="middle">I</td>
+    <th width="1%" align="center" valign="middle">C</td>
+    <th width="1%" align="center" valign="middle">TK</td>
+  </tr>
+</thead>
+<tbody>
+<!-- <% nam = {} %>
+<% ss = 1 %>
+<% ijin_awal = {} %>
+<% ijin_akhir = {} %>
+<% iaa = {} %>
+<% iaak = {} %>
+<% i_aa = {} %>
+<% ijin_sts = {} %>
+<% nam[0] = '1' %>
+<% num = 1 %>
+<% x = [] %>
+<% ij_c = "Cuti" %>
+<% ij_s = "Sakit" %>
+<% ij_d = "Dinas" %>
+<% ij_i = "Izin"  %> -->
+%for sss in objects:
+	<!-- <% 
+	nm = sss.lima_id.name
+	nam[ss] = nm
+	ss += 1
+	gd = []
+	dfg = 0
+	abc = 0
+	it = 0
+	ia = [] 
+	%> -->
+	%if nam[ss-1] not in x:
+	    <!-- <% x.append(nm) %>-->
+		%for iss in id_in(nam[ss-1]):
+    		<!-- 
+    		<% d = isi_id(iss) %>
+    		<% ijin_awal[it] = d.date_from %>
+    		<% ia = ijin_awal[it].split(" ") %>
+    		<% iaa[it] = ia[0] %>
+    		<% i_a = ia[0].split("-") %>
+    		<% i_aa[it] = i_a[1]+"/"+i_a[2]+"/"+i_a[0] %>
+    		<% ijin_akhir[it] = d.date_to %>
+    		<% iak = ijin_akhir[it].split(" ") %>
+    		<% iaak[it] = iak[0] %>
+    		<% ijin_sts[it] = d.holiday_status_id.name %>
+    		<% it += 1 %>
+    		-->
+	    %endfor
+	    <!-- <% it = 0 %>
+<% Cuti = 0 %>
+<% Sakit = 0 %>
+<% Dinas = 0 %>
+<% Izin = 0  %>
+<% TK = 0 %>
+<% makan = 0 %> --> 
+	  <tr>
+	    <td align="center" valign="middle">${num}</td>
+	    <td align="center" valign="middle">${nam[ss-1]}</td>
+		%for o in objects:
+		    <!-- <% mas = 0 %>
+		    <% nma = o.lima_id.name %>
+		    <% tgd = o.tanggal_date %>
+		    <% m = (o.jam_masuk).split(" ")%><% ma = (m[1]).split(":")%><% mas = int(ma[0])+7 %>
+		    <% p = (o.jam_pulang).split(" ")%><% pa = (p[1]).split(":")%><% pas = int(pa[0])+7 %>
+		    <% jj = o.jumlah_jam %>
+			<% js = jj.split(":") %>
+		    <% lupa = '00:00:00' %>
+		    <% 
+		    if mas > 23:
+		    	mas-=24
+		    endif 
+		    %><% 
+		    if pas > 23:
+		    	pas-=24
+		    endif %>   -->
+		    %if nma == nam[ss-1]:
+		    	%if lll[dfg] == tgd:
+			    	<td align="center" valign="middle">
+			    	<a style="color:blue">
+			    	%if m[1] == lupa:
+			    		 LA<br />
+			    	%else:
+				    	${mas}:${ma[1]}<br />
+				    %endif
+				    </a><a >
+				    %if p[1] == lupa:
+				    	 LA<br />
+			    	%else:
+				    	${pas}:${pa[1]}<br />
+				    %endif
+				    </a><a style="color:green">
+				    %if jj == '-1':
+				    	 -<br />
+				    %elif jj == '-2':
+				    	 -<br />
+			    	%else:
+				    	${js[0]}:${js[1]}<br />
+				    %endif
+				    </a>
+				     
+    				<!-- <% gd.append(tgd) %>
+    				<% abc += 1 %>
+    				<% makan += 1 %> -->
+			    	</td>
+				%else:
+					%if len(ia) > 0:
+						%if (lll[dfg] >= ia[it]) and (lll[dfg] <= iak[it]):
+							<td align="center" valign="middle" style="color:red"> ${ijin_sts[it]}</td>
+							%if (lll[dfg] == iak[it]):
+								<!-- <% it += 1 %>
+							%endif
+							%if ij_sts == ij_c:
+								<!-- <% Cuti += 1 %> -->
+								<!-- <% makan += 1 %> -->
+							%elif ij_sts == ij_s:
+								<!-- <% Sakit += 1 %> -->
+							%elif ij_sts == ij_d:
+								<!-- <% Dinas += 1 %> -->
+								<!-- <% makan += 1 %> -->
+								<!-- <% abc += 1 %> -->
+							%elif ij_sts == ij_i:
+								<!-- <% Izin += 1 %> -->
+							%endif
+						%else:
+							<td align="center" valign="middle" style="color:red"> TK </td>
+    						<% TK += 1 %>
+						%endif
+					%else:
+				    	<td align="center" valign="middle" style="color:red">
+				    	TK </td>
+						<% TK += 1 %>
+					%endif
+			    	<td align="center" valign="middle">
+			    	<a style="color:blue">
+				    ${mas}:${ma[1]}<br />
+				    </a><a>
+				    ${pas}:${pa[1]}<br />
+				    </a><a style="color:green">
+				    ${js[0]}:${js[1]}<br />
+    				</a>
+    				<!-- <% gd.append(tgd) %>
+    				<% abc += 1 %>
+    				<% makan += 1%> -->
+					<!-- <% dfg += 1 %> -->
+			    	</td>
+			    %endif
+					<!-- <% dfg += 1 %> -->
+			%elif tgd > lll[dfg]:
+				%if len(ia) > 0:
+					%if (lll[dfg] >= ia[it]) and (lll[dfg] <= iak[it]):
+						<!-- <% ij_sts = str(ijin_sts[it]) %> -->
+						<td align="center" valign="middle" style="color:red"> ${ij_sts}</td>
+						%if (lll[dfg] == iak[it]):
+							<!-- <% it += 1 %> -->
+						%endif
+						%if ij_sts == ij_c:
+							<!-- <% Cuti += 1 %> -->
+							<!-- <% makan += 1 %> -->
+						%elif ij_sts == ij_s:
+							<!-- <% Sakit += 1 %> -->
+						%elif ij_sts == ij_d:
+							<!-- <% Dinas += 1 %> -->
+							<!-- <% makan += 1 %> -->
+						%elif ij_sts == ij_i:
+							<!-- <% Izin += 1 %> -->
+						%endif
+					%else:
+						<td align="center" valign="middle" style="color:red"> TK </td>
+						<% TK += 1 %>
+					%endif
+				%else:
+					<td align="center" valign="middle" style="color:red">
+			    	TK
+			    	</td>
+					<!-- <% TK += 1 %> -->
+				%endif
+				<!-- <% dfg += 1 %> -->
+			%else:
+	    		%if lll[dfg] not in gd:
+	    			%if nam[ss-1] not in x:
+						<td align="center" valign="middle" style="color:red">
+					    ${lll[dfg]}
+					    ${tgd}<br />
+				    	</td>
+				    %endif
+				%endif   
+		    %endif
+		%endfor
+		%while dfg<mm:
+			%if lll[dfg] not in gd:
+				<td align="center" valign="middle" style="color:red"> TK</td>
+				<% TK += 1 %>
+		    %endif
+		<!-- <% dfg += 1 %> -->
+	    %endwhile
+	    <td align="center" valign="middle">${abc}</td>
+	    <td align="center" valign="middle">${Dinas}</td>
+	    <td align="center" valign="middle">${Sakit}</td>
+	    <td align="center" valign="middle">${Izin}</td>
+	    <td align="center" valign="middle">${Cuti}</td>
+	    <td align="center" valign="middle">${TK}</td>
+	  </tr>
+	  <!-- <% num += 1 %> -->
+	%endif
+%endfor
+</tbody>
+</table>
+<p>Keterangan:<br/>
+LA = Lupa Absen <br/>
+D = Dinas <br/>
+S = Sakit <br/>
+I = Ijin <br/>
+C = Cuti <br/>
+TK = Tanpa Keterangan
+</p>
+</body>
+</html>

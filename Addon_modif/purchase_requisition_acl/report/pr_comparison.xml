@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<report id="report_pr_comparison" model="purchase.requisition" name="report.pr.comparison"
+			webkit_header="report_pr_comparison_header" file="purchase_requisition_acl/report/mako/pr_comparison.html"
+			string="Comparison Sheet" report_type="webkit"/>
+		
+		<record id="report_pr_comparison_xls"
+			model="ir.actions.report.xml">
+			<field name="name">Comparison Sheet Excel</field>
+			<field name="model">purchase.requisition</field>
+			<field name="type">ir.actions.report.xml</field>
+			<field name="report_name">report.pr.comparison.xls</field>
+			<field name="report_type">xls</field>
+			<!-- field name="auto" eval="False" / -->
+		</record>
+		<record model="ir.values" id="report_pr_comparison_xls_values">
+			<field name="name">Comparison Sheet Excel</field>
+			<field name="key2">client_print_multi</field>
+			<field name="value" eval="'ir.actions.report.xml,' +str(ref('report_pr_comparison_xls'))"
+				/>
+			<field name="model">purchase.requisition</field>
+		</record>
+	</data>
+</openerp>

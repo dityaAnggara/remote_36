@@ -1,0 +1,134 @@
+<openerp>
+	<data>
+		<record model="customer_acl_v2.abj" id="abj_1">
+        	<field name="name">A</field>
+        	<field name="padd">4</field>
+        	<field name="padd_sup">3</field>
+    	</record>
+    	<record model="customer_acl_v2.abj" id="abj_2">
+        	<field name="name">B</field>
+        	<field name="padd">4</field>
+    		<field name="padd_sup">3</field>
+        </record>
+    	<record model="customer_acl_v2.abj" id="abj_3">
+        	<field name="name">C</field>
+        	<field name="padd">4</field>
+        	<field name="padd_sup">3</field>
+    	</record>
+    	<record model="customer_acl_v2.abj" id="abj_4">
+        	<field name="name">D</field>
+        	<field name="padd">4</field>
+        	<field name="padd_sup">3</field>
+    	</record>
+        <record model="customer_acl_v2.abj" id="abj_5">
+        	<field name="name">E</field>
+        	<field name="padd">4</field>
+        	<field name="padd_sup">3</field>
+    	</record>
+        <record model="customer_acl_v2.abj" id="abj_6">
+        	<field name="name">F</field>
+        	<field name="padd">4</field>
+        	<field name="padd_sup">3</field>
+    	</record>
+    	<record model="customer_acl_v2.abj" id="abj_7">
+        	<field name="name">G</field>
+        	<field name="padd">4</field>
+        	<field name="padd_sup">3</field>
+    	</record>
+    	<record model="customer_acl_v2.abj" id="abj_8">
+        	<field name="name">H</field>
+        	<field name="padd">4</field>
+        	<field name="padd_sup">3</field>
+    	</record>
+    	<record model="customer_acl_v2.abj" id="abj_9">
+        	<field name="name">I</field>
+        	<field name="padd">4</field>
+        	<field name="padd_sup">3</field>
+    	</record>
+    	<record model="customer_acl_v2.abj" id="abj_10">
+        	<field name="name">J</field>
+        	<field name="padd">4</field>
+        	<field name="padd_sup">3</field>
+    	</record>
+    	<record model="customer_acl_v2.abj" id="abj_11">
+        	<field name="name">K</field>
+        	<field name="padd">4</field>
+        	<field name="padd_sup">3</field>
+    	</record>
+    	<record model="customer_acl_v2.abj" id="abj_12">
+        	<field name="name">L</field>
+        	<field name="padd">4</field>
+        	<field name="padd_sup">3</field>
+    	</record>
+    	<record model="customer_acl_v2.abj" id="abj_13">
+        	<field name="name">M</field>
+        	<field name="padd">4</field>
+        	<field name="padd_sup">3</field>
+    	</record>
+    	<record model="customer_acl_v2.abj" id="abj_14">
+        	<field name="name">N</field>
+        	<field name="padd">4</field>
+        	<field name="padd_sup">3</field>
+    	</record>
+    	<record model="customer_acl_v2.abj" id="abj_15">
+        	<field name="name">O</field>
+        	<field name="padd">4</field>
+        	<field name="padd_sup">3</field>
+    	</record>
+    	<record model="customer_acl_v2.abj" id="abj_16">
+        	<field name="name">P</field>
+        	<field name="padd">4</field>
+        	<field name="padd_sup">3</field>
+    	</record>
+    	<record model="customer_acl_v2.abj" id="abj_17">
+        	<field name="name">Q</field>
+        	<field name="padd">4</field>
+        	<field name="padd_sup">3</field>
+    	</record>
+    	<record model="customer_acl_v2.abj" id="abj_18">
+        	<field name="name">R</field>
+        	<field name="padd">4</field>
+        	<field name="padd_sup">3</field>
+    	</record>
+    	<record model="customer_acl_v2.abj" id="abj_19">
+        	<field name="name">S</field>
+        	<field name="padd">4</field>
+        	<field name="padd_sup">3</field>
+    	</record>
+    	<record model="customer_acl_v2.abj" id="abj_20">
+        	<field name="name">T</field>
+        	<field name="padd">4</field>
+        	<field name="padd_sup">3</field>
+    	</record>
+    	<record model="customer_acl_v2.abj" id="abj_21">
+        	<field name="name">U</field>
+        	<field name="padd">4</field>
+        	<field name="padd_sup">3</field>
+    	</record>
+    	<record model="customer_acl_v2.abj" id="abj_22">
+        	<field name="name">V</field>
+        	<field name="padd">4</field>
+        	<field name="padd_sup">3</field>
+    	</record>
+    	<record model="customer_acl_v2.abj" id="abj_23">
+        	<field name="name">W</field>
+        	<field name="padd">4</field>
+        	<field name="padd_sup">3</field>
+    	</record>
+    	<record model="customer_acl_v2.abj" id="abj_24">
+        	<field name="name">X</field>
+        	<field name="padd">4</field>
+        	<field name="padd_sup">3</field>
+    	</record>
+    	<record model="customer_acl_v2.abj" id="abj_25">
+        	<field name="name">Y</field>
+        	<field name="padd">4</field>
+        	<field name="padd_sup">3</field>
+    	</record>
+    	<record model="customer_acl_v2.abj" id="abj_26">
+        	<field name="name">Z</field>
+        	<field name="padd">4</field>
+        	<field name="padd_sup">3</field>
+    	</record>
+    </data>
+</openerp>

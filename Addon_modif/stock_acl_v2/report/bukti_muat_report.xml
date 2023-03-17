@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<report id="report_webkit_new_bukti"
+		model = "stock.picking.out"
+		name="stock.picking.out.report.satu"
+		file="stock_acl_v2/report/bukti_muat.mako"
+		string="Bukti Muat"
+		report_type="webkit"/>
+	</data>
+	
+</openerp>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		<record model="ir.ui.view" id="wizard_update_translations_inherit">
+            <field name="name">Synchronize Terms Inherit</field>
+            <field name="model">base.update.translations</field>
+			<field name="inherit_id" ref="base.wizard_update_translations"/>
+			<field name="arch" type="xml">
+				<field name="lang" position="after">
+					<field name="update_all"/> 
+				</field>
+			</field>
+		</record>
+    </data>
+</openerp>

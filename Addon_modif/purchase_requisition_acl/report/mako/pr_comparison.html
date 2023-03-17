@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <style type="text/css">
+            body {
+                margin: 0px;
+                padding: 0px;
+                font-size: 12px;
+                font-family: helvetica,arial,sans-serif;
+            }
+            .head1 {
+                text-align: center;
+            }
+            .table1 {
+                width: 100%;
+                border: 1px solid;
+                border-top: 5px double;
+                border-collapse: collapse;
+                table-layout: fixed;
+                margin: 0px;
+                padding: 5px;
+                page-break-after: always;
+            }
+            .table1 caption {
+                text-align: left;
+                font-weight: 900;
+            }
+            .table1 th, .table1 td {
+                border: 1px solid;
+                margin: 0px;
+                padding: 0px;
+            }
+        </style>
+    </head>
+    <body>
+        % for tender in objects :
+        <% i = 1 %>
+        <br />
+        <table class="table1">
+            <caption>
+                PT. ASIA CARTON LESTARI ( No. ${ tender.name or '' } )
+                <div style="display: inline-block; float: right;">Date :${ tender.date_start or ''}</div>
+            </caption>
+            <thead>
+                <tr>
+                    <th style="width: 10mm;">NO.</th>
+                    <th style="width: 50mm;">GOODS</th>
+                    % for po in tender.purchase_ids :
+                    <th>
+                        ${ po.partner_id.name or ''}<br />
+                        ( ${ po.name or '' } )
+                    </th>
+                    % endfor
+                </tr>
+            </thead>
+            <tbody>
+                <% dline = [] %>
+                % for line in tender.line_ids :
+                <%
+                if line.product_id in dline :
+                    continue
+                %>
+                <tr>
+                    <td style="text-align: center;">${ i }</td>
+                    <td>${ line.product_id.name or ''}</td>
+                    % for po in tender.purchase_ids :
+                    <td style="text-align: right;">
+                        % for order_line in po.order_line :
+                        % if order_line.product_id == line.product_id :
+                        <div style="display: inline-block; float: left;">${ po.currency_id.symbol or ''}</div>
+                        ${ order_line.price_unit or ' - ' }
+                        <% break %>
+                        % endif
+                        % endfor
+                    </td>
+                    % endfor
+                </tr>
+                <%
+                dline.append(line.product_id)
+                i = i + 1
+                %>
+                % endfor
+            </tbody>
+        </table>
+        % endfor
+    </body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<!--
+<%
+import base64
+import mx.DateTime
+
+def oe_datetime_format(obj,format='%Y-%m-%d %H:%M:%S'):
+    if obj.val:
+        if hasattr(obj,'name') and (obj.name):
+            return mx.DateTime.strptime(obj.name,format)
+        else:
+            return false
+    else:
+        return false
+
+def chdf(obj,format1,format2):
+    return datetime.strptime(obj,format1).strftime(format2)
+%>
+-->
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Outstanding SKP</title>
+        <style type="text/css">
+            body {
+                margin: 0px;
+                padding: 0px;
+                font-size: 10px;
+                font-family: helvetica;
+            }
+            table {
+                border-collapse: collapse;
+                border: none;
+                margin: 0px;
+                padding: 0px;
+            }
+            tr, td {
+                margin: 0px;
+                padding: 0px;
+            }
+            img {
+                border: none;
+            }
+            .main {
+                /* width: 100%; */
+                border: 1px solid;
+                border-collapse: collapse;
+                page-break-after: always;
+            }
+            .main-tab {
+                width: 100%;
+            }
+            .main-tab th, .main-tab td {
+                border: 1px solid;
+                padding: 3px;
+            }
+            .main-tab tr:first-child th {
+                border-top: 3px double;
+            }
+            .main-tab th:first-child, .main-tab td:first-child {
+                border-left: none;
+            }
+            .main-tab th:last-child, .main-tab td:last-child {
+                border-right: none;
+            }
+            /* .main-tab2 {
+                font-size: 12px;
+            } */
+            .main-tab th, .main-tab td {
+                border: 1px solid;
+                margin: 0px;
+                padding: 3px;
+            }
+            .head-tab td {
+                padding: 2px;
+                vertical-align: top;
+            }
+            .ins-tab {
+                width: 100%;
+            }
+            .ins-tab td {
+                border: none;
+                padding: 0px;
+            }
+            .fix-tab {
+                table-layout: fixed;
+            }
+            .full-block {
+                width: 100%;
+                clear: both;
+            }
+            .spacer {
+                height: 0px;
+            }
+            .tikwa {
+                width: 5px;
+            }
+            .label {
+                font-weight: 900;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main">
+            <!-- <%
+            a = "" 
+            d = ""
+            ap = []
+            orgnnmm = ""
+            for order in get_ord():
+                d = order.create_date
+                f = d.split(" ")
+                fdate = f[0].split("-")
+                ap.append(f[0])
+                orgnnmm = order.name
+            %> -->
+            <table class="head-tab fix-tab">
+                <tr>
+                    <td style="font-weight: 900; font-size: 20px; text-transform: uppercase;">Report Outstanding SKP</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: 900;">Periode : ${min(ap)} s.d ${max(ap)}</td>
+                </tr>
+            </table>
+            <table class="main-tab fix-tab">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>No SKP</th>
+                        <th>Customer Code</th>
+                        <th>Customer Name</th> 
+                        <th>Status</th>
+                        <th>Total Qty</th>
+                        <th>Total Delivery</th>
+                        <th>Sisa Delivery</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    % for order in get_ord():
+                    <!-- <%
+                    tot_qty = 0
+                    tot_del = 0
+                    for mo_s in get_records(order.name):
+                        df = brw_movv(mo_s)
+                        tot_del += df.product_qty
+                    
+                    for line in order.order_line:
+                        tot_qty += line.product_uom_qty
+                    
+                    stto = ""
+                    if order.partner_id.active == True:
+                        stto = "active"
+                    else:
+                        stto = "inactive"
+                    
+                    siss_dl = tot_qty - tot_del
+                    %> -->
+                    <tr>
+                        <td style="text-align: center;">${ order.create_date or '' }</td>
+                        <td style="text-align: center;">${ order.po_sl or '' }</td>
+                        <td style="text-align: center;">${ order.partner_id.ref or ''}</td>
+                        <td>${ order.partner_id.name or '' }</td>
+                        <td style="text-align: center; text-transform: uppercase;">${ stto or '' }</td>
+                        <td style="text-align: right;">${ tot_qty or 0 }</td>
+                        <td style="text-align: right;">${ tot_del or 0 }</td>
+                        <td style="text-align: right;">${ siss_dl or 0 }</td>
+                    </tr>
+                    <tr>
+                        <th colspan="3" style="border: none;">&nbsp;</th>
+                        <th style="background-color: lightcyan;">No KIP</th>
+                        <th style="background-color: lightcyan;">Product</th>
+                        <th style="background-color: lightcyan;">Qty</th>
+                        <th style="background-color: lightcyan;">Total Delivery</th>
+                        <th style="background-color: lightcyan;">Sisa Delivery</th>
+                    </tr>
+                    % for linc in order.order_line:
+                    <!-- <%
+                    too_dl = 0
+                    for dfg in rcrd_toe(order.name, linc.id):
+                        line_f = brw_movv(dfg)
+                        too_dl += line_f.product_qty
+                    kurang_banget = linc.product_uom_qty - too_dl
+                    %> -->
+                    <tr>
+                        <td colspan="3" style="border: none;">&nbsp;</td>
+                        <td style="text-align: center;">${ linc.mrp_no_kip or '' }</td>
+                        <td>${ linc.product_id.name or '' }</td>
+                        <td style="text-align: right;">${ linc.product_uom_qty or '' }</td>
+                        <td style="text-align: right;">${ too_dl or 0 }</td>
+                        <td style="text-align: right;">${ kurang_banget or 0 }</td>
+                    </tr>
+                    % endfor
+                    <tr>
+                        <td colspan="8" style="border: none;">&nbsp;</td>
+                    </tr>
+                    % endfor
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

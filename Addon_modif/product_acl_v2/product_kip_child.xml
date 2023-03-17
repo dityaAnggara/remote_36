@@ -1,0 +1,57 @@
+<openerp>
+	<data>
+		<record id="view_product_kip_child_form" model="ir.ui.view">
+            <field name="name">product.kip.child.form</field>
+            <field name="model">product.kip.child</field>
+            <field name="arch" type="xml">
+                <form string="Setting Alias For Child Product KIP" version="7.0">
+                	<sheet>
+                	 <group>
+                	 	<field name="number"  />
+						<field name="alias"  />                	 	
+                	 </group>	
+                	</sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_product_kip_child_tree" model="ir.ui.view">
+            <field name="name">product.kip.child.tree</field>
+            <field name="model">product.kip.child</field>
+            <field name="arch" type="xml">
+                <tree  string="Setting Alias for Child Product KIP">
+                    <field name="number"  />
+					<field name="alias"  />  
+                </tree>
+            </field>
+        </record>
+        <record id="view_product_kip_child_search" model="ir.ui.view">
+            <field name="name">product.kip.child.search</field>
+            <field name="model">product.kip.child</field>
+            <field name="arch" type="xml">
+                <search string="Setting Alias for Child Product KIP">
+                    <field name="number"  />
+					<field name="alias"  /> 
+                </search>
+            </field>
+        </record>
+        <record id="action_product_kip_child" model="ir.actions.act_window">
+            <field name="name">Setting Alias Child KIP</field>
+            <field name="res_model">product.kip.child</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_product_kip_child_search"/>
+            <field name="view_id" ref="view_product_kip_child_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to Setting Alias for Child Product KIP.
+              </p><p>
+                To Setting Alias for Child Product KIP
+              </p>
+            </field>
+        </record>
+        <menuitem action="action_product_kip_child" parent="product.prod_config_main" id="menu_product_kip_child" />
+		<menuitem action="action_product_kip_child" parent="stock.menu_product_in_config_stock" id="menu_product_kip_child_one" />
+		<menuitem action="action_product_kip_child" parent="purchase.menu_product_in_config_purchase" id="menu_product_kip_child_two" />
+		<menuitem action="action_product_kip_child" parent="mrp.menu_mrp_configuration" id="menu_product_kip_padd_three" />
+	</data>
+</openerp>

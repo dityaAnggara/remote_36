@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record model="ir.ui.view" id="view_mrp_product_ok_inherit">
+			<field name="name">mrp.product.ok.inherit</field>
+			<field name="model">product.product</field>
+			<field name="inherit_id" ref="product.product_normal_form_view" />
+			<field name="arch" type="xml">
+				<xpath expr="//sheet/notebook/page[@string='Information']/group"
+					position="after">
+					<group name="product_mrp_img">
+						<field name="product_mrp_img_ids">
+							<form>
+								<field name="name" colspan="4" />
+								<field name="image" widget="image" colspan="4" />
+							</form>
+						</field>
+					</group>
+				</xpath>
+			</field>
+		</record>
+		<record id="view_partner_form_inherit_ok" model="ir.ui.view">
+			<field name="name">res.partner.form.inherit.ok</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="customer_acl_v2.view_partner_form_inherit_acl" />
+			<field name="arch" type="xml">
+				<xpath expr="//sheet/notebook/page[@string='Sales &amp; Purchases']"
+					position="after">
+					<page name="produk" string="Produk">
+						<field name="sp_product_ids" />
+					</page>
+				</xpath>
+			</field>
+		</record>
+		<record id="product.product_search_form_view" model="ir.ui.view">
+			<field name="name">product.search.form</field>
+			<field name="model">product.product</field>
+			<field name="arch" type="xml">
+				<search string="Product">
+					<field name="name" string="Product"
+						filter_domain="['|',('name','ilike',self),('default_code','ilike',self)]" />
+					<filter string="Services" icon="terp-accessories-archiver"
+						domain="[('type','=','service')]" />
+					<filter string="Consumable" name="consumable" icon="terp-accessories-archiver"
+						domain="[('type','=','consu')]" help="Consumable products" />
+					<separator />
+					<filter string="Can be Sold" name="filter_to_sell"
+						icon="terp-accessories-archiver-minus" domain="[('sale_ok','=',1)]" />
+					<field name="categ_id" />
+					<group expand="0" string="Context...">
+						<field name="pricelist_id" widget="selection" context="{'pricelist': self}"
+							filter_domain="[]" groups="product.group_sale_pricelist" /> <!-- Keep widget=selection on this field to pass numeric `self` value, which 
+							is not the case for regular m2o widgets! -->
+						<field name="company_id" groups="base.group_multi_company" />
+					</group>
+					<group expand='0' string='Group by...'>
+						<filter string='Customer' icon="terp-stock_symbol-selection"
+							domain="[]" context="{'group_by' : 'cusm_id'}" />
+						<filter string='Category' icon="terp-stock_symbol-selection"
+							domain="[]" context="{'group_by' : 'categ_id'}" />
+						<filter string='Default Unit of Measure' icon="terp-mrp"
+							domain="[]" context="{'group_by' : 'uom_id'}" />
+						<filter string='Type' icon="terp-stock_symbol-selection"
+							domain="[]" context="{'group_by' : 'type'}" />
+						<filter string='Company' icon="terp-go-home" domain="[]"
+							context="{'group_by' : 'company_id'}" groups="base.group_multi_company" />
+					</group>
+				</search>
+			</field>
+		</record>
+	</data>
+</openerp>

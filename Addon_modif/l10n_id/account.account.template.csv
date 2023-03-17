@@ -1,0 +1,141 @@
+id,code,name,type,user_type/id,parent_id/id,reconcile,chart_template_id/id
+coa_basic,0,Basic,view,l10n_id.user_type_view,,FALSE,l10n_id.account_chart_template_basic
+asset,100000,AKTIVA,view,account.data_account_type_asset,coa_basic,FALSE,l10n_id.account_chart_template_basic
+current_asset,110000,Aktiva Lancar,view,l10n_id.user_type_current_asset,asset,FALSE,l10n_id.account_chart_template_basic
+cash_expenditure,111000,Kas,view,l10n_id.user_type_cash,current_asset,FALSE,l10n_id.account_chart_template_basic
+111010,111010,Kas IDR,liquidity,l10n_id.user_type_cash,cash_expenditure,FALSE,l10n_id.account_chart_template_basic
+111020,111020,Kas USD,liquidity,l10n_id.user_type_cash,cash_expenditure,FALSE,l10n_id.account_chart_template_basic
+bank_expenditure,112000,Bank,view,l10n_id.user_type_cash,current_asset,FALSE,l10n_id.account_chart_template_basic
+112010,112010,Bank Akun IDR Norek 1234,liquidity,l10n_id.user_type_cash,bank_expenditure,FALSE,l10n_id.account_chart_template_basic
+112020,112020,Bank Akun IDR Norek 1345,liquidity,l10n_id.user_type_cash,bank_expenditure,FALSE,l10n_id.account_chart_template_basic
+112610,112610,Bank Akun USD Norek 2345,liquidity,l10n_id.user_type_cash,bank_expenditure,FALSE,l10n_id.account_chart_template_basic
+112620,112620,Bank Akun USD Norek 2456,liquidity,l10n_id.user_type_cash,bank_expenditure,FALSE,l10n_id.account_chart_template_basic
+deposit_expenditure,113000,Deposito,view,l10n_id.user_type_cash,current_asset,FALSE,l10n_id.account_chart_template_basic
+113010,113010,Deposito IDR Norek 1234,liquidity,l10n_id.user_type_cash,deposit_expenditure,FALSE,l10n_id.account_chart_template_basic
+113020,113020,Deposito IDR Norek 1345,liquidity,l10n_id.user_type_cash,deposit_expenditure,FALSE,l10n_id.account_chart_template_basic
+113610,113610,Deposito USD Norek 2345,liquidity,l10n_id.user_type_cash,deposit_expenditure,FALSE,l10n_id.account_chart_template_basic
+113620,113620,Deposito USD Norek 2456,liquidity,l10n_id.user_type_cash,deposit_expenditure,FALSE,l10n_id.account_chart_template_basic
+receivables,114000,Piutang,view,l10n_id.user_type_account_receivable,current_asset,FALSE,l10n_id.account_chart_template_basic
+account_receivable,114100,Piutang Usaha,receivable,l10n_id.user_type_account_receivable,receivables,TRUE,l10n_id.account_chart_template_basic
+allowance_doubtful_account,114200,Penyisihan Piutang Ragu-ragu,other,l10n_id.user_type_account_receivable,receivables,FALSE,l10n_id.account_chart_template_basic
+advance_payment,115000,Uang Muka,view,l10n_id.user_type_current_asset,current_asset,FALSE,l10n_id.account_chart_template_basic
+115010,115010,Uang Muka Pembelian,other,l10n_id.user_type_current_asset,advance_payment,FALSE,l10n_id.account_chart_template_basic
+115020,115020,Uang Muka Sewa Tempat,other,l10n_id.user_type_current_asset,advance_payment,FALSE,l10n_id.account_chart_template_basic
+accrued_income,116000,Pendapatan Yang Masih Harus Diterima,view,l10n_id.user_type_current_asset,current_asset,FALSE,l10n_id.account_chart_template_basic
+116010,116010,Bunga Deposito,other,l10n_id.user_type_current_asset,accrued_income,FALSE,l10n_id.account_chart_template_basic
+116020,116020,Bunga Obligasi,other,l10n_id.user_type_current_asset,accrued_income,FALSE,l10n_id.account_chart_template_basic
+116030,116030,Deviden,other,l10n_id.user_type_current_asset,accrued_income,FALSE,l10n_id.account_chart_template_basic
+116040,116040,Jasa Keagenan,other,l10n_id.user_type_current_asset,accrued_income,FALSE,l10n_id.account_chart_template_basic
+prepaid_tax,117000,Pajak Dibayar Dimuka,view,l10n_id.user_type_current_asset,current_asset,FALSE,l10n_id.account_chart_template_basic
+117010,117010,PPN Masukan (Pembelian),other,l10n_id.user_type_current_asset,prepaid_tax,FALSE,l10n_id.account_chart_template_basic
+117020,117020,PPh 21,other,l10n_id.user_type_current_asset,prepaid_tax,FALSE,l10n_id.account_chart_template_basic
+117030,117030,PPh 23,other,l10n_id.user_type_current_asset,prepaid_tax,FALSE,l10n_id.account_chart_template_basic
+117040,117040,PPh Final Ps. 4 ayat 2,other,l10n_id.user_type_current_asset,prepaid_tax,FALSE,l10n_id.account_chart_template_basic
+117050,117050,PPh 25,other,l10n_id.user_type_current_asset,prepaid_tax,FALSE,l10n_id.account_chart_template_basic
+prepaid_expenses,118000,Biaya Dibayar Dimuka,view,l10n_id.user_type_current_asset,current_asset,FALSE,l10n_id.account_chart_template_basic
+118010,118010,Sewa Gedung,other,l10n_id.user_type_current_asset,prepaid_expenses,FALSE,l10n_id.account_chart_template_basic
+118020,118020,Asuransi,other,l10n_id.user_type_current_asset,prepaid_expenses,FALSE,l10n_id.account_chart_template_basic
+long_term_investment,119000,Investasi Jangka Panjang,view,l10n_id.user_type_current_asset,current_asset,FALSE,l10n_id.account_chart_template_basic
+119010,119010,Penyertaan Saham,other,l10n_id.user_type_current_asset,long_term_investment,FALSE,l10n_id.account_chart_template_basic
+119020,119020,Obligasi,other,l10n_id.user_type_current_asset,long_term_investment,FALSE,l10n_id.account_chart_template_basic
+119030,119030,Investasi Properti,other,l10n_id.user_type_current_asset,long_term_investment,FALSE,l10n_id.account_chart_template_basic
+fixed_asset,120000,Aktiva Tetap,view,l10n_id.user_type_fixed_asset,asset,FALSE,l10n_id.account_chart_template_basic
+fa_land,121000,Tanah,other,l10n_id.user_type_fixed_asset,fixed_asset,FALSE,l10n_id.account_chart_template_basic
+fa_building,122000,Bangunan,other,l10n_id.user_type_fixed_asset,fixed_asset,FALSE,l10n_id.account_chart_template_basic
+fa_automotive,123000,Kendaraan,other,l10n_id.user_type_fixed_asset,fixed_asset,FALSE,l10n_id.account_chart_template_basic
+fa_equipment,124000,Peralatan,other,l10n_id.user_type_fixed_asset,fixed_asset,FALSE,l10n_id.account_chart_template_basic
+fa_furniture,125000,Furniture,other,l10n_id.user_type_fixed_asset,fixed_asset,FALSE,l10n_id.account_chart_template_basic
+accumulated_depreciation,130000,Akumulasi Penyusutan,view,l10n_id.user_type_accumulated_depreciation,asset,FALSE,l10n_id.account_chart_template_basic
+ad_building,131000,Bangunan,other,l10n_id.user_type_accumulated_depreciation,accumulated_depreciation,FALSE,l10n_id.account_chart_template_basic
+ad_automotive,132000,Kendaraan,other,l10n_id.user_type_accumulated_depreciation,accumulated_depreciation,FALSE,l10n_id.account_chart_template_basic
+ad_equipment,133000,Peralatan,other,l10n_id.user_type_accumulated_depreciation,accumulated_depreciation,FALSE,l10n_id.account_chart_template_basic
+ad_furniture,134000,Furniture,other,l10n_id.user_type_accumulated_depreciation,accumulated_depreciation,FALSE,l10n_id.account_chart_template_basic
+intangible_asset,140000,Aktiva Tidak Berwujud,view,l10n_id.user_type_intangible_asset,asset,FALSE,l10n_id.account_chart_template_basic
+141000,141000,Hak Patent,other,l10n_id.user_type_intangible_asset,intangible_asset,FALSE,l10n_id.account_chart_template_basic
+142000,142000,Merk dan Cap Dagang,other,l10n_id.user_type_intangible_asset,intangible_asset,FALSE,l10n_id.account_chart_template_basic
+143000,143000,Goodwill,other,l10n_id.user_type_intangible_asset,intangible_asset,FALSE,l10n_id.account_chart_template_basic
+144000,144000,Franchise,other,l10n_id.user_type_intangible_asset,intangible_asset,FALSE,l10n_id.account_chart_template_basic
+other_asset,150000,Aktiva Lain-lain,view,l10n_id.user_type_intangible_asset,asset,FALSE,l10n_id.account_chart_template_basic
+151000,151000,Biaya Pra-operasi,view,l10n_id.user_type_intangible_asset,other_asset,FALSE,l10n_id.account_chart_template_basic
+151010,151010,Harga Perolehan Biaya Pra-operasi,other,l10n_id.user_type_intangible_asset,151000,FALSE,l10n_id.account_chart_template_basic
+151020,151020,Amortisasi Biaya Pra-operasi,other,l10n_id.user_type_intangible_asset,151000,FALSE,l10n_id.account_chart_template_basic
+152000,152000,Piutang Kepada Pihak Istimewa,view,l10n_id.user_type_intangible_asset,other_asset,FALSE,l10n_id.account_chart_template_basic
+152010,152010,Piutang Pihak Istimewa - Pemegang Saham,other,l10n_id.user_type_intangible_asset,152000,FALSE,l10n_id.account_chart_template_basic
+152020,152020,Piutang Pihak Istimewa - Karyawan,other,l10n_id.user_type_intangible_asset,152000,FALSE,l10n_id.account_chart_template_basic
+153000,153000,Uang Jaminan,view,l10n_id.user_type_intangible_asset,other_asset,FALSE,l10n_id.account_chart_template_basic
+153010,153010,Uang Jaminan Telepon,other,l10n_id.user_type_intangible_asset,153000,FALSE,l10n_id.account_chart_template_basic
+153020,153020,Uang Jaminan Listrik,other,l10n_id.user_type_intangible_asset,153000,FALSE,l10n_id.account_chart_template_basic
+154000,154000,Aktiva Tetap Yang Tidak Digunakan,other,l10n_id.user_type_intangible_asset,other_asset,FALSE,l10n_id.account_chart_template_basic
+155000,155000,Aktiva Lainnya,other,l10n_id.user_type_intangible_asset,other_asset,FALSE,l10n_id.account_chart_template_basic
+liability,200000,KEWAJIBAN,view,l10n_id.user_type_liability,coa_basic,FALSE,l10n_id.account_chart_template_basic
+current_liability,210000,Kewajiban Lancar,view,l10n_id.user_type_current_liability,liability,FALSE,l10n_id.account_chart_template_basic
+payable,211000,Hutang,view,l10n_id.user_type_account_payable,current_liability,FALSE,l10n_id.account_chart_template_basic
+account_payable,211100,Hutang Usaha,payable,l10n_id.user_type_account_payable,payable,TRUE,l10n_id.account_chart_template_basic
+other_current_liability,212000,Hutang Lancar Lainnya,view,l10n_id.user_type_other_current_liability,current_liability,FALSE,l10n_id.account_chart_template_basic
+payroll_liab,212100,Hutang Gaji,other,l10n_id.user_type_other_current_liability,other_current_liability,FALSE,l10n_id.account_chart_template_basic
+tax_liab,213000,Hutang Pajak,view,l10n_id.user_type_other_current_liability,current_liability,FALSE,l10n_id.account_chart_template_basic
+213010,213010,PPN Keluaran - Penjualan,other,l10n_id.user_type_other_current_liability,tax_liab,FALSE,l10n_id.account_chart_template_basic
+213020,213020,Ppn BM,other,l10n_id.user_type_other_current_liability,tax_liab,FALSE,l10n_id.account_chart_template_basic
+213030,213030,PPh 21,other,l10n_id.user_type_other_current_liability,tax_liab,FALSE,l10n_id.account_chart_template_basic
+213040,213040,PPh 22,other,l10n_id.user_type_other_current_liability,tax_liab,FALSE,l10n_id.account_chart_template_basic
+213050,213050,PPh 23,other,l10n_id.user_type_other_current_liability,tax_liab,FALSE,l10n_id.account_chart_template_basic
+213060,213060,PPh Final Ps. 4 ayat 2,other,l10n_id.user_type_other_current_liability,tax_liab,FALSE,l10n_id.account_chart_template_basic
+213070,213070,PPh 25,other,l10n_id.user_type_other_current_liability,tax_liab,FALSE,l10n_id.account_chart_template_basic
+213080,213080,PPh 29,other,l10n_id.user_type_other_current_liability,tax_liab,FALSE,l10n_id.account_chart_template_basic
+213090,213090,PBB,other,l10n_id.user_type_other_current_liability,tax_liab,FALSE,l10n_id.account_chart_template_basic
+213100,213100,Surat Tagihan Pajak,other,l10n_id.user_type_other_current_liability,tax_liab,FALSE,l10n_id.account_chart_template_basic
+accrued_cost,214000,Biaya Yang Masih Harus Dibayar,view,l10n_id.user_type_other_current_liability,current_liability,FALSE,l10n_id.account_chart_template_basic
+214010,214010,Biaya YMH Dibayar - Bunga Pinjaman,other,l10n_id.user_type_other_current_liability,accrued_cost,FALSE,l10n_id.account_chart_template_basic
+214020,214020,Biaya YMH Dibayar - Denda Pinjaman,other,l10n_id.user_type_other_current_liability,accrued_cost,FALSE,l10n_id.account_chart_template_basic
+214030,214030,Biaya YMH Dibayar - Telepon,other,l10n_id.user_type_other_current_liability,accrued_cost,FALSE,l10n_id.account_chart_template_basic
+214040,214040,Biaya YMH Dibayar - Listrik,other,l10n_id.user_type_other_current_liability,accrued_cost,FALSE,l10n_id.account_chart_template_basic
+214050,214050,Biaya YMH Dibayar - Sewa,other,l10n_id.user_type_other_current_liability,accrued_cost,FALSE,l10n_id.account_chart_template_basic
+214060,214060,Biaya YMH Dibayar - Gaji dan Upah,other,l10n_id.user_type_other_current_liability,accrued_cost,FALSE,l10n_id.account_chart_template_basic
+214070,214070,Biaya YMH Dibayar - Asuransi,other,l10n_id.user_type_other_current_liability,accrued_cost,FALSE,l10n_id.account_chart_template_basic
+long_term_liab,220000,Hutang Jangka Panjang,view,l10n_id.user_type_long_term_liability,liability,FALSE,l10n_id.account_chart_template_basic
+221000,221000,Hutang Bank,view,l10n_id.user_type_long_term_liability,long_term_liab,FALSE,l10n_id.account_chart_template_basic
+221010,221010,Hutang Bank - Pokok,other,l10n_id.user_type_long_term_liability,221000,FALSE,l10n_id.account_chart_template_basic
+221020,221020,Hutang Bank - Bunga,other,l10n_id.user_type_long_term_liability,221000,FALSE,l10n_id.account_chart_template_basic
+222000,222000,Hutang Pihak Ketiga,view,l10n_id.user_type_long_term_liability,long_term_liab,FALSE,l10n_id.account_chart_template_basic
+222010,222010,Hutang Pihak Ketiga - Pokok,other,l10n_id.user_type_long_term_liability,222000,FALSE,l10n_id.account_chart_template_basic
+222020,222020,Hutang Pihak Ketiga - Bunga,other,l10n_id.user_type_long_term_liability,222000,FALSE,l10n_id.account_chart_template_basic
+other_liab,230000,Hutang Lain-lain,view,l10n_id.user_type_liability,liability,FALSE,l10n_id.account_chart_template_basic
+231000,231000,Hutang Kepada Pihak Istimewa,view,l10n_id.user_type_liability,other_liab,FALSE,l10n_id.account_chart_template_basic
+231010,231010,Hutang Pihak Istimewa - Pemegang Saham,other,l10n_id.user_type_liability,231000,FALSE,l10n_id.account_chart_template_basic
+231020,231020,Hutang Pihak Istimewa - Karyawan,other,l10n_id.user_type_liability,231000,FALSE,l10n_id.account_chart_template_basic
+232000,232000,Uang Jaminan,view,l10n_id.user_type_liability,other_liab,FALSE,l10n_id.account_chart_template_basic
+232010,232010,Uang Jaminan - Penjualan,other,l10n_id.user_type_liability,232000,FALSE,l10n_id.account_chart_template_basic
+232020,232020,Uang Jaminan - Sewa,other,l10n_id.user_type_liability,232000,FALSE,l10n_id.account_chart_template_basic
+233000,233000,Hutang Deviden,view,l10n_id.user_type_liability,other_liab,FALSE,l10n_id.account_chart_template_basic
+233010,233010,Hutang Deviden - Mr. W,other,l10n_id.user_type_liability,233000,FALSE,l10n_id.account_chart_template_basic
+233020,233020,Hutang Deviden - Mr. Q,other,l10n_id.user_type_liability,233000,FALSE,l10n_id.account_chart_template_basic
+233030,233030,Hutang Deviden - Mr. X,other,l10n_id.user_type_liability,233000,FALSE,l10n_id.account_chart_template_basic
+equity,300000,EKUITAS,view,l10n_id.user_type_equity,coa_basic,FALSE,l10n_id.account_chart_template_basic
+capital_stock,310000,Modal Saham,view,l10n_id.user_type_equity,equity,FALSE,l10n_id.account_chart_template_basic
+310010,310010,Modal Disetor - Mr. W,other,l10n_id.user_type_equity,capital_stock,FALSE,l10n_id.account_chart_template_basic
+310020,310020,Modal Disetor - Mr. Q,other,l10n_id.user_type_equity,capital_stock,FALSE,l10n_id.account_chart_template_basic
+310030,310030,Modal Disetor - Mr. X,other,l10n_id.user_type_equity,capital_stock,FALSE,l10n_id.account_chart_template_basic
+312000,312000,Tambahan Modal Disetor - Agio Saham,other,l10n_id.user_type_equity,equity,FALSE,l10n_id.account_chart_template_basic
+dividends_paid,320000,Dividen Dibayar,other,l10n_id.user_type_equity,equity,FALSE,l10n_id.account_chart_template_basic
+equity_opening,330000,Saldo Modal Awal,other,l10n_id.user_type_equity,equity,FALSE,l10n_id.account_chart_template_basic
+retained_earnings,340000,Laba Ditahan,other,l10n_id.user_type_equity,equity,FALSE,l10n_id.account_chart_template_basic
+income,400000,PENDAPATAN USAHA,view,l10n_id.user_type_income,coa_basic,FALSE,l10n_id.account_chart_template_basic
+base_miscincome,490000,Pendapatan Usaha Lainnya,other,l10n_id.user_type_income,income,FALSE,l10n_id.account_chart_template_basic
+cogs,500000,HARGA POKOK PRODUKSI/PENJUALAN,view,l10n_id.user_type_cogs,coa_basic,FALSE,l10n_id.account_chart_template_basic
+expense,600000,BEBAN USAHA,view,l10n_id.user_type_expense,coa_basic,FALSE,l10n_id.account_chart_template_basic
+base_miscexpense,690000,Beban Usaha Lainnya,other,l10n_id.user_type_expense,expense,FALSE,l10n_id.account_chart_template_basic
+other_income,700000,PENDAPATAN NON-USAHA,view,l10n_id.user_type_other_income,coa_basic,FALSE,l10n_id.account_chart_template_basic
+700010,700010,Pendapatan Bunga Deposito,other,l10n_id.user_type_other_income,other_income,FALSE,l10n_id.account_chart_template_basic
+700020,700020,Pendapatan Bunga Obligasi,other,l10n_id.user_type_other_income,other_income,FALSE,l10n_id.account_chart_template_basic
+700030,700030,Pendapatan Deviden,other,l10n_id.user_type_other_income,other_income,FALSE,l10n_id.account_chart_template_basic
+700040,700040,Pendapatan Bunga Jasa Giro,other,l10n_id.user_type_other_income,other_income,FALSE,l10n_id.account_chart_template_basic
+700050,700050,Pendapatan Laba Penjualan Aktiva Tetap,other,l10n_id.user_type_other_income,other_income,FALSE,l10n_id.account_chart_template_basic
+700060,700060,Pendapatan Laba Selisih Kurs,other,l10n_id.user_type_other_income,other_income,FALSE,l10n_id.account_chart_template_basic
+700090,700090,Pendapatan Non-Usaha Lainnya,other,l10n_id.user_type_other_income,other_income,FALSE,l10n_id.account_chart_template_basic
+other_expense,800000,BEBAN NON-USAHA,view,l10n_id.user_type_other_expense,coa_basic,FALSE,l10n_id.account_chart_template_basic
+800010,800010,Beban Administrasi Bank,other,l10n_id.user_type_other_expense,other_expense,FALSE,l10n_id.account_chart_template_basic
+800020,800020,Beban Administrasi Jasa Giro,other,l10n_id.user_type_other_expense,other_expense,FALSE,l10n_id.account_chart_template_basic
+800030,800030,Beban Pajak Jasa Giro,other,l10n_id.user_type_other_expense,other_expense,FALSE,l10n_id.account_chart_template_basic
+800040,800040,Rugi Penjualan Aktiva Tetap,other,l10n_id.user_type_other_expense,other_expense,FALSE,l10n_id.account_chart_template_basic
+800050,800050,Rugi Selisih Kurs,other,l10n_id.user_type_other_expense,other_expense,FALSE,l10n_id.account_chart_template_basic
+800090,800090,Beban Non-Usaha Lainnya,other,l10n_id.user_type_other_expense,other_expense,FALSE,l10n_id.account_chart_template_basic

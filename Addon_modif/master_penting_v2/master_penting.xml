@@ -1,0 +1,52 @@
+<openerp>
+	<data>
+		<record id="view_product_model_penting_v2_form" model="ir.ui.view">
+            <field name="name">model.master.penting.form</field>
+            <field name="model">model.master.penting</field>
+            <field name="arch" type="xml">
+                <form string="Master yang dipentingkan" version="7.0">
+                	<sheet>
+                	 <group>
+                	 	<field name="name"  />
+						<field name="aktif_yd" />  
+                	 </group>	
+                	</sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_product_model_penting_v2_tree" model="ir.ui.view">
+            <field name="name">model.master.penting.tree</field>
+            <field name="model">model.master.penting</field>
+            <field name="arch" type="xml">
+                <tree  string="Master yang dipentingkan">
+                    <field name="name"  />
+					<field name="aktif_yd" />                     
+                </tree>
+            </field>
+        </record>
+        <record id="view_product_model_penting_v2_search" model="ir.ui.view">
+            <field name="name">model.master.penting.search</field>
+            <field name="model">model.master.penting</field>
+            <field name="arch" type="xml">
+                <search string="Master yang dipentingkan">
+                    <field name="name"  />
+					<field name="aktif_yd"/>                     
+                </search>
+            </field>
+        </record>
+        <record id="action_product_model_penting_v2" model="ir.actions.act_window">
+            <field name="name">Master yang dipentingkan</field>
+            <field name="res_model">model.master.penting</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_product_model_penting_v2_search"/>
+            <field name="view_id" ref="view_product_model_penting_v2_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create new model box.
+              </p>
+            </field>
+        </record>
+        <menuitem action="action_product_model_penting_v2" parent="mrp.menu_mrp_configuration"  id="menu_product_model_penting_v2_only" />
+	</data>
+</openerp>

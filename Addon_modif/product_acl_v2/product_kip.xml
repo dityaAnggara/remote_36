@@ -1,0 +1,54 @@
+<openerp>
+	<data>
+		<record id="view_product_kip_padd_form" model="ir.ui.view">
+            <field name="name">product.kip.padd.form</field>
+            <field name="model">product.kip.padd</field>
+            <field name="arch" type="xml">
+                <form string="Setting Padding for KIP number" version="7.0">
+                	<sheet>
+                	 <group>
+                	 	<field name="padding_kip"  />
+                	 </group>	
+                	</sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_product_kip_padd_tree" model="ir.ui.view">
+            <field name="name">product.kip.padd.tree</field>
+            <field name="model">product.kip.padd</field>
+            <field name="arch" type="xml">
+                <tree  string="Setting Padding for KIP number">
+                    <field name="padding_kip"  />
+                </tree>
+            </field>
+        </record>
+        <record id="view_product_kip_padd_search" model="ir.ui.view">
+            <field name="name">product.kip.padd.search</field>
+            <field name="model">product.kip.padd</field>
+            <field name="arch" type="xml">
+                <search string="Setting padding KIP">
+                    <field name="padding_kip"  />
+                </search>
+            </field>
+        </record>
+        <record id="action_product_kip_padd" model="ir.actions.act_window">
+            <field name="name">Setting KIP number padding</field>
+            <field name="res_model">product.kip.padd</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_product_kip_padd_search"/>
+            <field name="view_id" ref="view_product_kip_padd_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to Set Padding for KIP Number.
+              </p><p>
+                To Set Padding for KIP Number
+              </p>
+            </field>
+        </record>
+        <menuitem action="action_product_kip_padd" parent="product.prod_config_main" id="menu_product_kip_padd" />
+		<menuitem action="action_product_kip_padd" parent="stock.menu_product_in_config_stock" id="menu_product_kip_padd_one" />
+		<menuitem action="action_product_kip_padd" parent="purchase.menu_product_in_config_purchase" id="menu_product_kip_padd_two" />
+		<menuitem action="action_product_kip_padd" parent="mrp.menu_mrp_configuration" id="menu_product_kip_padd_there" />
+	</data>
+</openerp>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data noupdate="0">
+	<record model="ir.module.category" id="module_category_costing_test">
+	    <field name="name">Costing</field> 
+	    <field name="sequence">7</field>
+	</record>
+	<record id="costing_security.group_name_costing_user" model="res.groups">
+	    <field name="name">User</field>
+	    <field name="category_id" ref="module_category_costing_test"/>
+	    <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+	</record>
+	<record id="costing_security.group_name_costing_manager" model="res.groups">
+	    <field name="name">Manager</field>
+	    <field name="category_id" ref="module_category_costing_test"/>
+	    <field name="implied_ids" eval="[(4, ref('costing_security.group_name_costing_user'))]"/>
+	    <field name="users" eval="[(4, ref('base.user_root'))]"/>
+	</record>
+</data>
+</openerp>

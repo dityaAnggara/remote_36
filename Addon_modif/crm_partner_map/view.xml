@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+<record id="view_partner_location_map_form" model="ir.ui.view">
+    <field name="name">res.partner.location.map</field>
+    <field name="model">res.partner</field>
+    <field name="inherit_id" model="ir.ui.view" search="[('name', '=', u'res.partner.geo.inherit')]"/>
+    <field name="arch" type="xml">
+
+<!-- 
+	Its not possible to embed incomplete/unclosed tags, so we have to replace the whole content of the target tab,
+	brought by crm_partner_assign module.
+--> 
+
+       <xpath expr="//notebook[last()]//page[@string='Geo Localization']" position="replace">
+            <page string="Geo Localization">
+
+			<table border="0" cellpadding="0" cellspacing="0">
+				<tbody>
+					<tr>
+						<td>
+									<group colspan="2" col="2">
+				                        <separator string="Partner Activation" colspan="2"/>
+				                        <field name="grade_id" widget="selection"/>
+				                        <field name="activation" widget="selection"/>
+				                        <field name="partner_weight"/>
+				                    </group>
+				                    <group colspan="2" col="2">
+				                        <separator string="Partner Review" colspan="2"/>
+				                        <field name="date_review"/>
+				                        <field name="date_review_next"/>
+				                        <field name="date_partnership"/>
+				                    </group>
+				                    <group colspan="2" col="2">
+				                        <separator string="Geo Localization" colspan="2"/>
+				                        <button
+				                            string="Geo Localize"
+				                            name="geo_localize"
+				                            colspan="2"
+				                            icon="gtk-apply"
+				                            type="object"/>
+				                        <field name="partner_latitude"/>
+				                        <field name="partner_longitude"/>
+				                        <field name="date_localization"/>
+				                    </group>
+				                    <newline/>
+
+						</td>
+						<td style="padding-left: 15px; padding-top: 15px" width="100%%">
+							<field name="id" widget="location_map" nolabel="1"></field>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			
+			
+            <field name="opportunity_assigned_ids" colspan="4" nolabel="1">
+                 <tree string="Assigned Opportunities"  colors="blue:state=='pending';gray:state=='cancel'">
+                     <field name="create_date"/>
+                     <field name="name"/>
+                     <field name="type"/>
+                     <field name="stage_id"/>
+                     <button name="stage_previous" string="Previous"
+                         states="open,pending" type="object" icon="gtk-go-back" />
+                     <button name="stage_next" string="Next"
+                         states="open,pending" type="object"
+                         icon="gtk-go-forward" />
+                     <field name="section_id"
+                         invisible="context.get('invisible_section', True)" />
+                     <field name="user_id" />
+                     <field name="state" />
+                     <button name="case_cancel" string="Cancel"
+                         states="draft,open,pending" type="object"
+                         icon="gtk-cancel" />
+                     <button name="case_open" string="Open"
+                         states="draft,pending" type="object"
+                         icon="gtk-go-forward" />
+                     <button name="case_close" string="Close"
+                         states="open,draft,pending" type="object"
+                         icon="gtk-close" />
+                     <button string="Convert to Opportunity"
+                         name="convert_opportunity"
+                         states="draft,open,pending" icon="gtk-index"
+                         type="object" attrs="{'invisible':[('type','=','opportunity')]}" />
+                     <button name="case_escalate" string="Escalate"
+                         states="open,draft,pending" type="object"
+                         icon="gtk-go-up" />
+                 </tree>
+            </field>							
+        </page>
+        </xpath>
+    </field>
+</record>				
+		
+		
+	</data>
+</openerp>
+
+

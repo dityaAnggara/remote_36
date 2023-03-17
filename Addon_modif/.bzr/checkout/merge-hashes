@@ -1,0 +1,36 @@
+BZR merge-modified list format 1
+file_id: __init__.py-20150410085935-yds97cz39mfmr2en-2
+hash: f1d0a8292cdc219dcadcd0deb340c4dce1c4bc1b
+
+file_id: __openerp__.py-20150410085935-yds97cz39mfmr2en-3
+hash: dc20af7c865d1b3ccf8221737816ccb55feb6df0
+
+file_id: mrp_product.xml-20150408070437-t1w4sey5l50dfslj-8
+hash: 25cda49e9570ca525e968452b814e6b8b2e84acf
+
+file_id: __openerp__.py-20150408070437-t1w4sey5l50dfslj-3
+hash: 2fca975049edc5eb5c25d2aaa99204755d2ce7ee
+
+file_id: stock_product_by_loc-20150410085935-yds97cz39mfmr2en-7
+hash: 8edd6278613d0272b34286481fb68de6ae9e220f
+
+file_id: mig_stock_product_by-20150410085935-yds97cz39mfmr2en-5
+hash: 5c27338b53de6eebae35c36578d8a1d39eb1474d
+
+file_id: org.eclipse.core.res-20150220001938-b2mkfl9ex9hgv9fv-54
+hash: b231aa325ba4c89496b4df32a9faef38a5ec8d85
+
+file_id: ir.model.access.csv-20150410085935-yds97cz39mfmr2en-11
+hash: 68f8fc269fd2a2c1df9b1894fb741f953016a697
+
+file_id: de.po-20150410085935-yds97cz39mfmr2en-10
+hash: 2f703e55d9c30ede36b2cf22029232a4151c4108
+
+file_id: product.py-20150408070437-t1w4sey5l50dfslj-4
+hash: 7832149623e210a72b408a5b1dae89e6edc667a6
+
+file_id: chricar_stock_produc-20150410085935-yds97cz39mfmr2en-9
+hash: bbbabc77d883018b5646e4368e89e81c190a10e5
+
+file_id: stock_product_by_loc-20150410085935-yds97cz39mfmr2en-8
+hash: 5ed68b33fb122ee50f2e749c1573627dfd0a70eb

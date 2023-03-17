@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="accounting_report_view" model="ir.ui.view">
+			<field name="name">Accounting Report</field>
+			<field name="model">accounting.report</field>
+			<field name="inherit_id" ref="account.accounting_report_view" />
+			<field name="arch" type="xml">
+				<xpath expr="//footer/button[@string='Print']" position="attributes">
+					<attribute name="icon">gtk-print</attribute>
+					<attribute name="name">check_report_acl</attribute>
+				</xpath>
+				<xpath expr="//footer/button[@string='Print']" position="before">
+					<button icon="gtk-execute" name="cetak_xls" string="Excel" type="object" context="{'xls_export':1}" />
+				</xpath>
+				<xpath expr="//notebook/page[@string='Filters']" position="attributes">
+					<attribute name="invisible">True</attribute>
+				</xpath>
+				<field name="debit_credit" position="attributes">
+					<attribute name="invisible">True</attribute>
+				</field>
+				<field name="target_move" position="attributes">
+					<attribute name="invisible">True</attribute>
+				</field>
+				<field name="enable_filter" position="attributes">
+					<attribute name="invisible">True</attribute>
+				</field>
+			</field>
+		</record>
+	</data>
+</openerp>

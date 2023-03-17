@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<!--
+<%
+import base64
+import mx.DateTime
+
+def oe_datetime_format(obj,format='%Y-%m-%d %H:%M:%S'):
+    if obj.val:
+        if hasattr(obj,'name') and (obj.name):
+            return mx.DateTime.strptime(obj.name,format)
+        else:
+            return false
+    else:
+        return false
+
+def chdf(obj,format1,format2):
+    return datetime.strptime(obj,format1).strftime(format2)
+%>
+-->
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Laporan Penerimaan Bahan Pembantu</title>
+        <style type="text/css">
+            body {
+                margin: 0px;
+                padding: 0px;
+                font-size: 10px;
+                font-family: helvetica;
+            }
+            table {
+                border-collapse: collapse;
+                border: none;
+                margin: 0px;
+                padding: 0px;
+            }
+            tr, td {
+                margin: 0px;
+                padding: 0px;
+            }
+            img {
+                border: none;
+            }
+            .main {
+                /* width: 100%; */
+                border: 1px solid;
+                border-collapse: collapse;
+                page-break-after: always;
+            }
+            .main-tab {
+                width: 100%;
+            }
+            .main-tab th, .main-tab td {
+                border: 1px solid;
+                padding: 3px;
+            }
+            .main-tab tr:first-child th {
+                border-top: 3px double;
+            }
+            .main-tab th:first-child, .main-tab td:first-child {
+                border-left: none;
+            }
+            .main-tab th:last-child, .main-tab td:last-child {
+                border-right: none;
+            }
+            /* .main-tab2 {
+                font-size: 12px;
+            } */
+            .main-tab th, .main-tab td {
+                border: 1px solid;
+                margin: 0px;
+                padding: 3px;
+            }
+            .head-tab td {
+                padding: 2px;
+                vertical-align: top;
+            }
+            .ins-tab {
+                width: 100%;
+            }
+            .ins-tab td {
+                border: none;
+                padding: 0px;
+            }
+            .fix-tab {
+                table-layout: fixed;
+            }
+            .full-block {
+                width: 100%;
+                clear: both;
+            }
+            .spacer {
+                height: 0px;
+            }
+            .tikwa {
+                width: 5px;
+            }
+            .label {
+                font-weight: 900;
+            }
+        </style>
+    </head>
+    <body>
+        % for o in objects:
+        <!-- <% i = 1 %> -->
+        <div class="main">
+            <table class="head-tab fix-tab">
+                <tr>
+                    <td colspan="3" style="font-weight: 900; font-size: 20px; text-transform: uppercase;">
+                        Laporan Penerimaan Bahan Pembantu
+                    </td>
+                </tr>
+                <tr>
+                    <td>Dari Tanggal</td>
+                    <td>:</td>
+                    <td>${ o.date_start or '&nbsp;' }</td>
+                </tr>
+                <tr>
+                    <td>Hingga Tanggal</td>
+                    <td>:</td>
+                    <td>${ o.date_end or '&nbsp;' }</td>
+                </tr>
+                % if not o.all :
+                <tr>
+                    <td>Supplier</td>
+                    <td>:</td>
+                    <td>${ o.partner_id and o.partner_id.name or '&nbsp;' }</td>
+                </tr>
+                % endif
+            </table>
+            <table class="main-tab fix-tab">
+                <thead>
+                    <tr>
+                        <th rowspan="2" style="width: 60px;">Tgl.</th>
+                        <th colspan="3">Nomor</th>
+                        <th rowspan="2" style="width: 200px;">Supplier</th>
+                        <th rowspan="2">Kend</th>
+                        <th rowspan="2" style="width: 200px;">Barang</th>
+                        <th rowspan="2" style="width: 40px;">Satuan</th>
+                        <th rowspan="2">Jumlah</th>
+                    </tr>
+                    <tr>
+                        <th>PO</th>
+                        <th>IN</th>
+                        <th>SJ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- <%
+                    if o.all :
+                        plines = lines(
+                            oe_datetime_format(o.date_start,'%Y-%m-%d').strftime('%Y-%m-%d'),
+                            oe_datetime_format(o.date_end,'%Y-%m-%d').strftime('%Y-%m-%d'))
+                    else :
+                        plines = lines(
+                            oe_datetime_format(o.date_start,'%Y-%m-%d').strftime('%Y-%m-%d'),
+                            oe_datetime_format(o.date_end,'%Y-%m-%d').strftime('%Y-%m-%d'),
+                            partner=o.partner_id.id)
+                    terima = 0.0
+                    %> -->
+                    % for line in plines:
+                    % for line3 in line.picking_ids:
+                    % for line4 in line3.move_lines:
+                    % if line4.product_id and line4.product_id.categ_id and line4.product_id.categ_id.complete_name:
+                    % if 'Supporting' in line4.product_id.categ_id.complete_name:
+                    % if line4.state == 'done':
+                    <tr>
+                        <td style="text-align: center;">${ line3.date_done or '&nbsp;' }</td>
+                        <td style="text-align: center;">${ line.name or '&nbsp;' }</td>
+                        <td style="text-align: center;">${ line3.name or '&nbsp;' }</td>
+                        <td style="text-align: center;">${ line3.surat_jalan_masuk or '&nbsp;' }</td>
+                        <td>${ line.partner_id and line.partner_id.name or '&nbsp;' }</td>
+                        <td style="text-align: center;">${ line3.no_kendaraan or '&nbsp;' }</td>
+                        <td>
+                            <strong>${ line4.product_id and line4.product_id.name or '&nbsp;' }</strong><br />
+                            ${ line4.name or '&nbsp;' }
+                        </td>
+                        <td style="text-align: center;">${ line4.product_uom and line4.product_uom.name or '&nbsp;' }</td>
+                        <td style="text-align: right;">${ line4.product_qty or '&nbsp;' }</td>
+                    </tr>
+                    % endif
+                    % endif
+                    % endif
+                    % endfor
+                    % endfor
+                    % endfor
+                </tbody>
+            </table>
+        </div>
+        % endfor
+    </body>
+</html>

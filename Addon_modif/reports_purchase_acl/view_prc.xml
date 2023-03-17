@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<!-- data> <record id="blank_header_a4_landscape" model="ir.header_webkit"> 
+		<field name="name">Blank Header A4 Landscape</field> <field name="format">A4</field> 
+		<field name="orientation">Landscape</field> <field name="html">&lt;br /&gt;</field> 
+		<field name="footer_html">&lt;br /&gt;</field> </record> </data -->
+	<data>
+		<report id="report_purch_sja" model="purchase.pr_rp_val"
+			webkit_header="purchase_requisition_acl.blank_header_a4_landscape" name="pr_vall.mako"
+			file="reports_purchase_acl/prints/purchase_sj.html" string="Purchase Surat jalan / Faktur Reports"
+			report_type="webkit" />
+	</data>
+</openerp>

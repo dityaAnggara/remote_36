@@ -1,0 +1,5 @@
+#!/bin/bash
+bzr pull
+bzr add
+bzr commit -m ""
+bzr push

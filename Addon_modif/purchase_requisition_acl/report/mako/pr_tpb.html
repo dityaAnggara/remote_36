@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--
+<%
+import base64
+import mx.DateTime
+
+def oe_datetime_format(obj,format='%Y-%m-%d %H:%M:%S'):
+    if obj.val:
+        if hasattr(obj,'name') and (obj.name):
+            return mx.DateTime.strptime(obj.name,format)
+        else:
+            return false
+    else:
+        return false
+%>
+-->
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Tanda Penerimaan Barang</title>
+        <style type="text/css">
+            body {
+                margin: 0px;
+                padding: 0px;
+                font-size: 12px;
+                /* font-family: helvetica,arial,sans-serif; */
+                font-family: 'Courier New', monotype, monospace;
+            }
+            table {
+                border-collapse: collapse;
+                border: none;
+                margin: 0px;
+                padding: 0px;
+            }
+            tr, td, th {
+                margin: 0px;
+                padding: 0px;
+            }
+            .main-tab {
+                width: 100%;
+            }
+            .main-tab th, .main-tab td {
+                border: 1px solid;
+                padding: 3px;
+            }
+            .main-tab tr:first-child th {
+                border-top: 3px double;
+            }
+            .main-tab th:first-child, .main-tab td:first-child {
+                border-left: none;
+            }
+            .main-tab th:last-child, .main-tab td:last-child {
+                border-right: none;
+            }
+            .main {
+                border: 1px solid;
+                border-collapse: collapse;
+                page-break-after: always;
+            }
+            .fix-tab {
+                table-layout: fixed;
+            }
+            .head-tab {
+                width: 100%;
+            }
+            .head-tab td {
+                padding: 3px;
+            }
+        </style>
+    </head>
+    <body>
+        % for obj in objects:
+        <br />
+        <div class="main">
+            <div style="
+                 display: block;
+                 text-decoration: underline;
+                 font-size: 16px;
+                 ">
+                PT. ASIA CARTON LESTARI
+            </div>
+            <table class="head-tab fix-tab">
+                <tbody>
+                    <tr>
+                        <td colspan="2" style="font-size: 14px;">TANDA PENERIMAAN BARANG</td>
+                        <td>
+                            Tgl. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
+                            ${ oe_datetime_format(obj.date).strftime('%d/%m/%Y') or '' }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            No. &amp; Tgl.SJ &nbsp;&nbsp;:
+                            ${ obj.name or '' }
+                        </td>
+                        <td>
+                            Pemasok &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
+                            ${ obj.partner_id.name }
+                        </td>
+                        <td>
+                            Jam &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
+                            ${ oe_datetime_format(obj.date).strftime('%H:%M') or '' }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            No. TTG / PA &nbsp;&nbsp;:
+                        </td>
+                        <td>
+                            Pengangkutan &nbsp;&nbsp;:
+                            ${ obj.jasa_angkut.name or '' }
+                        </td>
+                        <td>
+                            Gudang &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
+                            <%
+                            try:
+                                warehouse = obj.warehouse_id.name
+                            except:
+                                warehouse = ''
+                            %>
+                            ${ warehouse or '' }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            No. Pesanan &nbsp;&nbsp;&nbsp;:
+                            ${ obj.purchase_id.name or '' }
+                        </td>
+                        <td>
+                            No. Kendaraan &nbsp;:
+                            ${ obj.no_kendaraan or '' }
+                        </td>
+                        <td>
+                            Susut &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="main-tab fix-tab">
+                <thead>
+                    <tr>
+                        <th rowspan="2" style="width: 30px;">NO.</th>
+                        <th rowspan="2" style="width: 250px;">Spesifikasi Barang<br />(Koli &amp; Index)</th>
+                        <th rowspan="2">Kwantum</th>
+                        <th rowspan="2" style="width: 30px; word-break: break-all;">Satuan</th>
+                        <th colspan="2">Nilai (Rp)</th>
+                        <th rowspan="2">Keterangan<br />( NO PP Dll )</th>
+                    </tr>
+                    <tr>
+                        <th>Satuan</th>
+                        <th>Jumlah</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% i = 1 %>
+                    % for line in obj.move_lines:
+                    <tr>
+                        <td style="text-align: center">${ i or '' }</td>
+                        <td>${ line.product_id.name or '' }</td>
+                        <td style="text-align: right">${ line.product_qty or '' }</td>
+                        <td style="text-align: center">${ line.product_uom.name or '' }</td>
+                        <td style="text-align: right">
+                            % for order_line in obj.purchase_id.order_line:
+                            % if order_line.product_id.id == line.product_id.id:
+                            <% price = order_line.price_unit or 0 %>
+                            ${ order_line.price_unit or '' }
+                            % endif
+                            % endfor
+                        </td>
+                        <td style="text-align: right">${ '{0:,}'.format(line.product_qty * price) }</td>
+                        <td>${ line.name or '' }</td>
+                    </tr>
+                    <% i = i + 1 %>
+                    % endfor
+                    <tr>
+                        <td colspan="7">
+                            CATATAN :
+                            <ul>
+                                <li>Ketidak-sesuaian mutu dan / atau spesifikasi barang yang kami terima adalah tanggung jawab pengirim</li>
+                                <li>Harap Melampirkan TPB ini pada waktu menagih</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="main-tab fix-tab">
+                <tbody>
+                    <tr>
+                        <th>
+                            Dibukukan
+                            <br /><br /><br /><br /><br /><br /><br />
+                        </th>
+                        <th>
+                            Diperiksa
+                            <br /><br /><br /><br /><br /><br /><br />
+                        </th>
+                        <th>
+                            Dikirim
+                            <br /><br /><br /><br /><br /><br /><br />
+                        </th>
+                        <th>
+                            Disetujui
+                            <br /><br /><br /><br /><br /><br /><br />
+                        </th>
+                        <th>
+                            Dibuat
+                            <br /><br /><br /><br /><br /><br /><br />
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        % endfor
+    </body>
+</html>

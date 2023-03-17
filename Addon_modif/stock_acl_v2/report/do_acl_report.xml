@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<report id="report_webkit_new"
+		model = "stock.picking.out"
+		name="stock.picking.out.report"
+		file="stock_acl_v2/report/do_acl.mako"
+		string="DO ACL"
+		report_type="webkit"/>
+	</data>
+	
+</openerp>

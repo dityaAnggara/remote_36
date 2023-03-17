@@ -1,0 +1,83 @@
+<openerp>
+	<data>
+		<record id="invoice_supplier_form_acl_purchase" model="ir.ui.view">
+            <field name="name">account.invoice.supplier.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <xpath expr='//field[@name="journal_id"]' position="after">
+                	<field name="no_invoice_supp"/>
+				</xpath>
+            </field>
+        </record>
+		<record id="invoice_form_inherit_acl" model="ir.ui.view">
+            <field name="name">account.invoice.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="/form[@string='Invoice']" position="attributes">
+                    <attribute name="version">7.0</attribute>
+                    
+                </xpath>
+            	<xpath expr='//header/button[@name="action_invoice_sent"]' position="after">
+					<button name="create_number_inv"
+					states="paid" type="object" string="Create No Invoice And Faktur"/>
+            	</xpath>
+            	<xpath expr='//header/button[@name="invoice_open"]' position="attributes">
+					<attribute name="groups">account.group_account_manager</attribute>
+            	</xpath>              	
+            	<xpath expr='//sheet/group/group/field[@name="date_invoice"]' position="after">
+                	<field name="no_faktur" states="paid" /> 
+            		<field name="invoice_number_acl" states="paid"/>
+					    		
+				</xpath>
+				<xpath expr='//form/sheet/notebook/page[@string="Payments"]' position="after">
+                	<page string="Surat Jalan" states="paid" version="7.0" >
+                		<!--field name="stock_pickings" options="{'create': False}"  /-->
+                		<field name="stock_ones" domain="[('origin','=',origin),('type','=','out'),('surat_jalan','!=',False)]" />
+						
+                	</page>
+                </xpath>
+                <xpath expr='//form/sheet/notebook/page/field[@name="invoice_line"]' position="replace">
+					<field name="invoice_line" nolabel="1" widget="one2many_list" context="{'type': type}">
+                                <tree string="Invoice Lines" editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="product_id"
+                                        on_change="product_id_change(product_id, uos_id, quantity, name, parent.type, parent.partner_id, parent.fiscal_position, price_unit, parent.currency_id, context, parent.company_id)"/>
+                                    <field name="name"/>
+                                    <field name="company_id" invisible="1"/>
+                                    <field name="account_id" groups="account.group_account_user"
+                                        domain="[('company_id', '=', parent.company_id), ('journal_id', '=', parent.journal_id), ('type', '=', 'other')]"
+                                        on_change="onchange_account_id(product_id, parent.partner_id, parent.type, parent.fiscal_position,account_id)"/>
+                                    <field name="account_analytic_id" groups="analytic.group_analytic_accounting"
+                                        domain="[('type','!=','view'), ('company_id', '=', parent.company_id)]"/>
+                                    <field name="quantity"/>
+									<field name="qty_realisasi"/>                                    
+                                    <field name="uos_id" groups="product.group_uom"
+                                        on_change="uos_id_change(product_id, uos_id, quantity, name, parent.type, parent.partner_id, parent.fiscal_position, price_unit, parent.currency_id, context, parent.company_id)"/>
+                                    <field name="price_unit"/>
+                                    <field name="discount" groups="sale.group_discount_per_so_line"/>
+                                    <field name="invoice_line_tax_id" widget="many2many_tags" context="{'type':parent.type}"
+                                        domain="[('parent_id','=',False),('company_id', '=', parent.company_id)]"/>
+                                    <field name="price_subtotal"/>
+                                </tree>
+                         </field>                
+				</xpath>                
+				 
+            </field>
+        </record>
+        <record id="invoice_tree_acl_inherit" model="ir.ui.view">
+            <field name="name">account.invoice.tree</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_tree"/>
+			<field name="arch" type="xml">
+                <xpath expr='//field[@name="state"]' position="after" >
+                	<field name="invoice_number_acl"  />		
+            		
+                		
+				</xpath>   
+            </field>
+        </record>
+         
+	</data>
+</openerp>

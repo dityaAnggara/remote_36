@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sale_order_costing,sale.order.costing,model_sale_order,costing_security.group_name_costing_manager,1,1,1,0
+access_sale_order_line_costing,sale.order.line costing,model_sale_order_line,costing_security.group_name_costing_manager,1,1,1,0
+access_stock_picking_out_manager costing,stock.picking.out costing,model_stock_picking_out,costing_security.group_name_costing_manager,1,1,1,0
+access_stock_picking_manager costing,stock.picking costing,model_stock_picking,costing_security.group_name_costing_manager,1,1,1,0
+

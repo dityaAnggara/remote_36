@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Surat Jalan</title>
+        <style type="text/css">body {
+                margin: 0px;
+                padding: 0px;
+                font-size: 10px;
+                font-family: arial, sans-serif, helvetica;
+                /* line-height: 17px; */
+            }
+            table {
+                border-collapse: collapse;
+                border: none;
+                margin: 0px;
+                padding: 0px;
+            }
+            tr, td, th {
+                margin: 0px;
+                padding: 0px;
+            }
+            .main-tab {
+                width: 100%;
+            }
+            .main-tab th, .main-tab td {
+                border: 1px solid;
+                padding: 5px;
+            }
+            .main-tab td {
+                vertical-align: top;
+            }
+            .main-tab tr:first-child th {
+                border-top: 3px double;
+            }
+            .main-tab th:first-child, .main-tab td:first-child {
+                border-left: none;
+            }
+            .main-tab th:last-child, .main-tab td:last-child {
+                border-right: none;
+            }
+            .main {
+                display: block;
+                border: 1px solid;
+            }
+            .head-tab {
+                width: 100%;
+            }
+            .head-tab td {
+                padding: 5px;
+                vertical-align: top;
+            }
+            .fix-tab {
+                table-layout: fixed;
+            }
+            .head-tab td table {
+                width: 100%;
+            }
+            .head-tab td table td {
+                padding: 0px;
+            }
+            .full-block {
+                display: block;
+                width: 100%;
+                clear: both;
+            }
+            .ins-tab {
+                width: 100%;
+                padding: 0px;
+            }
+            .ins-tab td {
+                border: none;
+                padding: 0px;
+            }
+            .ins-tab td:last-of-type {
+                text-align: right;
+            }
+            .mtd {
+                width: 10px;
+            }
+            .mtd2 {
+                width: 80px;
+            }
+            .dtuju {
+                padding: 5px;
+                border: 1px solid;
+                border-radius: 5px;
+                height: 90px;
+                text-align: justify;
+                word-break: break-all;
+                text-transform: capitalize;
+                overflow: hidden;
+            }
+        </style>
+    </head>
+    <body>
+        <br />&nbsp;<br />
+        % for obj in objects:
+        <div class="main">
+            <table class="head-tab fix-tab">
+                <tr>
+                    <td>
+                        <div class="full-block">
+                            <div style="display: inline-block; float: left;">${ helper.embed_image('png',obj.company_id.logo,width=40) or '' }</div>
+                            <span style="font-size: 14px; font-weight: 900;">${ obj.company_id and obj.company_id.name or '' }</span><br />
+                            <span style="font-weight: 900;">${ obj.company_id and obj.company_id.rml_header1 or '' }</span>
+                        </div>
+                    </td>
+                    <td style="text-align: center;">
+                        <div style="font-weight: 900;">Asli Harap Dikembalikan</div>
+                        <div style="font-weight: 900; font-size: 16px">SURAT JALAN</div>
+                    </td>
+                    <td rowspan="4">
+                        <div style="text-align: right; font-size: 12px; font-weight: 900;">No.${ obj.surat_jalan or ' - ' }</div>
+                        <div class="dtuju">
+                            Kepada yang terhormat,<br />
+                            ${ obj.partner_id and obj.partner_id.name or '' }<br />
+                            ${ obj.partner_id and obj.partner_id.street or '' }
+                            ${ obj.partner_id and obj.partner_id.street2 or '' }
+                            ${ obj.partner_id and obj.partner_id.city or '' }
+                            ${ obj.partner_id and obj.partner_id.state_id and obj.partner_id.state_id.name or '' }
+                            ${ obj.partner_id and obj.partner_id.country_id and obj.partner_id.country_id.name or '' }
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Bersama ini kami kirimkan barang-barang seperti tercantum di bawah ini dengan</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>
+                        <table class="ins-tab fix-tab">
+                            <tr>
+                                <td class="mtd2">Pengangkutan</td>
+                                <td class="mtd">:</td>
+                                <td>${ obj.jasa_angkut or '' }</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table class="ins-tab fix-tab">
+                            <tr>
+                                <td class="mtd2">Ref. No. &amp; Tgl.</td>
+                                <td class="mtd">:</td>
+                                <td>${ obj.name or '' }</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table class="ins-tab fix-tab">
+                            <tr>
+                                <td class="mtd2">Kendaraan No.</td>
+                                <td class="mtd">:</td>
+                                <td>${ obj.no_kendaraan or '' }</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table class="ins-tab fix-tab">
+                            <tr>
+                                <td class="mtd2">Ref. No. &amp; Tgl.</td>
+                                <td class="mtd">:</td>
+                                <td>${ obj.name or '' }</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <table class="main-tab fix-tab">
+                <thead>
+                    <tr>
+                        <th style="width: 30px;">No.</th>
+                        <th>Jenis Barang</th>
+                        <th style="width: 120px;">Jumlah<br />Satuan</th>
+                        <th>Keterangan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% i = 1 %>
+                    % for line in obj.move_line_new:
+                    <tr>
+                        <td style="text-align: center;">${ i or '' }</td>
+                        <td>${ line.name or '' }</td>
+                        <td style="text-align: center;">${ line.warehouse_realise or '0' } ${ line.product_uom and line.product_uom.name or '' }</td>
+                        <td>${ line.prepare_delivery or '' }<br />${ line.take_over or '' }</td>
+                    </tr>
+                    <% i = i + 1 %>
+                    % endfor
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>
+                            <table class="ins-tab">
+                                <tr>
+                                    <td>B.KEND</td>
+                                    <td>:</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>B.BRUTO</td>
+                                    <td>:</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>B.NETTO</td>
+                                    <td>:</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        % endfor
+    </body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+<%
+import base64
+import mx.DateTime
+
+def oe_datetime_format(obj,format='%Y-%m-%d %H:%M:%S'):
+    if obj.val:
+        if hasattr(obj,'name') and (obj.name):
+            return mx.DateTime.strptime(obj.name,format)
+        else:
+            return false
+    else:
+        return false
+
+def chdf(obj,format1,format2):
+    return datetime.strptime(obj,format1).strftime(format2)
+%>
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Faktur Penjualan</title>
+        <style type="text/css">
+            body {
+                margin: 0px;
+                padding: 0px;
+                font-size: 10px;
+                font-family: helvetica;
+            }
+            table {
+                border-collapse: collapse;
+                border: none;
+                margin: 0px;
+                padding: 0px;
+            }
+            tr, td {
+                margin: 0px;
+                padding: 0px;
+            }
+            img {
+                border: none;
+            }
+            .main {
+                /* width: 100%; */
+                border: 1px solid;
+                border-collapse: collapse;
+                page-break-after: always;
+            }
+            .main-tab {
+                width: 100%;
+            }
+            .main-tab th, .main-tab td {
+                border: 1px solid;
+                padding: 3px;
+            }
+            .main-tab tr:first-child th {
+                border-top: 3px double;
+            }
+            .main-tab th:first-child, .main-tab td:first-child {
+                border-left: none;
+            }
+            .main-tab th:last-child, .main-tab td:last-child {
+                border-right: none;
+            }
+            /* .main-tab2 {
+                font-size: 12px;
+            } */
+            .main-tab th, .main-tab td {
+                border: 1px solid;
+                margin: 0px;
+                padding: 3px;
+            }
+            .head-tab td {
+                padding: 2px;
+                vertical-align: top;
+            }
+            .ins-tab {
+                width: 100%;
+            }
+            .ins-tab td {
+                border: none;
+                padding: 0px;
+            }
+            .main {
+                border: 1px solid;
+                border-collapse: collapse;
+                page-break-after: always;
+            }
+            .fix-tab {
+                table-layout: fixed;
+            }
+            .full-block {
+                width: 100%;
+                clear: both;
+            }
+            .spacer {
+                height: 0px;
+            }
+            .tikwa {
+                width: 5px;
+            }
+            .label {
+                font-weight: 900;
+            }
+        </style>
+</head>
+
+<body>
+% for o in objects:
+<table width="100%" height="193" border="0">
+  <tr>
+    <td height="100" colspan="5"><h1>PT ASIA CARTON LESTARI</h1>
+      <p><strong>CORRUGATED CARTON &amp; PAPER TUBE MFG</strong><br />
+      Jl. Kasir II/7 Pasir Jaya<br />
+      Jatiuwung Tanggerang<br />
+      No Telp : (021) 5903362</p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="5" align="center"><h2>FAKTUR PENJUALAN</h2></td>
+  </tr>
+  <tr>
+    <td colspan="3" rowspan="5">Kepada Yth : <br/>
+    	${ o.partner_id and o.partner_id.name or '_' } <br /> 
+	    ${ o.partner_id and o.partner_id.street or '' } <br />
+	    ${ o.partner_id and o.partner_id.street2 or '' } <br />
+	    ${ o.partner_id and o.partner_id.city or '' } <br />
+	    ${ o.partner_id and o.partner_id.state_id.name or '' }<br/>
+        ${ o.partner_id and o.partner_id.zip or '' }<br/>
+     </td>
+    <td width="111">No. Invoice</td>
+    <td width="232">: ${ o.invoice_number_acl or '-' }</td>
+  </tr>
+  <tr>
+    <td> No. Faktur </td>
+    <td>: ${ o.no_faktur or '-' }</td>
+  </tr>
+  <tr>
+    <td>Tanggal</td>
+    <td>: ${ oe_datetime_format(o.date_invoice,'%Y-%m-%d') and oe_datetime_format(o.date_invoice,'%Y-%m-%d').strftime('%d %B %Y') or ' ' }</td>
+  </tr>
+  <tr>
+    <td>No. S.jln</td>
+    <td>: ${o.stock_ones or ' '}</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="3" rowspan="2">&nbsp;</td>
+    <td>No. Po</td>
+    <td>: </td>
+  </tr>
+  <tr>
+    <td>T.O.P.</td>
+    <td>: </td>
+  </tr>
+</table>
+<table width="100%" height="193" border="1">
+  <tr>
+    <td width="38" align="center">NO</td>
+    <td width="403" align="center">NAMA BARANG</td>
+    <td width="280" align="center">QTY</td>
+    <td width="111" align="center">HARGA</td>
+    <td width="232" align="center">JUMLAH</td>
+  </tr>
+  <!-- 
+	<% tot=0 %>
+	<% jual=0 %>
+    <% tot_tax=0 %>
+    <% n=1 %> -->
+    %for invoice_line in [line for line in o.invoice_line]:
+    	%if invoice_line.product_id.type != 'service':
+ 	 <tr>
+        <td>&nbsp;${n}</td>
+        <td>&nbsp;${invoice_line.name or ""}</td>
+        <td>&nbsp;${invoice_line.quantity or ""}</td>
+        <td  style="text-align: right;">&nbsp;${formatLang(int((invoice_line.price_unit)),digits=get_digits(dp='Faktur'))}</td>
+        <td colspan="3" style="text-align: right;">&nbsp;${formatLang(int((invoice_line.price_subtotal)),digits=get_digits(dp='Faktur'))}</td>
+ 	 </tr>
+  
+		<!-- <% 
+		jual += invoice_line.price_subtotal
+		tot+=invoice_line.price_subtotal %>
+    	<% n+=1 %>-->
+    	%endif
+    	
+    	%if invoice_line.invoice_line_tax_id:
+        	%for t in invoice_line.invoice_line_tax_id:
+                %if (t.type) == 'percent':
+            	    <!-- <% tot_tax+=t.amount*invoice_line.price_subtotal %> -->
+                %elif (t.type) == 'fixed':
+                	<!-- <% tot_tax+=t.amount %> -->
+                %endif
+            %endfor
+        %else:
+            <!-- <% tot_tax+=0.1*invoice_line.price_subtotal %> -->
+    	%endif
+ 	 <!-- <% byr = tot-tot_tax %> -->
+  	%endfor
+  <tr>
+    <td colspan="4">Harga Jual</td>
+    <td colspan="3" style="text-align: right;">&nbsp;${formatLang(int(jual),digits=get_digits(dp='Faktur'))}</td>
+  </tr>
+  <tr>
+    <td colspan="4">Dasar Pengenaan Pajak</td>
+    <td colspan="3" style="text-align: right;">&nbsp;${formatLang(int(tot),digits=get_digits(dp='Faktur'))}</td>
+  </tr>
+  <tr>
+    <td colspan="4">PPN 10%</td>
+    <td colspan="3" style="text-align: right;">&nbsp;${formatLang(int(tot_tax),digits=get_digits(dp='Faktur'))}</td>
+  </tr>
+  <tr>
+    <td colspan="4">Jumlah Yg Hrs Dibayar</td>
+    <td colspan="3" style="text-align: right;">&nbsp;${formatLang(int(byr),digits=get_digits(dp='Faktur'))}</td>
+  </tr>
+</table>
+<table width="100%" border="0">
+  <tr>
+    <td height="40" colspan="3">Hormat Kami,<br />
+PT. ASIA CARTON LESTARI </td>
+  </tr>
+  <tr>
+    <td rowspan="5">&nbsp;</td>
+    <td colspan="2">Pembayaran Mohon ditransfer ke:</td>
+  </tr>
+  <tr>
+    <td width="111" colspan="-1">BANK</td>
+    <td width="232" colspan="-1">:  </td>
+  </tr>
+  <tr>
+    <td colspan="-1">A/N</td>
+    <td colspan="-1">: PT. ASIA CARTON LESTARI </td>
+  </tr>
+  <tr>
+    <td colspan="-1">A/C</td>
+    <td colspan="-1">: </td>
+  </tr>
+  <tr>
+    <td colspan="-1">Cab</td>
+    <td colspan="-1">: </td>
+  </tr>
+  <tr>
+    <td height="21" colspan="3">${o.user_id.display_name or ''}</td>
+  </tr>
+  <tr>
+    <td colspan="3">${o.user_id.partner_id.function or ''}</td>
+  </tr>
+</table>
+% endfor
+</body>
+</html>

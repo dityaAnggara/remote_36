@@ -1,0 +1,43 @@
+<openerp>
+	<data>
+		<record model="master_model_box.main" id="box_1">
+        	<field name="name">B1</field>
+        </record>
+        <record model="master_model_box.main" id="box_2">
+        	<field name="name">B1 B0</field>
+        </record>
+        <record model="master_model_box.main" id="box_3">
+        	<field name="name">B0</field>
+        </record>
+        <record model="master_model_box.main" id="box_4">
+        	<field name="name">B3</field>
+        </record>
+        <record model="master_model_box.main" id="box_5">
+        	<field name="name">B4</field>
+        </record>
+        <record model="master_model_box.main" id="box_6">
+        	<field name="name">Die Card</field>
+        </record>
+        <record model="master_model_box.main" id="box_7">
+        	<field name="name">C1 Flat</field>
+        </record>
+        <record model="master_model_box.main" id="box_8">
+        	<field name="name">Layer</field>
+        </record>
+        <record model="master_model_box.main" id="box_9">
+        	<field name="name">Partisi</field>
+        </record>
+        <record model="master_model_box.main" id="box_10">
+        	<field name="name">Single page roll</field>
+        </record>
+        <record model="master_model_box.main" id="box_11">
+        	<field name="name">Single page potong</field>
+        </record>
+        <record model="master_model_box.main" id="box_12">
+        	<field name="name">Double join</field>
+        </record>
+        <record model="master_model_box.main" id="box_13">
+        	<field name="name">Empat join</field>
+        </record>
+	</data>
+</openerp>

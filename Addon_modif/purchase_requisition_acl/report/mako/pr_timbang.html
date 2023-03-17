@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<!--
+<%
+import base64
+import mx.DateTime
+
+def oe_datetime_format(obj,format='%Y-%m-%d %H:%M:%S'):
+    if obj.val:
+        if hasattr(obj,'name') and (obj.name):
+            return mx.DateTime.strptime(obj.name,format)
+        else:
+            return false
+    else:
+        return false
+%>
+-->
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Bukti Timbang</title>
+        <style type="text/css">
+            body {
+                margin: 0px;
+                padding: 0px;
+                font-size: 12px;
+                font-family: 'Courier New', monotype, monospace;
+                word-break: break-all;
+            }
+            table {
+                border-collapse: collapse;
+                border: none;
+                margin: 0px;
+                padding: 0px;
+            }
+            tr, td, th {
+                margin: 0px;
+                padding: 0px;
+            }
+            .main-tab {
+                width: 100%;
+            }
+            .main-tab th, .main-tab td {
+                border: 1px solid;
+                padding: 3px;
+            }
+            .main-tab td {
+                vertical-align: top;
+            }
+            .main-tab tr:first-child th {
+                border-top: 3px double;
+            }
+            .main-tab th:first-child, .main-tab td:first-child {
+                border-left: none;
+            }
+            .main-tab th:last-child, .main-tab td:last-child {
+                border-right: none;
+            }
+            .main-tab2 {
+                width: 100%;
+            }
+            .main-tab2 th, .main-tab2 td {
+                text-align: center;
+                padding: 10px;
+            }
+            .ins-tab {
+                width: 100%;
+            }
+            .ins-tab td {
+                border: none;
+            }
+            .ins-tab td:last-of-type {
+                text-align: right;
+            }
+            .main {
+                border: 1px solid;
+                border-collapse: collapse;
+                page-break-after: always;
+            }
+            .fix-tab {
+                table-layout: fixed;
+            }
+            .full-block {
+                display: block;
+                width: 100%;
+                clear: both;
+            }
+        </style>
+    </head>
+    <body>
+        % for obj in objects:
+        <br />
+        <div class="main">
+            <div class="full-block" style="padding: 3px;">
+                <div style="display: inline-block; float: left;">${ helper.embed_image('png',obj.company_id.logo,width=40) or '' }</div>
+                <span style="font-size: 16px; font-weight: 900;">${ obj.company_id.name or '' }</span><br />
+                <span style="font-size: 12px; font-weight: 900;">${ obj.company_id.rml_header1 or '' }</span>
+            </div>
+            <div class="full-block" style="text-align: center; font-weight: 900; font-size: 24px;">TIMBANGAN</div>
+            <table class="main-tab fix-tab">
+                <thead>
+                    <tr>
+                        <th>Supplier</th>
+                        <th>Jenis Barang</th>
+                        <th>Nomor<br />Kendaraan</th>
+                        <th>Nomor<br />Surat Jalan</th>
+                        <th style="width: 240px;">Penimbangan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="2">${ obj.partner_id.name or '' }</td>
+                        <td rowspan="2">
+                            % for line in obj.move_lines:
+                            ${ line.product_id.name or '' }<br />
+                            % endfor
+                        </td>
+                        <td rowspan="2" style="text-align: center;">${ obj.no_kendaraan or '' }</td>
+                        <td rowspan="2" style="text-align: center;">${ obj.surat_jalan_masuk or '' }</td>
+                        <td>
+                            <table class="ins-tab fix-tab">
+                                <tr>
+                                    <td>Brutto</td>
+                                    <td style="width: 10px;">:</td>
+                                    <td>${ obj.b_bruto or 0 } Kg</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table class="ins-tab fix-tab">
+                                <tr>
+                                    <td>Berat Kendaraan</td>
+                                    <td style="width: 10px;">:</td>
+                                    <td>${ obj.b_kend or 0 } Kg</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">&nbsp;</td>
+                        <td>
+                            <table class="ins-tab fix-tab">
+                                <tr>
+                                    <td>Netto</td>
+                                    <td style="width: 10px;">:</td>
+                                    <td>${ obj.b_netto or 0 } Kg</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="main-tab2 fix-tab">
+                <tbody>
+                    <tr>
+                        <td>
+                            Mengetahui,<br /><br /><br /><br /><br />
+                            (....................)
+                        </td>
+                        <td>
+                            Tangerang,
+                            <%
+                            date_done = ''
+                            try:
+                                date_done = oe_datetime_format(obj.date_done).strftime('%d/%m/%Y')
+                            except:
+                                date_done = ''
+                            %>
+                            ${ date_done or '' }
+                            <br /><br /><br /><br /><br />
+                            (....................)
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        % endfor
+    </body>
+</html>

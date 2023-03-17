@@ -1,0 +1,166 @@
+<openerp>
+	<data>
+		<menuitem name="Timbangan" id="base.main_timbangan" groups="security_timbang_v3.group_manager_name_timbang_new" />
+		<menuitem name="Delivery Order" id="timbang_second_menu" parent="base.main_timbangan" />
+		<menuitem name="Jasa Angkut" id="timbang_third_menu" parent="base.main_timbangan" />		
+		<record id="view_partner_form_timbangan_inherit" model="ir.ui.view">
+            <field name="name">menu_timbangan.part.form</field>
+            <field name="model">menu_timbangan.part</field>
+            <field name="arch" type="xml">
+                <form string="Partners" version="7.0">
+	                <sheet>
+	                    <div class="oe_title">
+	                        <div class="oe_edit_only">
+	                            <label for="name"/> (
+	                            <field name="is_company" on_change="onchange_type(is_company)" class="oe_inline"/> <label for="is_company" string="Is a Company?"/>)
+	                        </div>
+	                        <h1>
+	                            <field name="name" default_focus="1" placeholder="Name" />
+	                        </h1>
+	                    </div>
+	                    <group>
+                        <group>
+						<label for="street" string="Address"/>
+                            <div>
+                                <field name="street" placeholder="Street..."  />
+                                <field name="street2"  />
+                                <div class="address_format">
+                                    <field name="city" placeholder="City" style="width: 40%%" />
+                                    <field name="state_id" class="oe_no_button" placeholder="State" style="width: 37%%" options='{"no_open": True}' on_change="onchange_state(state_id)" />
+                                    <field name="zip" placeholder="ZIP" style="width: 20%%" />
+                                </div>
+                                <field name="country_id" placeholder="Country" class="oe_no_button" options='{"no_open": True}' />
+                            </div>
+                            <field name="website" widget="url" placeholder="e.g. www.openerp.com"/>
+                        </group>
+                        <group>
+                            <field name="phone" placeholder="e.g. +32.81.81.37.00"/>
+                            <field name="mobile"/>
+                            <field name="fax"/>
+                            <field name="email" widget="email"/>
+							<field name="franco" />                            
+                        </group>
+                    </group>
+	                </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_partner_timbangan_tree" model="ir.ui.view">
+            <field name="name">menu_timbangan.part.tree</field>
+            <field name="model">menu_timbangan.part</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Contacts">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>				
+		<record id="view_picking_form_timbangan_inherit" model="ir.ui.view">
+            <field name="name">menu_timbangan.pick_out_one.form</field>
+            <field name="model">menu_timbangan.pick_out_one</field>
+            <field eval="12" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="Internal Picking List" create="false" version="7.0">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,assigned,done" statusbar_colors='{"shipping_except":"red","invoice_except":"red","waiting_date":"blue"}'/>
+                	<button name="action_print_sj" 
+                    states="done"  string="create Surat Jalan Number" 
+                    type="object" class="oe_highlight"/>	
+                </header>
+                <sheet>
+                    <h1>
+                        <field name="name" class="oe_inline" attrs="{'invisible': [('name','=','/')]}" readonly="1"/>
+                    </h1>
+                    <group>
+                        <group>
+                            <field name="partner_id" readonly="1" on_change="onchange_partner_in(partner_id)"/>
+                            <field name="backorder_id" readonly="1" attrs="{'invisible': [('backorder_id','=',False)]}"/>
+                            <field name="invoice_state" string="Invoice Control" groups="account.group_account_invoice" attrs="{'invisible':[('invoice_state', '=', 'none')]}"/>
+                            <field name="stock_journal_id" readonly="1" widget="selection" groups="account.group_account_user"/>
+                        	<field name="surat_jalan" readonly="1" states="done" />	
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="min_date" readonly="1" attrs="{'invisible': [('min_date','=',False)]}"/>
+                            <field name="origin" placeholder="e.g. PO0032" readonly="1" class="oe_inline"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Products">
+                            <field name="move_lines" string="Stock Move" context="{'address_in_id': partner_id, 'form_view_ref':'stock.view_move_picking_form', 'tree_view_ref':'stock.view_move_picking_tree', 'picking_type': 'internal'}" options='{"reload_on_button": true}'/>
+                            <field name="note" placeholder="Add an internal note..." class="oe_inline"/>
+                        </page>
+                        <page string="Additional Info">
+                            <group>
+                                <group name="Info Kendaraan" string="Info Kendaraan / Jasa Angkut">
+									<field name="jasa_angkut" /> 
+									<field name="sopir"   />
+									<field name="no_kendaraan"   />
+									<field name="b_kend"  />
+							    	<field name="b_bruto" />
+							    	<field name="b_netto"  />
+										    	
+								</group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                </form>
+            </field>
+        </record>		
+		 <record id="view_picking_out_tree_timbangann" model="ir.ui.view">
+            <field name="name">menu_timbangan.pick_out_one.tree</field>
+            <field name="model">menu_timbangan.pick_out_one</field>
+            <field name="domain">[('state','=','done')]</field>
+            <field name="arch" type="xml">
+                <tree version="7.0" 
+                	colors="red:state not in ('cancel') and delivery_date &gt; marketing_re_date;green:state in ('done') and delivery_date &lt;= marketing_re_date" create="false" delete="false" string="Delivery Orders">
+                    <field name="name"/>
+					<field name="origin"/>
+					<field name="surat_jalan"/>
+					<field name="marketing_re_date"/>
+					<field name="delivery_date"/>                     
+					<field name="type" invisible="1"/>                    
+                    <field name="state" eval="Delivered" />
+                </tree>
+            </field>
+        </record>
+        <record id="timbangan_search_acl" model="ir.ui.view">
+            <field name="name">menu_timbangan.pick_out_one.search</field>
+            <field name="model">menu_timbangan.pick_out_one</field>
+            <field name="arch" type="xml">
+                <search string="Picking list">
+                    <field name="name" string="Name" filter_domain="['|',('name','ilike', self),('origin','ilike',self)]"/>
+					<!--filter icon="terp-check"  string="Ontime"
+					domain="[('marketing_re_date',&lt;,Delivery_date)]"  help="ontime"/-->	                    
+                    <field name="origin" string="Reference"/>
+                    <field name="surat_jalan" string="Surat Jalan"/>                    
+                </search>
+            </field>
+        </record>
+        <record id="action_picking_tree_timbanggan" model="ir.actions.act_window">
+            <field name="name">Delivery Orders</field>
+            <field name="res_model">menu_timbangan.pick_out_one</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','done'),('type','=','out')]</field>
+        </record>
+        <record id="action_partner_tree_timbanggan" model="ir.actions.act_window">
+            <field name="name">Jasa Angkut</field>
+            <field name="res_model">menu_timbangan.part</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('franco','=','True')]</field>
+        </record>
+        <menuitem name="Delivery Orders" 
+            id="menu_timbang_inh"
+            action="action_picking_tree_timbanggan"
+            parent="timbang_second_menu"/>
+        <menuitem name="Jasa Angkut" 
+            id="menu_partner_timbang_inh"
+            action="action_partner_tree_timbanggan"
+            parent="timbang_third_menu"/>   
+	</data>
+</openerp>

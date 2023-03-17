@@ -1,0 +1,18 @@
+<openerp>
+	<data>
+		
+        <record model="ir.ui.view" id="crm_case_form_view_oppor">
+            <field name="name">Opportunities</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+            <field name="arch" type="xml">
+               			<button name="case_mark_won" string="Mark Won" type="object"
+                                states="draft,open,pending" class="oe_highlight" position="before">
+							<button name="try_sending_email" string="Send Email" type="object"
+                                	states="draft,open" class="oe_highlight"/>
+						</button>                        
+            </field>
+        </record>
+        
+	</data>
+</openerp>

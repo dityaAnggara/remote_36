@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<!-- Normalisasi -->
+		<record id="purchase.purchase_rfq" model="ir.actions.act_window">
+			<field name="name">Quotations</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">purchase.order</field>
+			<field name="context">{"search_default_type_state":1,"search_default_type_source":1}</field>
+			<field name="domain">
+				[('state','in',('draft','price_confirm','acc_sby','sent','confirmed','acc_kabag','acc_gm'))]
+			</field>
+			<field name="view_mode">tree,form,graph,calendar</field>
+			<field name="search_view_id" ref="purchase.view_purchase_order_filter"/>
+			<field name="help" type="html">
+				<p>
+					The quotation contains the history of the discussion/negociation you had with your
+					supplier. Once confirmed, a request for quotation is converted into a purchase
+					order.
+				</p>
+				<p>
+					Most propositions of purchase orders are created automatically by OpenERP based on
+					inventory needs.
+				</p>
+			</field>
+		</record>
+		<menuitem action="purchase.purchase_rfq" id="purchase.menu_purchase_rfq" parent="purchase.menu_procurement_management"
+			sequence="0"/>
+		
+		<record id="purchase.purchase_form_action" model="ir.actions.act_window">
+			<field name="name">Purchase Orders</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">purchase.order</field>
+			<field name="view_mode">tree,form,graph,calendar</field>
+			<field name="context">{"search_default_type_state":1,"search_default_type_source":1}</field>
+			<field name="domain">
+				[('state','not in',('draft','price_confirm','acc_sby','sent','confirmed','acc_kabag','acc_gm'))]
+			</field>
+			<field name="search_view_id" ref="purchase.view_purchase_order_filter"/>
+			<field name="help" type="html">
+				<p>
+					Use this menu to search within your purchase orders by references, supplier, products,
+					etc. For each purchase order, you can track the related discussion with the supplier,
+					control the products received and control the supplier invoices.
+				</p>
+			</field>
+		</record>
+		<menuitem action="purchase.purchase_form_action" id="purchase.menu_purchase_form_action"
+			parent="purchase.menu_procurement_management" sequence="6"/>
+		
+		<!-- Replace View -->
+		
+		<!-- PO -->
+		<record id="purchase.purchase_rfq_po" model="ir.actions.act_window">
+			<field name="name">Purchase Order (PO)</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">purchase.order</field>
+			<field name="context">{"search_default_type_state":1,"search_default_type_source":1}</field>
+			<field name="domain">
+				[('purchase_state','=','PO'),('state','in',('draft','price_confirm','acc_sby','sent','confirmed','acc_kabag','acc_gm'))]
+			</field>
+			<field name="view_mode">tree,form,graph,calendar</field>
+			<field name="search_view_id" ref="purchase.view_purchase_order_filter" />
+			<field name="help" type="html">
+				<p>
+					The quotation contains the history of the discussion/negociation you had with your
+					supplier. Once confirmed, a request for quotation is converted into a purchase
+					order.
+				</p>
+				<p>
+					Most propositions of purchase orders are created automatically by OpenERP based on
+					inventory needs.
+				</p>
+			</field>
+		</record>
+		<menuitem action="purchase.purchase_rfq_po" id="menu_purchase_rfq_inherit_po" parent="purchase.menu_purchase_rfq"
+			sequence="16"/>
+		
+		<record id="purchase.purchase_form_action_po" model="ir.actions.act_window">
+			<field name="name">Purchase Orders (PO)</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">purchase.order</field>
+			<field name="view_mode">tree,form,graph,calendar</field>
+			<field name="context">{"search_default_type_state":1,"search_default_type_source":1}</field>
+			<field name="domain">
+				[('purchase_state','=','PO'),('state','not in',('draft','price_confirm','acc_sby','sent','confirmed','acc_kabag','acc_gm'))]
+			</field>
+			<field name="search_view_id" ref="purchase.view_purchase_order_filter" />
+			<field name="help" type="html">
+				<p>
+					Use this menu to search within your purchase orders by references, supplier, products,
+					etc. For each purchase order, you can track the related discussion with the supplier,
+					control the products received and control the supplier invoices.
+				</p>
+			</field>
+		</record>
+		<menuitem action="purchase.purchase_form_action_po" id="menu_purchase_form_action_inherit_po"
+			parent="purchase.menu_purchase_form_action" sequence="16"/>
+		
+		<!-- LOP -->
+		<record id="purchase_rfq_lop" model="ir.actions.act_window">
+			<field name="name">Laporan Orientasi Pembelian (LOP)</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">purchase.order</field>
+			<field name="context">{"search_default_type_state":1,"search_default_type_source":1}</field>
+			<field name="domain">
+				[('purchase_state','=','LOP'),('state','in',('draft','price_confirm','acc_sby','sent','confirmed','acc_kabag','acc_gm'))]
+			</field>
+			<field name="view_mode">tree,form,graph,calendar</field>
+			<field name="search_view_id" ref="purchase.view_purchase_order_filter" />
+			<field name="help" type="html">
+				<p>
+					The quotation contains the history of the discussion/negociation you had with your
+					supplier. Once confirmed, a request for quotation is converted into a purchase
+					order.
+				</p>
+				<p>
+					Most propositions of purchase orders are created automatically by OpenERP based on
+					inventory needs.
+				</p>
+			</field>
+		</record>
+		<menuitem action="purchase_rfq_lop" id="menu_purchase_rfq_inherit_lop" parent="purchase.menu_purchase_rfq"
+			sequence="12"/>
+		
+		<record id="purchase.purchase_form_action_lop" model="ir.actions.act_window">
+			<field name="name">Laporan Orientasi Pembelian (LOP)</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">purchase.order</field>
+			<field name="view_mode">tree,form,graph,calendar</field>
+			<field name="context">{"search_default_type_state":1,"search_default_type_source":1}</field>
+			<field name="domain">
+				[('purchase_state','=','LOP'),('state','not in',('draft','price_confirm','acc_sby','sent','confirmed','acc_kabag','acc_gm'))]
+			</field>
+			<field name="search_view_id" ref="purchase.view_purchase_order_filter" />
+			<field name="help" type="html">
+				<p>
+					Use this menu to search within your purchase orders by references, supplier, products,
+					etc. For each purchase order, you can track the related discussion with the supplier,
+					control the products received and control the supplier invoices.
+				</p>
+			</field>
+		</record>
+		<menuitem action="purchase.purchase_form_action_lop" id="menu_purchase_form_action_inherit_lop"
+			parent="purchase.menu_purchase_form_action" sequence="12"/>
+		
+		<!-- KP -->
+		<record id="purchase_rfq_kp" model="ir.actions.act_window">
+			<field name="name">Konfirmasi Pembelian (KP)</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">purchase.order</field>
+			<field name="context">{"search_default_type_state":1,"search_default_type_source":1}</field>
+			<field name="domain">
+				[('purchase_state','=','KP'),('state','in',('draft','price_confirm','acc_sby','sent','confirmed','acc_kabag','acc_gm'))]
+			</field>
+			<field name="view_mode">tree,form,graph,calendar</field>
+			<field name="search_view_id" ref="purchase.view_purchase_order_filter" />
+			<field name="help" type="html">
+				<p>
+					The quotation contains the history of the discussion/negociation you had with your
+					supplier. Once confirmed, a request for quotation is converted into a purchase
+					order.
+				</p>
+				<p>
+					Most propositions of purchase orders are created automatically by OpenERP based on
+					inventory needs.
+				</p>
+			</field>
+		</record>
+		<menuitem action="purchase_rfq_kp" id="menu_purchase_rfq_inherit_kp" parent="purchase.menu_purchase_rfq"
+			sequence="12"/>
+		
+		<record id="purchase.purchase_form_action_kp" model="ir.actions.act_window">
+			<field name="name">Konfirmasi Pembelian (KP)</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">purchase.order</field>
+			<field name="view_mode">tree,form,graph,calendar</field>
+			<field name="context">{"search_default_type_state":1,"search_default_type_source":1}</field>
+			<field name="domain">
+				[('purchase_state','=','KP'),('state','not in',('draft','price_confirm','acc_sby','sent','confirmed','acc_kabag','acc_gm'))]
+			</field>
+			<field name="search_view_id" ref="purchase.view_purchase_order_filter" />
+			<field name="help" type="html">
+				<p>
+					Use this menu to search within your purchase orders by references, supplier, products,
+					etc. For each purchase order, you can track the related discussion with the supplier,
+					control the products received and control the supplier invoices.
+				</p>
+			</field>
+		</record>
+		<menuitem action="purchase.purchase_form_action_kp" id="menu_purchase_form_action_inherit_kp"
+			parent="purchase.menu_purchase_form_action" sequence="12"/>
+		
+		<!-- SKI -->
+		<record id="purchase_rfq_ski" model="ir.actions.act_window">
+			<field name="name">Surat Kerja Internal (SKI)</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">purchase.order</field>
+			<field name="context">{"search_default_type_state":1,"search_default_type_source":1}</field>
+			<field name="domain">
+				[('purchase_state','=','SPK'),('state','in',('draft','price_confirm','acc_sby','sent','confirmed','acc_kabag','acc_gm'))]
+			</field>
+			<field name="view_mode">tree,form,graph,calendar</field>
+			<field name="search_view_id" ref="purchase.view_purchase_order_filter" />
+			<field name="help" type="html">
+				<p>
+					The quotation contains the history of the discussion/negociation you had with your
+					supplier. Once confirmed, a request for quotation is converted into a purchase
+					order.
+				</p>
+				<p>
+					Most propositions of purchase orders are created automatically by OpenERP based on
+					inventory needs.
+				</p>
+			</field>
+		</record>
+		<menuitem action="purchase_rfq_ski" id="menu_purchase_rfq_inherit_ski" parent="purchase.menu_purchase_rfq"
+			sequence="12"/>
+		
+		<record id="purchase.purchase_form_action_ski" model="ir.actions.act_window">
+			<field name="name">Surat Perintah Kerja (SPK)</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">purchase.order</field>
+			<field name="view_mode">tree,form,graph,calendar</field>
+			<field name="context">{"search_default_type_state":1,"search_default_type_source":1}</field>
+			<field name="domain">
+				[('purchase_state','=','SPK'),('state','not in',('draft','price_confirm','acc_sby','sent','confirmed','acc_kabag','acc_gm'))]
+			</field>
+			<field name="search_view_id" ref="purchase.view_purchase_order_filter" />
+			<field name="help" type="html">
+				<p>
+					Use this menu to search within your purchase orders by references, supplier, products,
+					etc. For each purchase order, you can track the related discussion with the supplier,
+					control the products received and control the supplier invoices.
+				</p>
+			</field>
+		</record>
+		<menuitem action="purchase.purchase_form_action_ski" id="menu_purchase_form_action_inherit_ski"
+			parent="purchase.menu_purchase_form_action" sequence="12"/>
+		
+		<!-- Inherit View -->
+		<record id="view_purchase_order_filter_inherit" model="ir.ui.view">
+			<field name="name">purchase.order.list.select.inherit</field>
+			<field name="model">purchase.order</field>
+			<field name="inherit_id" ref="purchase.view_purchase_order_filter" />
+			<field name="arch" type="xml">
+				<xpath expr="/search/group[@string='Group By...']" position="replace">
+					<group expand="0" string="Group By...">
+						<filter string="Supplier" icon="terp-partner" domain="[]" context="{'group_by':'partner_id'}"/>
+						<filter name="type_state" string="Status" icon="terp-stock_effects-object-colorize"
+							domain="[]" context="{'group_by':'state'}"/>
+						<filter name="type_source" string="Source" icon="terp-gtk-jump-to-rtl" domain="[]"
+							context="{'group_by':'origin'}"/>
+						<filter name="urgent" string="Urgent" icon="terp-stock_effects-object-colorize" domain="[('urgent','=',True)]" />
+						<filter name="review" string="Urgent not Review" icon="terp-stock_effects-object-colorize" domain="[('urgent','=',True),('review','!=',True)]" />
+						<filter name="valid_except" string="Validated Exception" icon="terp-stock_effects-object-colorize" domain="[('correct_id','!=',False)]" />
+						<filter string="Order Date" icon="terp-go-month" domain="[]" context="{'group_by':'date_order'}"/>
+						<filter string="Expected Date" icon="terp-go-month" domain="[]" context="{'group_by':'minimum_planned_date'}"/>
+					</group>
+				</xpath>
+			</field>
+		</record>
+		
+	</data>
+</openerp>

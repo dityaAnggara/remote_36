@@ -1,0 +1,58 @@
+<openerp>
+	<data>
+		<record id="view_master_materai_form" model="ir.ui.view">
+            <field name="name">account.master.materai.form</field>
+            <field name="model">account.master.materai</field>
+            <field name="arch" type="xml">
+                <form string="Master Materai" version="7.0">
+                	<sheet>
+                		<group>
+
+                			<field name="jumlah_materai" />
+							<field name="batas_bawah" />
+							<field name="batas_atas" />  
+                		</group>
+                	</sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_master_materai_tree" model="ir.ui.view">
+            <field name="name">account.master.materai.tree</field>
+            <field name="model">account.master.materai</field>
+            <field name="arch" type="xml">
+                <tree  string="Master Materai">
+                    <field name="jumlah_materai" />
+						<field name="batas_bawah" />
+						<field name="batas_atas" />
+                </tree>
+            </field>
+        </record>
+        <record id="view_master_materai_search" model="ir.ui.view">
+            <field name="name">account.master.materai.search</field>
+            <field name="model">account.master.materai</field>
+            <field name="arch" type="xml">
+                <search string="Master Materai">
+                    <field name="jumlah_materai" />
+						<field name="batas_bawah" />
+						<field name="batas_atas" />
+                </search>
+            </field>
+        </record>
+        <record id="action_master_materai" model="ir.actions.act_window">
+            <field name="name">Master Materai</field>
+            <field name="res_model">account.master.materai</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_master_materai_search"/>
+            <field name="view_id" ref="view_master_materai_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create Master Materai.
+              </p><p>
+                Create Master Materai
+              </p>
+            </field>
+        </record>
+        <menuitem id="menu_account_master_materai" sequence="80" action="action_master_materai" parent="account.menu_finance_configuration" groups="account.group_account_manager"/>
+    </data>
+</openerp>

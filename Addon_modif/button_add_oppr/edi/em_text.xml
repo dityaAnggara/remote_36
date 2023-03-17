@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data >
+
+        <!--Email template-->
+        <record id="em_text" model="email.template">
+            <field name="name">Send auto email</field>
+            <field name="email_from"></field>
+            <field name="subject"></field>
+            <field name="email_to"></field>
+            <field name="model_id" ref="crm.model_crm_lead"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="lang"></field>
+            <field name="body_html"></field>
+        </record>
+  
+  </data>
+</openerp>

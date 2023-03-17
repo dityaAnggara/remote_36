@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<report id="acc_report_acl" name="acc.report.acl" string="Laporan Keuangan"
+			webkit_header="purchase_requisition_acl.blank_header_a4_landscape"
+			file="account_report_acl/report/mako/report_acl.html" model="accounting.report"
+			report_type="webkit" />
+	</data>
+</openerp>

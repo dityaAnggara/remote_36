@@ -1,0 +1,179 @@
+<openerp>
+	<data>
+		<record id="product_normal_form_view_inherit_product" model="ir.ui.view">
+            <field name="name">product.normal.form.inherit1</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//div[@name='buttons']" position="inside">
+                    <button string="Compute All" name="compute_all_one" type="object"/>
+                </xpath>
+            	<label for="name" position="after">
+            		<div>(
+            		<field name="child_product"  /> <label for="child_product" string="Is a Child?"/>)</div>
+				</label>            	
+            	<field name="name" position="after">
+					<h4>
+            		<label for="cusm_id" string="Costumer Name" attrs="{'invisible':[('child_product','=',True)]}" />
+					<label for="prod_parent" string="Product Parent" attrs="{'invisible':[('child_product','=',False)]}" />            		
+                	</h4>		
+            			<field name="cusm_id" on_change="onchange_cusm_id(cusm_id, context)" attrs="{'invisible':[('child_product','=',True)]}"  />
+						<field name="prod_parent" on_change="onchange_parent_prod(prod_parent, context)" attrs="{'invisible':[('child_product','=',False)]}"  />            			
+                        <field name="aui_acl_prod" invisible="1" />
+					<h4>
+						<label for="no_kiip" string="No KIP" />
+					</h4>
+					<field name="no_kiip" />
+					<field name="skp_customer" />					
+					<field name="jumlah_order_kip" invisible="1" />					
+				</field>
+				
+				<xpath expr='//field[@name="list_price"]' position='replace'>
+            		<field name="list_price" 
+            		groups="sale.group_sales_saleallleads,costing_security.group_name_costing_manager,account.group_account_manager"/>
+            	</xpath>
+            	<xpath expr='//field[@name="standard_price"]' position='replace'>
+            		<field name="standard_price"  
+            		groups="sale.group_sales_saleallleads,costing_security.group_name_costing_manager,account.group_account_manager"/>
+            	</xpath>
+            	<xpath expr='//div[@name="ean"]' position='after'>
+					<label for="luas_kip"/>
+                    <div>
+                    	<field name="luas_kip" class="oe_inline"/> m2 
+                    </div>		
+                    <label for="subtance_hasil"/>
+                    <div>
+                    	<field name="subtance_hasil" class="oe_inline"/> m 	
+                    </div>
+                    <label for="berat_kip"/>
+                    <div>
+                    	<field name="berat_kip" class="oe_inline"/> 	
+                    </div>
+            		
+            		<field name="color" />
+					<field name="ikat_kip" />            		
+            		<field name="pcs_kip" />
+            		<field name="set_kip" /> 
+            	</xpath>
+            	<xpath expr='//field[@name="set_kip"]' position='after'>
+					<div>
+						<label for="stich" string="Stiching" />
+						<field name="stich" />
+						<label for="glue" string="Glue" />						
+						<field name="glue" />    
+					</div>            	
+					        		
+            	</xpath>
+            	<field name="type" position="after">
+                           		<field name="model_box_new" />
+                           		
+                           		<!--label for="ukuran_panjang" string="Ukuran Dalam"/>                           		
+                           		<div class="address_format">
+                           			<field name="ukuran_panjang" style="width:32%%" placeholder="lenght product"/>
+									<field name="ukuran_lebar" style="width:32%%"  placeholder="width product"/>
+									<field name="ukuran_tinggi" style="width:31%%"  placeholder="high product"/>
+                           		</div-->
+                           		<label for="ukur_panjang" string="Ukuran Dalam"/>                           		
+                           		<div class="address_format">
+                           			<field name="ukur_panjang" style="width:25%%" placeholder="panjang product"/>
+									<field name="ukur_lebar" style="width:25%%"  placeholder="lebar product"/>
+									<field name="ukur_tinggi" style="width:25%%"  placeholder="tinggi product"/>
+																	
+                           		</div>		
+                           		<field name="flute" />
+								<label for="sheet_panjang" string="Ukuran Sheet"/>                             		
+								<div class="address_format">
+                           			<field name="sheet_panjang" style="width:49%%" placeholder="panjang sheet"/>
+									<field name="sheet_lebar" style="width:49%%"  placeholder="lebar sheet"/>
+								</div>
+								<label for="subtance_one" string="Subtance Detail"/>                             		
+								<div class="address_format">
+                           			<field name="subtance_one" context="{'valu_one_kali':1}"  style="width:30%%" placeholder="TOP"/>
+									<field name="subtance_two" context="{'valu_two_kali':1.4}" style="width:30%%"  placeholder="B FLOAT"/>
+									<field name="subtance_three" context="{'valu_three_kali':1}" style="width:30%%" placeholder="MIDDLE"/>
+								</div>
+								<label for="subtance_four" string=" "/>                             		
+								<div class="address_format">
+                           			<field name="subtance_four" context="{'valu_four_kali':1.5}" style="width:32%%"  placeholder="C FLOAT"/>
+									<field name="subtance_five" context="{'valu_five_kali':1}" style="width:32%%"  placeholder="BOTTOM"/>								
+								</div>
+								<label for="pnjg_satu" string="Scoring Panjang"/>                             		
+								<div class="address_format">
+                           			<field name="pnjg_satu" style="width:19%%" placeholder="lenght product"/>
+									<field name="pnjg_dua" style="width:19%%"  placeholder="width product"/>
+									<field name="pnjg_tiga" style="width:19%%" placeholder="lenght product"/>
+									<field name="pnjg_empat" style="width:19%%"  placeholder="width product"/>
+									<field name="pnjg_lima" style="width:19%%"  placeholder="width product"/>								
+								</div> 
+								<label for="pnjg_enam" string=" "/>                             		
+								<div class="address_format">
+                           			<field name="pnjg_enam" style="width:19%%" placeholder="lenght product"/>
+									<field name="pnjg_tujuh" style="width:19%%"  placeholder="width product"/>
+									<field name="pnjg_lapan" style="width:19%%" placeholder="lenght product"/>
+									<field name="pnjg_smbl" style="width:19%%"  placeholder="width product"/>
+									<field name="pnjg_sph" style="width:19%%"  placeholder="width product"/>								
+								</div>  
+								<label for="lbr_satu" string="Scoring Lebar"/>                             		
+								<div class="address_format">
+                           			<field name="lbr_satu" style="width:19%%" placeholder="lenght product"/>
+									<field name="lbr_dua" style="width:19%%"  placeholder="width product"/>
+									<field name="lbr_tiga" style="width:19%%" placeholder="lenght product"/>
+									<field name="lbr_empat" style="width:19%%"  placeholder="width product"/>
+									<field name="lbr_lima" style="width:19%%"  placeholder="width product"/>								
+								</div> 
+								<label for="lbr_enam" string=" "/>                             		
+								<div class="address_format">
+                           			<field name="lbr_enam" style="width:19%%" placeholder="lenght product"/>
+									<field name="lbr_tujuh" style="width:19%%"  placeholder="width product"/>
+									<field name="lbr_lapan" style="width:19%%" placeholder="lenght product"/>
+									<field name="lbr_smbl" style="width:19%%"  placeholder="width product"/>
+									<field name="lbr_sph" style="width:19%%"  placeholder="width product"/>								
+								</div>                               		
+															
+				</field>
+				<xpath expr='//page[@string="Sales"]' position='after'>
+					<page string="Printing">
+						<field name="printing_line">
+							<tree editable="bottom">
+								<field name="mesin_woc" />
+								<field name="tinta_satu" />
+								<field name="tinta_dua" />
+								<field name="tinta_tiga" />
+								<field name="tinta_empat" />
+								<field name="no_klise" />	
+							</tree>
+						</field>
+					</page>
+					<page string="Yang di Pentingkan">
+						<field name="mpnt_line">
+							<tree editable="bottom">
+								<field name="master_pnt" />
+							</tree>
+						</field>
+					</page>
+				</xpath>                                
+            </field>
+        </record>
+        <record id="product_product_tree_view_acl_inhr" model="ir.ui.view">
+            <field name="name">product.product.tree</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_product_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr='//field[@name="state"]' position="after" >
+                	<field name="no_kiip" />
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="view_normal_procurement_locations_form_inherit_lagi" model="ir.ui.view">
+            <field name="name">product.normal.procurement.locations.inherit.lagi</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="stock.view_normal_procurement_locations_form"/>
+            <field name="arch" type="xml">
+                <xpath expr='//button[@name="%(stock.action_view_change_product_quantity)d"]' position='attributes'>
+            		<attribute name="invisible">1</attribute>
+            	</xpath>
+            </field>
+        </record> 
+    </data>
+</openerp>

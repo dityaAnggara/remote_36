@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <report id="report_pr_po" model="purchase.order" name="report.pr.po"
+                webkit_header="blank_header_a4_portrait" file="purchase_requisition_acl/report/mako/pr_po.html"
+                string="Cetak Pembelian Portrait" report_type="webkit"/>
+        <report id="report_pr_po_2" model="purchase.order" name="report.pr.po.2"
+                webkit_header="blank_header_a4_landscape" file="purchase_requisition_acl/report/mako/pr_po.html"
+                string="Cetak Pembelian Landscape" report_type="webkit"/>
+    </data>
+</openerp>

@@ -1,0 +1,74 @@
+<openerp>
+	<data>
+		<!-- Create new activity for the new state -->
+		
+        <record id="act_my_new_state" model="workflow.activity">
+            <field name="wkf_id" ref="sale.wkf_sale"/>
+            <field name="name">sent_to_ppic</field>
+            <field name="kind">function</field>
+            <field name="action">snd_ppic()</field>
+        </record>
+      	<record id="act_my_new_state_back" model="workflow.activity">
+            <field name="wkf_id" ref="sale.wkf_sale"/>
+            <field name="name">back_to_sale</field>
+            <field name="kind">function</field>
+            <field name="action">bp_sale()</field>
+        </record>
+        <record id="act_my_new1_state_back" model="workflow.activity">
+            <field name="wkf_id" ref="sale.wkf_sale"/>
+            <field name="name">back_to_ppic</field>
+            <field name="kind">function</field>
+            <field name="action">bp_ppic()</field>
+        </record>
+        <record id="act_my_new1_state" model="workflow.activity">
+            <field name="wkf_id" ref="sale.wkf_sale"/>
+            <field name="name">sent_to_costing</field>
+            <field name="kind">function</field>
+            <field name="action">snd_costing()</field>
+        </record>
+		<record id="act_my_new2_state" model="workflow.activity">
+            <field name="wkf_id" ref="sale.wkf_sale"/>
+            <field name="name">sent_to_sale</field>
+            <field name="kind">function</field>
+            <field name="action">snd_sale()</field>
+        </record>
+        
+       <record id="act_router" model="workflow.activity">
+            <field name="wkf_id" ref="sale.wkf_sale"/>
+            <field name="name">middle</field>
+            <field name="kind">function</field>
+            <field name="action">action_update_hidden()</field>
+            <!--field name="split_mode">OR</field-->
+        </record>
+        <!-- From Draft to new state -->
+        <record id="trans_draft_my_new_state" model="workflow.transition">
+            <field name="act_from" ref="sale.act_draft"/>
+            <field name="act_to" ref="act_my_new_state"/>
+            <field name="signal">signal_my_new_state_forward</field>
+        </record>    
+		<record id="trans_new_state_sent_back" model="workflow.transition">
+            <field name="act_from" ref="act_my_new_state"/>
+            <field name="act_to" ref="sale.act_draft"/>
+            <field name="signal">signal_ppic_sent_back</field>
+        </record>
+        <!-- From new state to Quotation Sent -->
+        
+        <record id="trans_new_state_sent" model="workflow.transition">
+            <field name="act_from" ref="act_my_new_state"/>
+            <field name="act_to" ref="act_my_new1_state"/>
+            <field name="signal">signal_costing_sent</field>
+        </record>
+        
+        <record id="trans_new1_state_sent" model="workflow.transition">
+            <field name="act_from" ref="act_my_new1_state"/>
+            <field name="act_to" ref="act_my_new2_state"/>
+            <field name="signal">signal_sale_sent</field>
+        </record>
+        <record id="trans_sent_router" model="workflow.transition">
+            <field name="act_from" ref="act_my_new2_state"/>
+            <field name="act_to" ref="act_router"/>
+            <field name="signal">order_confirm</field>
+        </record>
+
+	</data>
+</openerp>
